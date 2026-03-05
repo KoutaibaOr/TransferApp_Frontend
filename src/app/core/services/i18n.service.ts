@@ -15,6 +15,12 @@ const DE = {
   allBranches: 'Alle Filialen',
   // Auth
   email: 'E-Mail', password: 'Passwort', signIn: 'Anmelden',
+  emailRequired: 'Bitte E-Mail und Passwort eingeben',
+  invalidCredentials: 'Falsche E-Mail oder Passwort',
+  loggingIn: 'Anmelden...',
+  welcome: 'Willkommen!',
+  demoAdmin: 'Admin: admin@firma.de / admin123',
+  demoUser: 'User: nutzer@firma.de / nutzer123',
   // Transfers
   newTransfer: 'Neuer Transfer', sender: 'Absender', receiver: 'Empfänger',
   amount: 'Betrag', currency: 'Währung', fee: 'Gebühr',
@@ -44,6 +50,12 @@ const EN: typeof DE = {
   allBranches: 'All Branches',
   // Auth
   email: 'Email', password: 'Password', signIn: 'Sign in',
+  emailRequired: 'Please enter email and password',
+  invalidCredentials: 'Invalid email or password',
+  loggingIn: 'Signing in...',
+  welcome: 'Welcome!',
+  demoAdmin: 'Admin: admin@firma.de / admin123',
+  demoUser: 'User: nutzer@firma.de / nutzer123',
   // Transfers
   newTransfer: 'New Transfer', sender: 'Sender', receiver: 'Receiver',
   amount: 'Amount', currency: 'Currency', fee: 'Fee',
@@ -71,6 +83,12 @@ const AR: typeof DE = {
   loading: 'جار التحميل...', noData: 'لا توجد بيانات', all: 'الكل',
   allBranches: 'جميع الفروع',
   email: 'البريد الإلكتروني', password: 'كلمة المرور', signIn: 'تسجيل الدخول',
+  emailRequired: 'يرجى إدخال البريد الإلكتروني وكلمة المرور',
+  invalidCredentials: 'بريد إلكتروني أو كلمة مرور غير صحيحة',
+  loggingIn: 'جار تسجيل الدخول...',
+  welcome: 'مرحبا!',
+  demoAdmin: 'المدير: admin@firma.de / admin123',
+  demoUser: 'المستخدم: nutzer@firma.de / nutzer123',
   newTransfer: 'تحويل جديد', sender: 'المرسل', receiver: 'المستلم',
   amount: 'المبلغ', currency: 'العملة', fee: 'الرسوم',
   status: 'الحالة', branch: 'الفرع', pickupTime: 'وقت الاستلام',

@@ -37,19 +37,20 @@ import { I18nService } from '../../core/services/i18n.service';
           }
 
           <button class="btn btn-primary w-full" [disabled]="loading()" (click)="doLogin()">
-            {{ loading() ? 'Anmelden...' : i18n.t().signIn }}
+            {{ loading() ? i18n.t().loggingIn : i18n.t().signIn }}
           </button>
         </div>
 
         <!-- Demo hint -->
         <div class="demo-hint">
-          <p><code>admin&#64;firma.de</code> / <code>admin123</code></p>
-          <p><code>nutzer&#64;firma.de</code> / <code>nutzer123</code></p>
+          <p>{{ i18n.t().demoAdmin }}</p>
+          <p>{{ i18n.t().demoUser }}</p>
         </div>
 
         <!-- Lang -->
         <div class="lang-row">
           <button [class.active]="i18n.lang()==='de'" (click)="i18n.setLang('de')">DE</button>
+          <button [class.active]="i18n.lang()==='en'" (click)="i18n.setLang('en')">EN</button>
           <button [class.active]="i18n.lang()==='ar'" (click)="i18n.setLang('ar')">AR</button>
         </div>
       </div>
@@ -72,13 +73,13 @@ export class LoginComponent {
   }
 
   doLogin() {
-    if (!this.email || !this.password) { this.error.set('Bitte E-Mail und Passwort eingeben'); return; }
+    if (!this.email || !this.password) { this.error.set(this.i18n.t().emailRequired); return; }
     this.loading.set(true);
     this.error.set('');
 
     this.auth.login({ email: this.email, password: this.password }).subscribe({
-      next: () => { this.toast.success('Willkommen!'); this.router.navigate(['/dashboard']); },
-      error: () => { this.error.set('Falsche E-Mail oder Passwort'); this.loading.set(false); },
+      next: () => { this.toast.success(this.i18n.t().welcome); this.router.navigate(['/dashboard']); },
+      error: () => { this.error.set(this.i18n.t().invalidCredentials); this.loading.set(false); },
     });
   }
 }
