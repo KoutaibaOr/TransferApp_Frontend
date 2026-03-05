@@ -1,7 +1,7 @@
 import {
   signal,
   ɵɵdefineInjectable
-} from "./chunk-IURLCCSA.js";
+} from "./chunk-KWYNHGYO.js";
 
 // src/app/core/services/toast.service.ts
 var ToastService = class _ToastService {
@@ -40,4 +40,4 @@ var ToastService = class _ToastService {
 export {
   ToastService
 };
-//# sourceMappingURL=chunk-Q3T46Q4O.js.map
+//# sourceMappingURL=chunk-FY6WX3KZ.js.map

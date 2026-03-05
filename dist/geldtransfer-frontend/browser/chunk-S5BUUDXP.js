@@ -3,13 +3,13 @@ import {
   FormsModule,
   NgControlStatus,
   NgModel
-} from "./chunk-S44ARYWC.js";
+} from "./chunk-KTZ56RQ7.js";
 import {
   ToastService
-} from "./chunk-Q3T46Q4O.js";
+} from "./chunk-FY6WX3KZ.js";
 import {
   CustomerService
-} from "./chunk-DWG6BYJQ.js";
+} from "./chunk-SYZVRE4M.js";
 import {
   CommonModule,
   I18nService,
@@ -38,7 +38,7 @@ import {
   ɵɵtwoWayBindingSet,
   ɵɵtwoWayListener,
   ɵɵtwoWayProperty
-} from "./chunk-IURLCCSA.js";
+} from "./chunk-KWYNHGYO.js";
 
 // src/app/features/customers/customers.component.ts
 var _forTrack0 = ($index, $item) => $item.id;
@@ -414,4 +414,4 @@ var CustomersComponent = class _CustomersComponent {
 export {
   CustomersComponent
 };
-//# sourceMappingURL=chunk-P5BHBBOV.js.map
+//# sourceMappingURL=chunk-S5BUUDXP.js.map

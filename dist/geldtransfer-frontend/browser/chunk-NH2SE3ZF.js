@@ -1,6 +1,6 @@
 import {
   AuthService
-} from "./chunk-GJ6YEAFB.js";
+} from "./chunk-XRHKFZIX.js";
 import {
   DefaultValueAccessor,
   FormsModule,
@@ -10,13 +10,13 @@ import {
   NumberValueAccessor,
   SelectControlValueAccessor,
   ɵNgSelectMultipleOption
-} from "./chunk-S44ARYWC.js";
+} from "./chunk-KTZ56RQ7.js";
 import {
   ToastService
-} from "./chunk-Q3T46Q4O.js";
+} from "./chunk-FY6WX3KZ.js";
 import {
   ExchangeService
-} from "./chunk-DWG6BYJQ.js";
+} from "./chunk-SYZVRE4M.js";
 import {
   CommonModule,
   DatePipe,
@@ -55,7 +55,7 @@ import {
   ɵɵtwoWayBindingSet,
   ɵɵtwoWayListener,
   ɵɵtwoWayProperty
-} from "./chunk-IURLCCSA.js";
+} from "./chunk-KWYNHGYO.js";
 
 // src/app/features/exchange/exchange.component.ts
 var _forTrack0 = ($index, $item) => $item.id;
@@ -848,7 +848,7 @@ var ExchangeComponent = class _ExchangeComponent {
         \u0275\u0275advance();
         \u0275\u0275conditional(44, ctx.showNewRate() ? 44 : -1);
       }
-    }, dependencies: [CommonModule, DecimalPipe, DatePipe, FormsModule, NgSelectOption, \u0275NgSelectMultipleOption, DefaultValueAccessor, NumberValueAccessor, SelectControlValueAccessor, NgControlStatus, NgModel], styles: ["\n\n/*# sourceMappingURL=exchange.component.css.map */"] });
+    }, dependencies: [CommonModule, DecimalPipe, DatePipe, FormsModule, NgSelectOption, \u0275NgSelectMultipleOption, DefaultValueAccessor, NumberValueAccessor, SelectControlValueAccessor, NgControlStatus, NgModel], styles: ['\n\n.page-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 1.75rem;\n  flex-wrap: wrap;\n  gap: 1rem;\n}\n.page-title[_ngcontent-%COMP%] {\n  font-size: 1.6rem;\n}\n.page-subtitle[_ngcontent-%COMP%] {\n  font-size: .875rem;\n  color: var(--muted);\n  margin-top: .1rem;\n}\n.balances-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));\n  gap: 1rem;\n  margin-bottom: 2rem;\n  margin-top: 1.5rem;\n}\n.balance-list[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: .5rem;\n}\n.balance-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  padding: .5rem .75rem;\n  background: var(--bg);\n  border-radius: var(--radius-sm);\n  transition: background var(--transition);\n}\n.balance-row[_ngcontent-%COMP%]:hover {\n  background: #eef4ff;\n}\n.balance-amount[_ngcontent-%COMP%] {\n  font-family: "Syne", sans-serif;\n  font-weight: 700;\n  font-size: .95rem;\n}\n.card[_ngcontent-%COMP%] {\n  background: var(--bg2);\n  border-radius: var(--radius);\n  border: 1.5px solid var(--border);\n  padding: 1.5rem;\n  box-shadow: var(--shadow);\n}\n.card-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 1.25rem;\n}\n.card-title[_ngcontent-%COMP%] {\n  font-size: 1rem;\n  font-weight: 700;\n}\n.exchange-form[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: .75rem;\n}\n.amount-row[_ngcontent-%COMP%] {\n  display: flex;\n  gap: .5rem;\n}\n.currency-sel[_ngcontent-%COMP%] {\n  max-width: 90px;\n  flex-shrink: 0;\n}\n.exchange-arrow[_ngcontent-%COMP%] {\n  text-align: center;\n  font-size: 1.5rem;\n  color: var(--muted);\n  padding: .25rem 0;\n  margin: .5rem 0;\n}\n.form-group[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: .4rem;\n}\n.form-label[_ngcontent-%COMP%] {\n  font-size: .8rem;\n  font-weight: 600;\n  color: var(--ink2);\n  text-transform: uppercase;\n  letter-spacing: .04em;\n}\n.form-control[_ngcontent-%COMP%] {\n  padding: .65rem .9rem;\n  border-radius: var(--radius-sm);\n  border: 1.5px solid var(--border);\n  background: var(--bg);\n  font-size: .9rem;\n  color: var(--ink);\n  font-family: inherit;\n  transition: border-color var(--transition), box-shadow var(--transition);\n  width: 100%;\n}\n.form-control[_ngcontent-%COMP%]:focus {\n  outline: none;\n  border-color: var(--accent);\n  background: #fff;\n  box-shadow: 0 0 0 3px rgba(29, 106, 255, .1);\n}\n.preview-box[_ngcontent-%COMP%] {\n  background: var(--bg);\n  border-radius: var(--radius-sm);\n  border: 1.5px solid var(--border);\n  padding: 1rem;\n  display: flex;\n  flex-direction: column;\n  gap: .5rem;\n  margin-top: .5rem;\n}\n.preview-row[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  font-size: .875rem;\n  padding: .3rem 0;\n  border-bottom: 1px solid var(--border);\n}\n.preview-row[_ngcontent-%COMP%]:last-child {\n  border-bottom: none;\n}\n.preview-row.highlight[_ngcontent-%COMP%] {\n  background: #eef4ff;\n  margin: 0 -.5rem;\n  padding: .5rem .5rem;\n  border-radius: var(--radius-sm);\n  border-bottom: none;\n  margin-top: .25rem;\n}\n.btn[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: .45rem;\n  padding: .55rem 1.2rem;\n  border-radius: var(--radius-sm);\n  font-size: .875rem;\n  font-weight: 600;\n  border: none;\n  transition: all var(--transition);\n  white-space: nowrap;\n  line-height: 1;\n}\n.btn-primary[_ngcontent-%COMP%] {\n  background: var(--accent);\n  color: #fff;\n}\n.btn-primary[_ngcontent-%COMP%]:hover {\n  background: #155de0;\n  transform: translateY(-1px);\n  box-shadow: 0 4px 14px rgba(29, 106, 255, .3);\n}\n@media (max-width: 768px) {\n  .balances-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .page-header[_ngcontent-%COMP%] {\n    flex-direction: column;\n    align-items: flex-start;\n  }\n}\n/*# sourceMappingURL=exchange.component.css.map */'] });
   }
 };
 (() => {
@@ -857,4 +857,4 @@ var ExchangeComponent = class _ExchangeComponent {
 export {
   ExchangeComponent
 };
-//# sourceMappingURL=chunk-RXWQU5AI.js.map
+//# sourceMappingURL=chunk-NH2SE3ZF.js.map

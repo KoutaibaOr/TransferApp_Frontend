@@ -1,0 +1,195 @@
+/* ═══════════════════════════════════════════════════════════════
+   CASH & BRANCHES — Cash Management & Journal Styling
+   ═══════════════════════════════════════════════════════════════ */
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.75rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.page-title {
+  font-size: 1.6rem;
+}
+
+.page-subtitle {
+  font-size: .875rem;
+  color: var(--muted);
+  margin-top: .1rem;
+}
+
+/* ─── Cash Grid Layout ───────────────────────────────── */
+.cash-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.card {
+  background: var(--bg2);
+  border-radius: var(--radius);
+  border: 1.5px solid var(--border);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.card-title {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+/* ─── Action Buttons ─────────────────────────────────── */
+.action-btns {
+  display: flex;
+  gap: .75rem;
+  margin-top: 1rem;
+}
+
+/* ─── Journal Entries ────────────────────────────────── */
+.journal-entry {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  padding: .65rem .75rem;
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  margin-bottom: .4rem;
+  transition: background var(--transition);
+}
+
+.journal-entry:hover {
+  background: #eef4ff;
+}
+
+.entry-amount {
+  font-weight: 700;
+}
+
+.entry-amount.in {
+  color: var(--accent2);
+}
+
+.entry-amount.out {
+  color: var(--red);
+}
+
+/* ─── Balance Display ────────────────────────────────── */
+.balance-big {
+  font-family: 'Syne', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--accent2);
+  margin: 1rem 0;
+}
+
+.branch-list {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.branch-row {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  padding: .65rem .75rem;
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  transition: background var(--transition);
+}
+
+.branch-row:hover {
+  background: #eef4ff;
+}
+
+.branch-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.branch-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: .1rem;
+}
+
+.branch-name {
+  font-size: .875rem;
+  font-weight: 600;
+}
+
+.branch-city {
+  font-size: .75rem;
+  color: var(--muted);
+}
+
+.branch-balance {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  color: var(--accent2);
+  font-size: .95rem;
+}
+
+/* ─── Form Controls ──────────────────────────────────── */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+}
+
+.form-label {
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--ink2);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+.form-control {
+  padding: .65rem .9rem;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border);
+  background: var(--bg);
+  font-size: .9rem;
+  color: var(--ink);
+  font-family: inherit;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  width: 100%;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(29, 106, 255, .1);
+}
+
+/* ─── Responsive ─────────────────────────────────────── */
+@media (max-width: 768px) {
+  .cash-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .action-btns {
+    flex-direction: column;
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

@@ -1,11 +1,11 @@
 import {
   AuthService,
   RouterLink
-} from "./chunk-GJ6YEAFB.js";
+} from "./chunk-XRHKFZIX.js";
 import {
   BranchService,
   TransferService
-} from "./chunk-DWG6BYJQ.js";
+} from "./chunk-SYZVRE4M.js";
 import {
   CommonModule,
   DecimalPipe,
@@ -29,7 +29,7 @@ import {
   ɵɵtextInterpolate,
   ɵɵtextInterpolate1,
   ɵɵtextInterpolate2
-} from "./chunk-IURLCCSA.js";
+} from "./chunk-KWYNHGYO.js";
 
 // src/app/features/dashboard/dashboard.component.ts
 var _forTrack0 = ($index, $item) => $item.id;
@@ -239,7 +239,7 @@ var DashboardComponent = class _DashboardComponent {
         \u0275\u0275advance(10);
         \u0275\u0275repeater(ctx.branches());
       }
-    }, dependencies: [CommonModule, DecimalPipe, RouterLink], styles: ["\n\n/*# sourceMappingURL=dashboard.component.css.map */"] });
+    }, dependencies: [CommonModule, DecimalPipe, RouterLink], styles: ['\n\n.page-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 1.75rem;\n  flex-wrap: wrap;\n  gap: 1rem;\n}\n.page-title[_ngcontent-%COMP%] {\n  font-size: 1.6rem;\n}\n.page-subtitle[_ngcontent-%COMP%] {\n  font-size: .875rem;\n  color: var(--muted);\n  margin-top: .1rem;\n}\n.kpi-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n  gap: 1rem;\n  margin-top: 1.5rem;\n}\n.kpi-card[_ngcontent-%COMP%] {\n  background: var(--bg2);\n  border-radius: var(--radius);\n  border: 1.5px solid var(--border);\n  padding: 1.25rem 1.5rem;\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  transition: box-shadow var(--transition);\n}\n.kpi-card[_ngcontent-%COMP%]:hover {\n  box-shadow: var(--shadow);\n}\n.kpi-icon[_ngcontent-%COMP%] {\n  width: 48px;\n  height: 48px;\n  border-radius: var(--radius-sm);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 1.4rem;\n  flex-shrink: 0;\n}\n.kpi-icon.blue[_ngcontent-%COMP%] {\n  background: #EEF4FF;\n}\n.kpi-icon.green[_ngcontent-%COMP%] {\n  background: #E6FBF5;\n}\n.kpi-icon.orange[_ngcontent-%COMP%] {\n  background: #FFF5E6;\n}\n.kpi-icon.purple[_ngcontent-%COMP%] {\n  background: #F0E6FF;\n}\n.kpi-icon.red[_ngcontent-%COMP%] {\n  background: #FFE6EA;\n}\n.kpi-label[_ngcontent-%COMP%] {\n  font-size: .78rem;\n  color: var(--muted);\n  font-weight: 600;\n  text-transform: uppercase;\n  letter-spacing: .04em;\n}\n.kpi-value[_ngcontent-%COMP%] {\n  font-family: "Syne", sans-serif;\n  font-size: 1.6rem;\n  font-weight: 800;\n  color: var(--ink);\n  line-height: 1.1;\n}\n.kpi-sub[_ngcontent-%COMP%] {\n  font-size: .75rem;\n  color: var(--muted);\n  margin-top: .1rem;\n}\n.dashboard-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 1fr 380px;\n  gap: 1.5rem;\n  margin-top: 1.5rem;\n}\n.branch-list[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: .5rem;\n}\n.branch-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: .75rem;\n  padding: .65rem .75rem;\n  border-radius: var(--radius-sm);\n  background: var(--bg);\n  transition: background var(--transition);\n}\n.branch-row[_ngcontent-%COMP%]:hover {\n  background: #eef4ff;\n}\n.branch-dot[_ngcontent-%COMP%] {\n  width: 10px;\n  height: 10px;\n  border-radius: 50%;\n  flex-shrink: 0;\n}\n.branch-info[_ngcontent-%COMP%] {\n  flex: 1;\n  display: flex;\n  flex-direction: column;\n  gap: .1rem;\n}\n.branch-name[_ngcontent-%COMP%] {\n  font-size: .875rem;\n  font-weight: 600;\n}\n.branch-city[_ngcontent-%COMP%] {\n  font-size: .75rem;\n  color: var(--muted);\n}\n.branch-balance[_ngcontent-%COMP%] {\n  font-family: "Syne", sans-serif;\n  font-weight: 700;\n  color: var(--accent2);\n  font-size: .95rem;\n}\n.card[_ngcontent-%COMP%] {\n  background: var(--bg2);\n  border-radius: var(--radius);\n  border: 1.5px solid var(--border);\n  padding: 1.5rem;\n  box-shadow: var(--shadow);\n}\n.card-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 1.25rem;\n}\n.card-title[_ngcontent-%COMP%] {\n  font-size: 1rem;\n  font-weight: 700;\n}\n@media (max-width: 1024px) {\n  .dashboard-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n}\n@media (max-width: 768px) {\n  .kpi-grid[_ngcontent-%COMP%] {\n    grid-template-columns: repeat(2, 1fr);\n  }\n  .page-header[_ngcontent-%COMP%] {\n    flex-direction: column;\n    align-items: flex-start;\n  }\n}\n/*# sourceMappingURL=dashboard.component.css.map */'] });
   }
 };
 (() => {
@@ -248,4 +248,4 @@ var DashboardComponent = class _DashboardComponent {
 export {
   DashboardComponent
 };
-//# sourceMappingURL=chunk-WN6BSCF5.js.map
+//# sourceMappingURL=chunk-HYBO3K2V.js.map

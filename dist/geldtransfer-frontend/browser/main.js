@@ -7,10 +7,10 @@ import {
   bootstrapApplication,
   provideRouter,
   withComponentInputBinding
-} from "./chunk-GJ6YEAFB.js";
+} from "./chunk-XRHKFZIX.js";
 import {
   ToastService
-} from "./chunk-Q3T46Q4O.js";
+} from "./chunk-FY6WX3KZ.js";
 import {
   ANIMATION_MODULE_TYPE,
   ChangeDetectionScheduler,
@@ -55,7 +55,7 @@ import {
   ɵɵrestoreView,
   ɵɵtext,
   ɵɵtextInterpolate
-} from "./chunk-IURLCCSA.js";
+} from "./chunk-KWYNHGYO.js";
 
 // node_modules/@angular/animations/fesm2022/animations.mjs
 var AnimationMetadataType;
@@ -4608,21 +4608,21 @@ var adminGuard = () => {
 
 // src/app/app.routes.ts
 var routes = [
-  { path: "login", loadComponent: () => import("./chunk-H2VLRP7I.js").then((m) => m.LoginComponent) },
+  { path: "login", loadComponent: () => import("./chunk-TQZFQQTI.js").then((m) => m.LoginComponent) },
   {
     path: "",
-    loadComponent: () => import("./chunk-QGCNKD6G.js").then((m) => m.LayoutComponent),
+    loadComponent: () => import("./chunk-B7UM2RQW.js").then((m) => m.LayoutComponent),
     canActivate: [authGuard],
     children: [
       { path: "", redirectTo: "dashboard", pathMatch: "full" },
-      { path: "dashboard", loadComponent: () => import("./chunk-WN6BSCF5.js").then((m) => m.DashboardComponent) },
-      { path: "transfers", loadComponent: () => import("./chunk-E35BTOV3.js").then((m) => m.TransfersComponent) },
-      { path: "customers", loadComponent: () => import("./chunk-P5BHBBOV.js").then((m) => m.CustomersComponent) },
-      { path: "cash", loadComponent: () => import("./chunk-CY7WQBDY.js").then((m) => m.CashComponent) },
-      { path: "exchange", loadComponent: () => import("./chunk-RXWQU5AI.js").then((m) => m.ExchangeComponent) },
-      { path: "reports", loadComponent: () => import("./chunk-J7E23LBO.js").then((m) => m.ReportsComponent) },
-      { path: "settings", loadComponent: () => import("./chunk-6AZ5DLB3.js").then((m) => m.SettingsComponent), canActivate: [adminGuard] },
-      { path: "audit", loadComponent: () => import("./chunk-4Y6FK5J3.js").then((m) => m.AuditComponent), canActivate: [adminGuard] }
+      { path: "dashboard", loadComponent: () => import("./chunk-HYBO3K2V.js").then((m) => m.DashboardComponent) },
+      { path: "transfers", loadComponent: () => import("./chunk-GRI53GKE.js").then((m) => m.TransfersComponent) },
+      { path: "customers", loadComponent: () => import("./chunk-S5BUUDXP.js").then((m) => m.CustomersComponent) },
+      { path: "cash", loadComponent: () => import("./chunk-AIS4CP2L.js").then((m) => m.CashComponent) },
+      { path: "exchange", loadComponent: () => import("./chunk-NH2SE3ZF.js").then((m) => m.ExchangeComponent) },
+      { path: "reports", loadComponent: () => import("./chunk-HW52PVBB.js").then((m) => m.ReportsComponent) },
+      { path: "settings", loadComponent: () => import("./chunk-PHRC6MWT.js").then((m) => m.SettingsComponent), canActivate: [adminGuard] },
+      { path: "audit", loadComponent: () => import("./chunk-AWLTIDBV.js").then((m) => m.AuditComponent), canActivate: [adminGuard] }
     ]
   },
   { path: "**", redirectTo: "dashboard" }
@@ -4703,7 +4703,7 @@ var ToastComponent = class _ToastComponent {
         \u0275\u0275advance();
         \u0275\u0275repeater(ctx.toast.toasts());
       }
-    }, dependencies: [CommonModule], styles: ["\n\n.toast-container[_ngcontent-%COMP%] {\n  position: fixed;\n  bottom: 1.5rem;\n  right: 1.5rem;\n  z-index: 9999;\n  display: flex;\n  flex-direction: column;\n  gap: .5rem;\n  max-width: 380px;\n}\n.toast[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: .65rem;\n  padding: .8rem 1rem;\n  border-radius: var(--radius);\n  background: var(--bg2);\n  border: 1px solid var(--border);\n  box-shadow: 0 4px 20px rgba(0, 0, 0, .1);\n  cursor: pointer;\n  animation: _ngcontent-%COMP%_slideIn .2s ease;\n  font-size: .875rem;\n}\n.toast-success[_ngcontent-%COMP%] {\n  border-left: 4px solid var(--accent2);\n}\n.toast-error[_ngcontent-%COMP%] {\n  border-left: 4px solid var(--red);\n}\n.toast-info[_ngcontent-%COMP%] {\n  border-left: 4px solid var(--accent);\n}\n@keyframes _ngcontent-%COMP%_slideIn {\n  from {\n    opacity: 0;\n    transform: translateX(20px);\n  }\n  to {\n    opacity: 1;\n    transform: translateX(0);\n  }\n}\n/*# sourceMappingURL=toast.component.css.map */"] });
+    }, dependencies: [CommonModule], styles: ["\n\n.toast-container[_ngcontent-%COMP%] {\n  position: fixed;\n  bottom: 1.5rem;\n  right: 1.5rem;\n  display: flex;\n  flex-direction: column;\n  gap: .6rem;\n  z-index: 9999;\n  pointer-events: none;\n}\n[dir=rtl][_ngcontent-%COMP%]   .toast-container[_ngcontent-%COMP%] {\n  right: auto;\n  left: 1.5rem;\n}\n.toast[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: .75rem;\n  padding: .85rem 1.2rem;\n  border-radius: var(--radius);\n  background: var(--ink);\n  color: #fff;\n  box-shadow: var(--shadow-lg);\n  pointer-events: all;\n  cursor: pointer;\n  animation: slideUp .25s ease;\n  max-width: 360px;\n  font-size: .875rem;\n  font-weight: 500;\n}\n.toast-success[_ngcontent-%COMP%] {\n  background: #0c2e22;\n  border-left: 3px solid var(--accent2);\n}\n.toast-error[_ngcontent-%COMP%] {\n  background: #2e0c14;\n  border-left: 3px solid var(--red);\n}\n.toast-info[_ngcontent-%COMP%] {\n  background: var(--ink);\n  border-left: 3px solid var(--accent);\n}\n[dir=rtl][_ngcontent-%COMP%]   .toast-success[_ngcontent-%COMP%] {\n  border-left: none;\n  border-right: 3px solid var(--accent2);\n}\n[dir=rtl][_ngcontent-%COMP%]   .toast-error[_ngcontent-%COMP%] {\n  border-left: none;\n  border-right: 3px solid var(--red);\n}\n[dir=rtl][_ngcontent-%COMP%]   .toast-info[_ngcontent-%COMP%] {\n  border-left: none;\n  border-right: 3px solid var(--accent);\n}\n.toast-icon[_ngcontent-%COMP%] {\n  font-size: 1.2rem;\n  flex-shrink: 0;\n}\n.toast-message[_ngcontent-%COMP%] {\n  flex: 1;\n}\n.toast-close[_ngcontent-%COMP%] {\n  background: none;\n  border: none;\n  color: inherit;\n  cursor: pointer;\n  padding: 0;\n  font-size: 1.2rem;\n  flex-shrink: 0;\n}\n@media (max-width: 768px) {\n  .toast-container[_ngcontent-%COMP%] {\n    left: 1rem;\n    right: 1rem;\n  }\n  .toast[_ngcontent-%COMP%] {\n    max-width: 100%;\n  }\n}\n/*# sourceMappingURL=toast.component.css.map */"] });
   }
 };
 (() => {

@@ -1,1 +1,431 @@
-/* Component styles — design tokens geerbt von globaler styles.css */
+/* ═══════════════════════════════════════════════════════════════
+   TRANSFERS — Transfer Management, Tables, Badges & Modals
+   ═══════════════════════════════════════════════════════════════ */
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.75rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.page-title {
+  font-size: 1.6rem;
+}
+
+.page-subtitle {
+  font-size: .875rem;
+  color: var(--muted);
+  margin-top: .1rem;
+}
+
+/* ─── Filters Bar ────────────────────────────────────── */
+.filters-bar {
+  display: flex;
+  gap: .75rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+}
+
+.form-label {
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--ink2);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+.form-control {
+  padding: .65rem .9rem;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border);
+  background: var(--bg);
+  font-size: .9rem;
+  color: var(--ink);
+  font-family: inherit;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  width: 100%;
+}
+
+.filters-bar .form-control {
+  max-width: 220px;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(29, 106, 255, .1);
+}
+
+/* ─── Table Styling ─────────────────────────────────── */
+.table-wrap {
+  overflow-x: auto;
+  border-radius: var(--radius);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .875rem;
+}
+
+thead th {
+  background: var(--ink);
+  color: #fff;
+  padding: .75rem 1rem;
+  text-align: left;
+  font-size: .75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  white-space: nowrap;
+}
+
+[dir="rtl"] thead th {
+  text-align: right;
+}
+
+tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background var(--transition);
+}
+
+tbody tr:last-child {
+  border-bottom: none;
+}
+
+tbody tr:hover {
+  background: #f0f4ff;
+}
+
+tbody td {
+  padding: .75rem 1rem;
+  color: var(--ink2);
+  vertical-align: middle;
+}
+
+.ref-code {
+  font-family: 'Courier New', monospace;
+  font-size: .78rem;
+  color: var(--accent);
+  background: #eef4ff;
+  padding: .15rem .45rem;
+  border-radius: 4px;
+}
+
+/* ─── Status Badges ──────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  padding: .25rem .65rem;
+  border-radius: 100px;
+  font-size: .72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  white-space: nowrap;
+}
+
+.badge-draft {
+  background: #F4F5FA;
+  color: var(--muted);
+}
+
+.badge-created {
+  background: #EEF4FF;
+  color: var(--accent);
+}
+
+.badge-in_progress {
+  background: #FFF5E6;
+  color: var(--warn);
+}
+
+.badge-completed {
+  background: #E6FBF5;
+  color: var(--accent2);
+}
+
+.badge-paid_out {
+  background: #F0E6FF;
+  color: var(--purple);
+}
+
+.badge-cancelled {
+  background: #FFE6EA;
+  color: var(--red);
+}
+
+.badge-success {
+  background: #E6FBF5;
+  color: var(--accent2);
+}
+
+.badge-danger {
+  background: #FFE6EA;
+  color: var(--red);
+}
+
+.badge-info {
+  background: #EEF4FF;
+  color: var(--accent);
+}
+
+.badge-warning {
+  background: #FFF5E6;
+  color: var(--warn);
+}
+
+.badge-neutral {
+  background: #F4F5FA;
+  color: var(--muted);
+}
+
+.currency-pill {
+  display: inline-block;
+  padding: .2rem .55rem;
+  border-radius: 6px;
+  background: #EEF4FF;
+  color: var(--accent);
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+}
+
+/* ─── Modal Styling ──────────────────────────────────── */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 15, 30, .5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  animation: fadeIn .15s ease;
+  backdrop-filter: blur(2px);
+}
+
+.modal {
+  background: var(--bg2);
+  border-radius: var(--radius);
+  width: 100%;
+  max-width: 560px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+  animation: slideUp .2s ease;
+}
+
+.modal-lg {
+  max-width: 720px;
+}
+
+.modal-xl {
+  max-width: 900px;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1.5px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: var(--bg2);
+  z-index: 1;
+}
+
+.modal-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.modal-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.modal-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1.5px solid var(--border);
+  display: flex;
+  gap: .75rem;
+  justify-content: flex-end;
+}
+
+.detail-grid {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: .5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.detail-row:last-child {
+  border-bottom: none;
+}
+
+.detail-label {
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+/* ─── Form Controls in Modal ────────────────────────── */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+}
+
+/* ─── Buttons ────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  padding: .55rem 1.2rem;
+  border-radius: var(--radius-sm);
+  font-size: .875rem;
+  font-weight: 600;
+  border: none;
+  transition: all var(--transition);
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.btn:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #155de0;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(29, 106, 255, .3);
+}
+
+.btn-success {
+  background: var(--accent2);
+  color: #fff;
+}
+
+.btn-success:hover {
+  background: #00aa79;
+}
+
+.btn-danger {
+  background: var(--red);
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background: #e0002f;
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1.5px solid var(--border);
+  color: var(--ink2);
+}
+
+.btn-ghost:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: #f0f5ff;
+}
+
+.btn-sm {
+  padding: .35rem .85rem;
+  font-size: .8rem;
+}
+
+/* ─── Empty State ────────────────────────────────────── */
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--muted);
+}
+
+.empty-state .empty-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.empty-state h3 {
+  color: var(--ink2);
+  margin-bottom: .5rem;
+  font-size: 1.1rem;
+}
+
+/* ─── Responsive ─────────────────────────────────────── */
+@media (max-width: 768px) {
+  .filters-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filters-bar .form-control {
+    max-width: 100%;
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .form-grid,
+  .form-grid-3 {
+    grid-template-columns: 1fr;
+  }
+
+  thead th:nth-child(n+6),
+  tbody td:nth-child(n+6) {
+    display: none;
+  }
+
+  .modal {
+    max-width: 100%;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+
+  .modal-backdrop {
+    padding: 0;
+    align-items: flex-end;
+  }
+}

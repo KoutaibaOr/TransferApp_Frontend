@@ -4,7 +4,7 @@ import {
   environment,
   ɵɵdefineInjectable,
   ɵɵinject
-} from "./chunk-IURLCCSA.js";
+} from "./chunk-KWYNHGYO.js";
 
 // src/app/core/services/api.service.ts
 var BASE = environment.apiUrl;
@@ -239,4 +239,4 @@ export {
   SettingsService,
   AuditService
 };
-//# sourceMappingURL=chunk-DWG6BYJQ.js.map
+//# sourceMappingURL=chunk-SYZVRE4M.js.map

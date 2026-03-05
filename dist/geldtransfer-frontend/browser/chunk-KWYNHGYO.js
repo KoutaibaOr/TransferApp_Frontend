@@ -25478,65 +25478,6 @@ function booleanOrDataUrlAttribute(value) {
 }
 
 // src/app/core/services/i18n.service.ts
-var DE = {
-  // Nav
-  dashboard: "Dashboard",
-  transfers: "Transfers",
-  customers: "Kunden",
-  cash: "Kasse & Filialen",
-  exchange: "W\xE4hrungsumtausch",
-  reports: "Berichte",
-  settings: "Einstellungen",
-  audit: "Audit-Log",
-  logout: "Abmelden",
-  // Common
-  search: "Suchen...",
-  save: "Speichern",
-  cancel: "Abbrechen",
-  delete: "L\xF6schen",
-  edit: "Bearbeiten",
-  create: "Neu anlegen",
-  confirm: "Best\xE4tigen",
-  back: "Zur\xFCck",
-  next: "Weiter",
-  loading: "Laden...",
-  noData: "Keine Daten",
-  all: "Alle",
-  allBranches: "Alle Filialen",
-  // Auth
-  email: "E-Mail",
-  password: "Passwort",
-  signIn: "Anmelden",
-  // Transfers
-  newTransfer: "Neuer Transfer",
-  sender: "Absender",
-  receiver: "Empf\xE4nger",
-  amount: "Betrag",
-  currency: "W\xE4hrung",
-  fee: "Geb\xFChr",
-  status: "Status",
-  branch: "Filiale",
-  pickupTime: "Abholzeit",
-  senderName: "Absender Name",
-  senderPhone: "Absender Telefon",
-  receiverName: "Empf\xE4nger Name",
-  receiverCountry: "Empf\xE4nger Land",
-  // Exchange
-  newExchange: "Neuer Umtausch",
-  customerGives: "Kunde gibt",
-  customerGets: "Kunde bekommt",
-  rate: "Kurs",
-  margin: "Marge",
-  grossAmount: "Brutto",
-  customerPayout: "Auszahlung",
-  profit: "Gewinn",
-  // Cash
-  deposit: "Einzahlung",
-  withdraw: "Auszahlung",
-  dayClose: "Tagesabschluss",
-  balance: "Kassenstand",
-  journal: "Kassenbuch"
-};
 var EN = {
   // Nav
   dashboard: "Dashboard",
@@ -25566,6 +25507,12 @@ var EN = {
   email: "Email",
   password: "Password",
   signIn: "Sign in",
+  emailRequired: "Please enter email and password",
+  invalidCredentials: "Invalid email or password",
+  loggingIn: "Signing in...",
+  welcome: "Welcome!",
+  demoAdmin: "Admin: admin@firma.de / admin123",
+  demoUser: "User: nutzer@firma.de / nutzer123",
   // Transfers
   newTransfer: "New Transfer",
   sender: "Sender",
@@ -25580,6 +25527,20 @@ var EN = {
   senderPhone: "Sender Phone",
   receiverName: "Receiver Name",
   receiverCountry: "Receiver Country",
+  totalTransfers: "Transfers total",
+  allStatuses: "All Statuses",
+  actions: "Actions",
+  details: "Details",
+  close: "Close",
+  createTransfer: "Create Transfer",
+  requiredField: "is required field",
+  mustBePositive: "must be positive",
+  statusUpdateError: "Error updating status",
+  transferCreated: "Transfer created",
+  creationError: "Error creating transfer",
+  confirmCancel: "really cancel?",
+  cancelled: "cancelled",
+  cancelError: "Cancellation failed",
   // Exchange
   newExchange: "New Exchange",
   customerGives: "Customer gives",
@@ -25622,6 +25583,12 @@ var AR = {
   email: "\u0627\u0644\u0628\u0631\u064A\u062F \u0627\u0644\u0625\u0644\u0643\u062A\u0631\u0648\u0646\u064A",
   password: "\u0643\u0644\u0645\u0629 \u0627\u0644\u0645\u0631\u0648\u0631",
   signIn: "\u062A\u0633\u062C\u064A\u0644 \u0627\u0644\u062F\u062E\u0648\u0644",
+  emailRequired: "\u064A\u0631\u062C\u0649 \u0625\u062F\u062E\u0627\u0644 \u0627\u0644\u0628\u0631\u064A\u062F \u0627\u0644\u0625\u0644\u0643\u062A\u0631\u0648\u0646\u064A \u0648\u0643\u0644\u0645\u0629 \u0627\u0644\u0645\u0631\u0648\u0631",
+  invalidCredentials: "\u0628\u0631\u064A\u062F \u0625\u0644\u0643\u062A\u0631\u0648\u0646\u064A \u0623\u0648 \u0643\u0644\u0645\u0629 \u0645\u0631\u0648\u0631 \u063A\u064A\u0631 \u0635\u062D\u064A\u062D\u0629",
+  loggingIn: "\u062C\u0627\u0631 \u062A\u0633\u062C\u064A\u0644 \u0627\u0644\u062F\u062E\u0648\u0644...",
+  welcome: "\u0645\u0631\u062D\u0628\u0627!",
+  demoAdmin: "\u0627\u0644\u0645\u062F\u064A\u0631: admin@firma.de / admin123",
+  demoUser: "\u0627\u0644\u0645\u0633\u062A\u062E\u062F\u0645: nutzer@firma.de / nutzer123",
   newTransfer: "\u062A\u062D\u0648\u064A\u0644 \u062C\u062F\u064A\u062F",
   sender: "\u0627\u0644\u0645\u0631\u0633\u0644",
   receiver: "\u0627\u0644\u0645\u0633\u062A\u0644\u0645",
@@ -25635,6 +25602,20 @@ var AR = {
   senderPhone: "\u0647\u0627\u062A\u0641 \u0627\u0644\u0645\u0631\u0633\u0644",
   receiverName: "\u0627\u0633\u0645 \u0627\u0644\u0645\u0633\u062A\u0644\u0645",
   receiverCountry: "\u0628\u0644\u062F \u0627\u0644\u0645\u0633\u062A\u0644\u0645",
+  totalTransfers: "\u0625\u062C\u0645\u0627\u0644\u064A \u0627\u0644\u062A\u062D\u0648\u064A\u0644\u0627\u062A",
+  allStatuses: "\u062C\u0645\u064A\u0639 \u0627\u0644\u062D\u0627\u0644\u0627\u062A",
+  actions: "\u0627\u0644\u0625\u062C\u0631\u0627\u0621\u0627\u062A",
+  details: "\u0627\u0644\u062A\u0641\u0627\u0635\u064A\u0644",
+  close: "\u0625\u063A\u0644\u0627\u0642",
+  createTransfer: "\u0625\u0646\u0634\u0627\u0621 \u062A\u062D\u0648\u064A\u0644",
+  requiredField: "\u062D\u0642\u0644 \u0645\u0637\u0644\u0648\u0628",
+  mustBePositive: "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0625\u064A\u062C\u0627\u0628\u064A\u0627\u064B",
+  statusUpdateError: "\u062E\u0637\u0623 \u0641\u064A \u062A\u062D\u062F\u064A\u062B \u0627\u0644\u062D\u0627\u0644\u0629",
+  transferCreated: "\u062A\u0645 \u0625\u0646\u0634\u0627\u0621 \u0627\u0644\u062A\u062D\u0648\u064A\u0644",
+  creationError: "\u062E\u0637\u0623 \u0641\u064A \u0627\u0644\u0625\u0646\u0634\u0627\u0621",
+  confirmCancel: "\u0647\u0644 \u062A\u0631\u064A\u062F \u0627\u0644\u0625\u0644\u063A\u0627\u0621 \u0628\u0627\u0644\u0641\u0639\u0644\u061F",
+  cancelled: "\u062A\u0645 \u0627\u0644\u0625\u0644\u063A\u0627\u0621",
+  cancelError: "\u0641\u0634\u0644 \u0627\u0644\u0625\u0644\u063A\u0627\u0621",
   newExchange: "\u0635\u0631\u0641 \u062C\u062F\u064A\u062F",
   customerGives: "\u0627\u0644\u0639\u0645\u064A\u0644 \u064A\u0639\u0637\u064A",
   customerGets: "\u0627\u0644\u0639\u0645\u064A\u0644 \u064A\u0633\u062A\u0644\u0645",
@@ -25654,16 +25635,7 @@ var I18nService = class _I18nService {
     this._lang = signal(localStorage.getItem("gt_lang") || "en");
     this.lang = this._lang.asReadonly();
     this.isRtl = computed(() => this._lang() === "ar");
-    this.t = computed(() => {
-      switch (this._lang()) {
-        case "ar":
-          return AR;
-        case "en":
-          return EN;
-        default:
-          return DE;
-      }
-    });
+    this.t = computed(() => this._lang() === "ar" ? AR : EN);
   }
   setLang(lang) {
     this._lang.set(lang);
@@ -28000,4 +27972,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-IURLCCSA.js.map
+//# sourceMappingURL=chunk-KWYNHGYO.js.map

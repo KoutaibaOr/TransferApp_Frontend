@@ -1,1 +1,207 @@
-/* Component styles — design tokens geerbt von globaler styles.css */
+/* ═══════════════════════════════════════════════════════════════
+   CURRENCY EXCHANGE — Exchange Form & Balances Styling
+   ═══════════════════════════════════════════════════════════════ */
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.75rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.page-title {
+  font-size: 1.6rem;
+}
+
+.page-subtitle {
+  font-size: .875rem;
+  color: var(--muted);
+  margin-top: .1rem;
+}
+
+/* ─── Currency Balances Grid ────────────────────────── */
+.balances-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+  margin-top: 1.5rem;
+}
+
+.balance-list {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.balance-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .5rem .75rem;
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  transition: background var(--transition);
+}
+
+.balance-row:hover {
+  background: #eef4ff;
+}
+
+.balance-amount {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: .95rem;
+}
+
+/* ─── Exchange Form ──────────────────────────────────── */
+.card {
+  background: var(--bg2);
+  border-radius: var(--radius);
+  border: 1.5px solid var(--border);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.card-title {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.exchange-form {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+
+.amount-row {
+  display: flex;
+  gap: .5rem;
+}
+
+.currency-sel {
+  max-width: 90px;
+  flex-shrink: 0;
+}
+
+.exchange-arrow {
+  text-align: center;
+  font-size: 1.5rem;
+  color: var(--muted);
+  padding: .25rem 0;
+  margin: .5rem 0;
+}
+
+/* ─── Form Controls ──────────────────────────────────── */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+}
+
+.form-label {
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--ink2);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+.form-control {
+  padding: .65rem .9rem;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border);
+  background: var(--bg);
+  font-size: .9rem;
+  color: var(--ink);
+  font-family: inherit;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  width: 100%;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(29, 106, 255, .1);
+}
+
+/* ─── Preview Box ────────────────────────────────────── */
+.preview-box {
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  margin-top: .5rem;
+}
+
+.preview-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: .875rem;
+  padding: .3rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.preview-row:last-child {
+  border-bottom: none;
+}
+
+.preview-row.highlight {
+  background: #eef4ff;
+  margin: 0 -.5rem;
+  padding: .5rem .5rem;
+  border-radius: var(--radius-sm);
+  border-bottom: none;
+  margin-top: .25rem;
+}
+
+/* ─── Buttons ────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  padding: .55rem 1.2rem;
+  border-radius: var(--radius-sm);
+  font-size: .875rem;
+  font-weight: 600;
+  border: none;
+  transition: all var(--transition);
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #155de0;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(29, 106, 255, .3);
+}
+
+/* ─── Responsive ─────────────────────────────────────── */
+@media (max-width: 768px) {
+  .balances-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
