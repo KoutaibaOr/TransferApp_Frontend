@@ -78,7 +78,6 @@ interface NavItem {
 
         <!-- Lang Toggle -->
         <div class="lang-toggle">
-          <button [class.active]="i18n.lang()==='de'" (click)="i18n.setLang('de')">DE</button>
           <button [class.active]="i18n.lang()==='en'" (click)="i18n.setLang('en')">EN</button>
           <button [class.active]="i18n.lang()==='ar'" (click)="i18n.setLang('ar')">AR</button>
         </div>

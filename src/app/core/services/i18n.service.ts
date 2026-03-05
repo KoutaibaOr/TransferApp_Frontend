@@ -1,42 +1,7 @@
 import { Injectable, signal, computed } from '@angular/core';
 import { Lang } from '../models';
 
-const DE = {
-  // Nav
-  dashboard: 'Dashboard', transfers: 'Transfers', customers: 'Kunden',
-  cash: 'Kasse & Filialen', exchange: 'Währungsumtausch',
-  reports: 'Berichte', settings: 'Einstellungen', audit: 'Audit-Log',
-  logout: 'Abmelden',
-  // Common
-  search: 'Suchen...', save: 'Speichern', cancel: 'Abbrechen',
-  delete: 'Löschen', edit: 'Bearbeiten', create: 'Neu anlegen',
-  confirm: 'Bestätigen', back: 'Zurück', next: 'Weiter',
-  loading: 'Laden...', noData: 'Keine Daten', all: 'Alle',
-  allBranches: 'Alle Filialen',
-  // Auth
-  email: 'E-Mail', password: 'Passwort', signIn: 'Anmelden',
-  emailRequired: 'Bitte E-Mail und Passwort eingeben',
-  invalidCredentials: 'Falsche E-Mail oder Passwort',
-  loggingIn: 'Anmelden...',
-  welcome: 'Willkommen!',
-  demoAdmin: 'Admin: admin@firma.de / admin123',
-  demoUser: 'User: nutzer@firma.de / nutzer123',
-  // Transfers
-  newTransfer: 'Neuer Transfer', sender: 'Absender', receiver: 'Empfänger',
-  amount: 'Betrag', currency: 'Währung', fee: 'Gebühr',
-  status: 'Status', branch: 'Filiale', pickupTime: 'Abholzeit',
-  senderName: 'Absender Name', senderPhone: 'Absender Telefon',
-  receiverName: 'Empfänger Name', receiverCountry: 'Empfänger Land',
-  // Exchange
-  newExchange: 'Neuer Umtausch', customerGives: 'Kunde gibt',
-  customerGets: 'Kunde bekommt', rate: 'Kurs', margin: 'Marge',
-  grossAmount: 'Brutto', customerPayout: 'Auszahlung', profit: 'Gewinn',
-  // Cash
-  deposit: 'Einzahlung', withdraw: 'Auszahlung', dayClose: 'Tagesabschluss',
-  balance: 'Kassenstand', journal: 'Kassenbuch',
-};
-
-const EN: typeof DE = {
+const EN = {
   // Nav
   dashboard: 'Dashboard', transfers: 'Transfers', customers: 'Customers',
   cash: 'Cash & Branches', exchange: 'Currency Exchange',
@@ -72,7 +37,7 @@ const EN: typeof DE = {
 };
 
 
-const AR: typeof DE = {
+const AR: typeof EN = {
   dashboard: 'لوحة التحكم', transfers: 'التحويلات', customers: 'العملاء',
   cash: 'الخزنة والفروع', exchange: 'صرف العملات',
   reports: 'التقارير', settings: 'الإعدادات', audit: 'سجل المراقبة',
@@ -106,13 +71,7 @@ export class I18nService {
   private _lang = signal<Lang>((localStorage.getItem('gt_lang') as Lang) || 'en');
   readonly lang  = this._lang.asReadonly();
   readonly isRtl = computed(() => this._lang() === 'ar');
-  readonly t     = computed(() => {
-    switch (this._lang()) {
-      case 'ar': return AR;
-      case 'en': return EN;
-      default:    return DE;
-    }
-  });
+  readonly t     = computed(() => this._lang() === 'ar' ? AR : EN);
 
   setLang(lang: Lang) {
     this._lang.set(lang);

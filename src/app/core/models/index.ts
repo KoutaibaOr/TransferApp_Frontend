@@ -84,4 +84,4 @@ export interface FeeRule { id: string; country: string; currency: string; branch
 export interface Currency { id: string; code: string; flag: string; name: string; nameAr: string; symbol: string; active: boolean; }
 export interface AuditLog { id: string; user: string; action: string; entity: string; entityId: string; ipAddress: string; details: string; createdAt: string; }
 export interface PagedResult<T> { data: T[]; total: number; page: number; limit: number; }
-export type Lang = 'de' | 'ar' | 'en';
+export type Lang = 'en' | 'ar';
