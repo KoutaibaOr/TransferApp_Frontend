@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["angular:styles/component:css;30bb44646a66009e74e39914978be669023983e207e5720a06aaf877b11f918b;C:/Users/okout/Desktop/geldtransfer-frontend-FIXED/frontend-fixed/src/app/features/reports/reports.component.ts"],
+  "sourcesContent": ["\n    .report-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 1rem; margin-top: 1.5rem; }\n  "],
+  "mappings": ";AACI,CAAC;AAAc,WAAS;AAAM,yBAAuB,OAAO,QAAQ,EAAE,OAAO,KAAK,EAAC;AAAO,OAAK;AAAM,cAAY;AAAQ;",
+  "names": []
+}
