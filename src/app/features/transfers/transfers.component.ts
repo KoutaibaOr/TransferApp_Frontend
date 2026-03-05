@@ -25,7 +25,7 @@ const STATUS_FLOW: Record<TransferStatus, TransferStatus | null> = {
     <div class="page-header">
       <div>
         <h1 class="page-title">{{ t().transfers }}</h1>
-        <p class="page-subtitle">{{ total() }} Transfers insgesamt</p>
+        <p class="page-subtitle">{{ total() }} {{ t().totalTransfers }}</p>
       </div>
       <button class="btn btn-primary" (click)="openNew()">＋ {{ t().newTransfer }}</button>
     </div>
@@ -35,11 +35,11 @@ const STATUS_FLOW: Record<TransferStatus, TransferStatus | null> = {
       <input class="form-control" type="search" [(ngModel)]="search"
              [placeholder]="t().search" (input)="load()" />
       <select class="form-control" [(ngModel)]="filterStatus" (change)="load()">
-        <option value="">Alle Status</option>
+        <option value="">{{ t().allStatuses }}</option>
         <option *ngFor="let s of statuses" [value]="s">{{ s }}</option>
       </select>
       <select class="form-control" [(ngModel)]="filterBranch" (change)="load()">
-        <option value="">Alle Filialen</option>
+        <option value="">{{ t().allBranches }}</option>
         <option *ngFor="let b of branches" [value]="b">{{ b }}</option>
       </select>
     </div>
@@ -52,7 +52,7 @@ const STATUS_FLOW: Record<TransferStatus, TransferStatus | null> = {
             <tr>
               <th>Ref</th><th>{{ t().sender }}</th><th>{{ t().receiver }}</th>
               <th>{{ t().amount }}</th><th>{{ t().fee }}</th><th>{{ t().status }}</th>
-              <th>Filiale</th><th>Aktionen</th>
+              <th>{{ t().branch }}</th><th>{{ t().actions }}</th>
             </tr>
           </thead>
           <tbody>
@@ -67,7 +67,7 @@ const STATUS_FLOW: Record<TransferStatus, TransferStatus | null> = {
                 <td>{{ tr.branch }}</td>
                 <td>
                   <div class="actions">
-                    <button class="btn btn-ghost btn-sm" (click)="select(tr)">Details</button>
+                    <button class="btn btn-ghost btn-sm" (click)="select(tr)">{{ t().details }}</button>
                     @if (nextStatus(tr.status)) {
                       <button class="btn btn-success btn-sm" (click)="advance(tr)">
                         → {{ nextStatus(tr.status) }}
@@ -77,7 +77,7 @@ const STATUS_FLOW: Record<TransferStatus, TransferStatus | null> = {
                 </td>
               </tr>
             } @empty {
-              <tr><td colspan="8"><div class="empty-state"><div class="empty-icon">💳</div><h3>Keine Transfers</h3></div></td></tr>
+              <tr><td colspan="8"><div class="empty-state"><div class="empty-icon">💳</div><h3>{{ t().noData }}</h3></div></td></tr>
             }
           </tbody>
         </table>
@@ -115,7 +115,7 @@ const STATUS_FLOW: Record<TransferStatus, TransferStatus | null> = {
             </div>
           </div>
           <div class="modal-footer">
-            <button class="btn btn-ghost" (click)="selected.set(null)">Schließen</button>
+            <button class="btn btn-ghost" (click)="selected.set(null)">{{ t().close }}</button>
             @if (nextStatus(selected()!.status)) {
               <button class="btn btn-success" (click)="advance(selected()!); selected.set(null)">
                 Status → {{ nextStatus(selected()!.status) }}
@@ -131,7 +131,7 @@ const STATUS_FLOW: Record<TransferStatus, TransferStatus | null> = {
       <div class="modal-backdrop" (click)="showNew.set(false)">
         <div class="modal" (click)="$event.stopPropagation()">
           <div class="modal-header">
-            <span class="modal-title">Neuer Transfer</span>
+            <span class="modal-title">{{ t().newTransfer }}</span>
             <button class="btn btn-icon" (click)="showNew.set(false)">✕</button>
           </div>
           <div class="modal-body">
@@ -166,7 +166,7 @@ const STATUS_FLOW: Record<TransferStatus, TransferStatus | null> = {
           </div>
           <div class="modal-footer">
             <button class="btn btn-ghost" (click)="showNew.set(false)">{{ t().cancel }}</button>
-            <button class="btn btn-primary" (click)="createTransfer()">Transfer anlegen</button>
+            <button class="btn btn-primary" (click)="createTransfer()">{{ t().createTransfer }}</button>
           </div>
         </div>
       </div>
@@ -230,30 +230,30 @@ export class TransfersComponent implements OnInit {
         this.transfers.update(list => list.map(t => t.id === updated.id ? updated : t));
         this.toast.success(`Status -> ${next}`);
       },
-      error: () => this.toast.error('Fehler beim Status-Update'),
+      error: () => this.toast.error(this.t().statusUpdateError),
     });
   }
 
   createTransfer() {
     // FIX 9: Eingabevalidierung
-    if (!this.newTr.senderName?.trim()) { this.toast.error(this.t().senderName + ' ist Pflichtfeld'); return; }
-    if (!this.newTr.receiverName?.trim()) { this.toast.error(this.t().receiverName + ' ist Pflichtfeld'); return; }
-    if (!this.newTr.amount || this.newTr.amount <= 0) { this.toast.error(this.t().amount + ' muss positiv sein'); return; }
+    if (!this.newTr.senderName?.trim()) { this.toast.error(this.t().senderName + ' ' + this.t().requiredField); return; }
+    if (!this.newTr.receiverName?.trim()) { this.toast.error(this.t().receiverName + ' ' + this.t().requiredField); return; }
+    if (!this.newTr.amount || this.newTr.amount <= 0) { this.toast.error(this.t().amount + ' ' + this.t().mustBePositive); return; }
     this.svc.create(this.newTr).subscribe({
-      next: () => { this.toast.success('Transfer angelegt'); this.showNew.set(false); this.load(); },
-      error: (e) => this.toast.error(e.error?.message || 'Fehler beim Anlegen'),
+      next: () => { this.toast.success(this.t().transferCreated); this.showNew.set(false); this.load(); },
+      error: (e) => this.toast.error(e.error?.message || this.t().creationError),
     });
   }
 
   // FIX 5: Stornierung
   cancel(tr: Transfer) {
-    if (!confirm('Transfer ' + tr.ref + ' wirklich stornieren?')) return;
+    if (!confirm('Transfer ' + tr.ref + ' ' + this.t().confirmCancel)) return;
     this.svc.cancel(tr.id).subscribe({
       next: updated => {
         this.transfers.update(list => list.map(t => t.id === updated.id ? updated : t));
-        this.toast.success(tr.ref + ' storniert');
+        this.toast.success(tr.ref + ' ' + this.t().cancelled);
       },
-      error: (e) => this.toast.error(e.error?.message || 'Stornierung fehlgeschlagen'),
+      error: (e) => this.toast.error(e.error?.message || this.t().cancelError),
     });
   }
 }
