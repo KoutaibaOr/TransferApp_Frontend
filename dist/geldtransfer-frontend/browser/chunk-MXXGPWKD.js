@@ -1,9 +1,9 @@
 import {
   FormsModule
-} from "./chunk-CGP6EU4X.js";
+} from "./chunk-CGS34HBP.js";
 import {
   TransferService
-} from "./chunk-BLC44EQZ.js";
+} from "./chunk-VGG2M6MY.js";
 import {
   CommonModule,
   I18nService,
@@ -18,7 +18,7 @@ import {
   ɵɵtext,
   ɵɵtextInterpolate,
   ɵɵtextInterpolate1
-} from "./chunk-JMQHDAED.js";
+} from "./chunk-ULJ2OLKO.js";
 
 // src/app/features/reports/reports.component.ts
 var ReportsComponent = class _ReportsComponent {
@@ -155,4 +155,4 @@ var ReportsComponent = class _ReportsComponent {
 export {
   ReportsComponent
 };
-//# sourceMappingURL=chunk-6YBZQL6Q.js.map
+//# sourceMappingURL=chunk-MXXGPWKD.js.map

@@ -5,7 +5,25 @@ import { ExchangeService } from '../../core/services/api.service';
 import { AuthService } from '../../core/services/auth.service';
 import { ToastService } from '../../core/services/toast.service';
 import { I18nService } from '../../core/services/i18n.service';
+import { CsvService } from '../../core/services/csv.service';
 import { ExchangeRate, BranchCashBalance, CashExchange, ExchangePreview, ExchangeStats } from '../../core/models';
+
+const EXCHANGE_EXPORT_HEADERS = [
+  { key: 'ref',            label: 'Reference'         },
+  { key: 'branch',         label: 'Branch'            },
+  { key: 'employee',       label: 'Employee'          },
+  { key: 'customerName',   label: 'Customer Name'     },
+  { key: 'customerIdNumber', label: 'Customer ID'     },
+  { key: 'fromCurrency',   label: 'From Currency'     },
+  { key: 'fromAmount',     label: 'Amount Given'      },
+  { key: 'toCurrency',     label: 'To Currency'       },
+  { key: 'customerPayout', label: 'Amount Received'   },
+  { key: 'exchangeRate',   label: 'Exchange Rate'     },
+  { key: 'marginPercent',  label: 'Margin %'          },
+  { key: 'fee',            label: 'Fee'               },
+  { key: 'profit',         label: 'Profit EUR'        },
+  { key: 'createdAt',      label: 'Date'              },
+] as const;
 
 @Component({
   selector: 'app-exchange',
@@ -18,7 +36,11 @@ import { ExchangeRate, BranchCashBalance, CashExchange, ExchangePreview, Exchang
         <h1 class="page-title">{{ t().exchange }}</h1>
         <p class="page-subtitle">{{ t().exchangeRates }} & {{ t().history }}</p>
       </div>
-      <button class="btn btn-primary" (click)="showExchange.set(true)">＋ {{ t().newExchange }}</button>
+      <div class="header-actions">
+        <button class="btn btn-ghost btn-sm" (click)="showExportModal.set(true)">⬇ {{ t().exportWithFilters }}</button>
+        <button class="btn btn-ghost btn-sm" (click)="exportAll()">⬇ {{ t().exportAll }}</button>
+        <button class="btn btn-primary" (click)="showExchange.set(true)">＋ {{ t().newExchange }}</button>
+      </div>
     </div>
 
     <!-- Stats -->
@@ -117,6 +139,10 @@ import { ExchangeRate, BranchCashBalance, CashExchange, ExchangePreview, Exchang
     <!-- History Tab -->
     @if (tab()==='history') {
       <div class="card" style="padding:0">
+        <div class="card-header" style="padding:1.25rem 1.5rem">
+          <span class="card-title">{{ t().history }}</span>
+          <span class="text-muted" style="font-size:.8rem">{{ exchanges().length }} {{ t().totalTransfers }}</span>
+        </div>
         <div class="table-wrap">
           <table>
             <thead>
@@ -144,6 +170,43 @@ import { ExchangeRate, BranchCashBalance, CashExchange, ExchangePreview, Exchang
       </div>
     }
 
+    <!-- ── EXPORT MODAL ───────────────────────────────────── -->
+    @if (showExportModal()) {
+      <div class="modal-backdrop" (click)="showExportModal.set(false)">
+        <div class="modal" (click)="$event.stopPropagation()">
+          <div class="modal-header">
+            <span class="modal-title">⬇ {{ t().exportOptions }}</span>
+            <button class="btn btn-icon" (click)="showExportModal.set(false)">✕</button>
+          </div>
+          <div class="modal-body">
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label">{{ t().dateFrom }}</label>
+                <input class="form-control" type="date" [(ngModel)]="exportOpts.dateFrom" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">{{ t().dateTo }}</label>
+                <input class="form-control" type="date" [(ngModel)]="exportOpts.dateTo" />
+              </div>
+            </div>
+            @if (auth.isAdminOrManager()) {
+              <div class="form-group">
+                <label class="form-label">{{ t().branch }}</label>
+                <select class="form-control" [(ngModel)]="exportOpts.branch">
+                  <option value="">{{ t().allBranches }}</option>
+                  @for (b of exchangeBranches(); track b) { <option [value]="b">{{ b }}</option> }
+                </select>
+              </div>
+            }
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-ghost" (click)="showExportModal.set(false)">{{ t().cancel }}</button>
+            <button class="btn btn-primary" (click)="runFilteredExport()">⬇ {{ t().exportSelected }}</button>
+          </div>
+        </div>
+      </div>
+    }
+
     <!-- New Exchange Modal -->
     @if (showExchange()) {
       <div class="modal-backdrop" (click)="showExchange.set(false)">
@@ -158,7 +221,8 @@ import { ExchangeRate, BranchCashBalance, CashExchange, ExchangePreview, Exchang
                 <label class="form-label">{{ t().customerGives }}</label>
                 <div class="amount-row">
                   <input class="form-control" type="number" [(ngModel)]="exDto.fromAmount"
-                         (input)="calcPreview()" placeholder="0.00" />
+                         (input)="calcPreview()" placeholder="0.00"
+                         [class.input-error]="exDto.fromAmount > 0 && exDto.fromAmount < 1" />
                   <select class="form-control currency-sel" [(ngModel)]="exDto.fromCurrency" (change)="calcPreview()">
                     @for (r of activeRates(); track r.id) {
                       <option [value]="r.fromCurrency">{{ r.fromCurrency }}</option>
@@ -166,8 +230,12 @@ import { ExchangeRate, BranchCashBalance, CashExchange, ExchangePreview, Exchang
                     <option value="EUR">EUR</option>
                   </select>
                 </div>
+                @if (exDto.fromAmount > 0 && exDto.fromAmount < 1) {
+                  <p style="color:var(--red);font-size:.78rem;margin-top:.35rem">⚠ {{ t().minAmountError }}</p>
+                }
               </div>
-              <div class="exchange-arrow">⇅</div>
+              <button class="btn btn-ghost exchange-swap-btn" type="button"
+                      (click)="swapCurrencies()" [title]="t().swapCurrencies">⇄</button>
               <div class="form-group">
                 <label class="form-label">{{ t().customerGets }}</label>
                 <div class="amount-row">
@@ -214,7 +282,8 @@ import { ExchangeRate, BranchCashBalance, CashExchange, ExchangePreview, Exchang
           </div>
           <div class="modal-footer">
             <button class="btn btn-ghost" (click)="showExchange.set(false)">{{ t().cancel }}</button>
-            <button class="btn btn-primary" (click)="executeExchange()" [disabled]="!preview()">
+            <button class="btn btn-primary" (click)="executeExchange()"
+              [disabled]="!preview() || exDto.fromAmount < 1">
               ✓ {{ t().confirmExchange }}
             </button>
           </div>
@@ -260,21 +329,23 @@ import { ExchangeRate, BranchCashBalance, CashExchange, ExchangePreview, Exchang
   `,
 })
 export class ExchangeComponent implements OnInit {
-  tab          = signal<'rates'|'balances'|'history'>('rates');
-  rates        = signal<ExchangeRate[]>([]);
-  activeRates  = signal<ExchangeRate[]>([]);
-  balances     = signal<BranchCashBalance[]>([]);
-  exchanges    = signal<CashExchange[]>([]);
-  stats        = signal<ExchangeStats | null>(null);
-  preview      = signal<ExchangePreview | null>(null);
-  showExchange = signal(false);
-  showNewRate  = signal(false);
+  tab            = signal<'rates'|'balances'|'history'>('rates');
+  rates          = signal<ExchangeRate[]>([]);
+  activeRates    = signal<ExchangeRate[]>([]);
+  balances       = signal<BranchCashBalance[]>([]);
+  exchanges      = signal<CashExchange[]>([]);
+  stats          = signal<ExchangeStats | null>(null);
+  preview        = signal<ExchangePreview | null>(null);
+  showExchange   = signal(false);
+  showNewRate    = signal(false);
+  showExportModal= signal(false);
 
   exDto   = { fromCurrency: 'EUR', toCurrency: 'MAD', fromAmount: 0, customerName: '' };
+  exportOpts = { dateFrom: '', dateTo: '', branch: '' };
 
-  // FIX 6: Deduplizierte Währungslisten
-  fromCurrencies = computed(() => [...new Set(this.activeRates().map(r => r.fromCurrency))]);
-  toCurrencies   = computed(() => [...new Set(this.activeRates().map(r => r.toCurrency))]);
+  fromCurrencies   = computed(() => [...new Set(this.activeRates().map(r => r.fromCurrency))]);
+  toCurrencies     = computed(() => [...new Set(this.activeRates().map(r => r.toCurrency))]);
+  exchangeBranches = computed(() => [...new Set(this.exchanges().map(e => e.branch).filter(Boolean))]);
   rateDto = { fromCurrency: '', toCurrency: '', rate: 0, marginPercent: 1.5 };
 
   groupedBalances = computed(() => {
@@ -291,6 +362,7 @@ export class ExchangeComponent implements OnInit {
     public  auth:  AuthService,
     private toast: ToastService,
     public  i18n:  I18nService,
+    private csv:   CsvService,
   ) {}
 
   t = this.i18n.t;
@@ -315,9 +387,44 @@ export class ExchangeComponent implements OnInit {
   }
 
   calcPreview() {
-    if (!this.exDto.fromAmount || !this.exDto.fromCurrency || !this.exDto.toCurrency) return;
+    if (!this.exDto.fromAmount || this.exDto.fromAmount < 1 || !this.exDto.fromCurrency || !this.exDto.toCurrency) {
+      this.preview.set(null);
+      return;
+    }
     this.svc.preview(this.exDto.fromCurrency, this.exDto.toCurrency, this.exDto.fromAmount)
       .subscribe(p => this.preview.set(p));
+  }
+
+  swapCurrencies() {
+    const tmp = this.exDto.fromCurrency;
+    this.exDto.fromCurrency = this.exDto.toCurrency;
+    this.exDto.toCurrency   = tmp;
+    this.preview.set(null);
+    if (this.exDto.fromAmount >= 1) this.calcPreview();
+  }
+
+  exportAll() {
+    const p: any = { limit: 9999 };
+    if (this.auth.isManager() && this.auth.user()?.branch) p['branch'] = this.auth.user()!.branch;
+    this.svc.getExchanges(p).subscribe(r => {
+      const date = new Date().toISOString().slice(0,10);
+      this.csv.export(r.data, EXCHANGE_EXPORT_HEADERS as any, `exchanges_all_${date}`);
+      this.toast.success(`${r.data.length} ${this.i18n.t().exported}`);
+    });
+  }
+
+  runFilteredExport() {
+    const p: any = { limit: 9999 };
+    if (this.exportOpts.dateFrom) p['dateFrom'] = this.exportOpts.dateFrom;
+    if (this.exportOpts.dateTo)   p['dateTo']   = this.exportOpts.dateTo;
+    if (this.exportOpts.branch)   p['branch']   = this.exportOpts.branch;
+    else if (this.auth.isManager() && this.auth.user()?.branch) p['branch'] = this.auth.user()!.branch;
+    this.svc.getExchanges(p).subscribe(r => {
+      const date = new Date().toISOString().slice(0,10);
+      this.csv.export(r.data, EXCHANGE_EXPORT_HEADERS as any, `exchanges_${date}`);
+      this.toast.success(`${r.data.length} ${this.i18n.t().exported}`);
+      this.showExportModal.set(false);
+    });
   }
 
   executeExchange() {

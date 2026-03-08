@@ -1,11 +1,11 @@
 import {
   AuthService,
   RouterLink
-} from "./chunk-TISKMDVW.js";
+} from "./chunk-E6WC37XB.js";
 import {
   BranchService,
   TransferService
-} from "./chunk-BLC44EQZ.js";
+} from "./chunk-VGG2M6MY.js";
 import {
   CommonModule,
   DecimalPipe,
@@ -30,7 +30,7 @@ import {
   ɵɵtextInterpolate,
   ɵɵtextInterpolate1,
   ɵɵtextInterpolate2
-} from "./chunk-JMQHDAED.js";
+} from "./chunk-ULJ2OLKO.js";
 
 // src/app/features/dashboard/dashboard.component.ts
 var _forTrack0 = ($index, $item) => $item.id;
@@ -278,4 +278,4 @@ var DashboardComponent = class _DashboardComponent {
 export {
   DashboardComponent
 };
-//# sourceMappingURL=chunk-SHJ5HIS2.js.map
+//# sourceMappingURL=chunk-FGUHPLIY.js.map

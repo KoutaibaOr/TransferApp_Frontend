@@ -25662,6 +25662,9 @@ var EN = {
   exportWithFilters: "Filtered Export",
   paidOutBy: "Paid Out By",
   createdBy: "Created By",
+  minAmountError: "Amount must be at least 1",
+  swapCurrencies: "Swap currencies",
+  customerIdNumber: "Customer ID",
   // Branches
   manageBranches: "Branch Management",
   newBranch: "New Branch",
@@ -25861,6 +25864,9 @@ var AR = {
   exportWithFilters: "\u062A\u0635\u062F\u064A\u0631 \u0645\u0635\u0641\u0651\u0649",
   paidOutBy: "\u0635\u0631\u0641\u0647 \u0628\u0648\u0627\u0633\u0637\u0629",
   createdBy: "\u0623\u0646\u0634\u0623\u0647 \u0628\u0648\u0627\u0633\u0637\u0629",
+  minAmountError: "\u064A\u062C\u0628 \u0623\u0646 \u064A\u0643\u0648\u0646 \u0627\u0644\u0645\u0628\u0644\u063A 1 \u0639\u0644\u0649 \u0627\u0644\u0623\u0642\u0644",
+  swapCurrencies: "\u062A\u0628\u062F\u064A\u0644 \u0627\u0644\u0639\u0645\u0644\u062A\u064A\u0646",
+  customerIdNumber: "\u0631\u0642\u0645 \u0647\u0648\u064A\u0629 \u0627\u0644\u0639\u0645\u064A\u0644",
   // Branches
   manageBranches: "\u0625\u062F\u0627\u0631\u0629 \u0627\u0644\u0641\u0631\u0648\u0639",
   newBranch: "\u0641\u0631\u0639 \u062C\u062F\u064A\u062F",
@@ -28227,4 +28233,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-JMQHDAED.js.map
+//# sourceMappingURL=chunk-ULJ2OLKO.js.map

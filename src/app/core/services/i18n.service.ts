@@ -94,6 +94,8 @@ const EN = {
   selectStatuses: 'Select Statuses', dateFrom: 'Date From', dateTo: 'Date To',
   exportSelected: 'Export', exportAll: 'Export All', exportWithFilters: 'Filtered Export',
   paidOutBy: 'Paid Out By', createdBy: 'Created By',
+  minAmountError: 'Amount must be at least 1', swapCurrencies: 'Swap currencies',
+  customerIdNumber: 'Customer ID',
   // Branches
   manageBranches: 'Branch Management', newBranch: 'New Branch',
   branchManager: 'Branch Manager', initialBalance: 'Initial Balance',
@@ -195,6 +197,8 @@ const AR: typeof EN = {
   selectStatuses: 'تحديد الحالات', dateFrom: 'من تاريخ', dateTo: 'إلى تاريخ',
   exportSelected: 'تصدير', exportAll: 'تصدير الكل', exportWithFilters: 'تصدير مصفّى',
   paidOutBy: 'صرفه بواسطة', createdBy: 'أنشأه بواسطة',
+  minAmountError: 'يجب أن يكون المبلغ 1 على الأقل', swapCurrencies: 'تبديل العملتين',
+  customerIdNumber: 'رقم هوية العميل',
   // Branches
   manageBranches: 'إدارة الفروع', newBranch: 'فرع جديد',
   branchManager: 'مدير الفرع', initialBalance: 'الرصيد الابتدائي',
