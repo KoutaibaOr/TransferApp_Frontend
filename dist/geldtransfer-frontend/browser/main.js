@@ -7,10 +7,10 @@ import {
   bootstrapApplication,
   provideRouter,
   withComponentInputBinding
-} from "./chunk-XRHKFZIX.js";
+} from "./chunk-TISKMDVW.js";
 import {
   ToastService
-} from "./chunk-FY6WX3KZ.js";
+} from "./chunk-ZPKBI57O.js";
 import {
   ANIMATION_MODULE_TYPE,
   ChangeDetectionScheduler,
@@ -55,7 +55,7 @@ import {
   ɵɵrestoreView,
   ɵɵtext,
   ɵɵtextInterpolate
-} from "./chunk-KWYNHGYO.js";
+} from "./chunk-JMQHDAED.js";
 
 // node_modules/@angular/animations/fesm2022/animations.mjs
 var AnimationMetadataType;
@@ -4605,24 +4605,32 @@ var adminGuard = () => {
   router.navigate(["/dashboard"]);
   return false;
 };
+var managerGuard = () => {
+  const auth = inject(AuthService);
+  const router = inject(Router);
+  if (auth.isAdminOrManager())
+    return true;
+  router.navigate(["/dashboard"]);
+  return false;
+};
 
 // src/app/app.routes.ts
 var routes = [
-  { path: "login", loadComponent: () => import("./chunk-TQZFQQTI.js").then((m) => m.LoginComponent) },
+  { path: "login", loadComponent: () => import("./chunk-QPQUJU6I.js").then((m) => m.LoginComponent) },
   {
     path: "",
-    loadComponent: () => import("./chunk-B7UM2RQW.js").then((m) => m.LayoutComponent),
+    loadComponent: () => import("./chunk-TL2Z4WOL.js").then((m) => m.LayoutComponent),
     canActivate: [authGuard],
     children: [
       { path: "", redirectTo: "dashboard", pathMatch: "full" },
-      { path: "dashboard", loadComponent: () => import("./chunk-HYBO3K2V.js").then((m) => m.DashboardComponent) },
-      { path: "transfers", loadComponent: () => import("./chunk-GRI53GKE.js").then((m) => m.TransfersComponent) },
-      { path: "customers", loadComponent: () => import("./chunk-S5BUUDXP.js").then((m) => m.CustomersComponent) },
-      { path: "cash", loadComponent: () => import("./chunk-AIS4CP2L.js").then((m) => m.CashComponent) },
-      { path: "exchange", loadComponent: () => import("./chunk-NH2SE3ZF.js").then((m) => m.ExchangeComponent) },
-      { path: "reports", loadComponent: () => import("./chunk-HW52PVBB.js").then((m) => m.ReportsComponent) },
-      { path: "settings", loadComponent: () => import("./chunk-PHRC6MWT.js").then((m) => m.SettingsComponent), canActivate: [adminGuard] },
-      { path: "audit", loadComponent: () => import("./chunk-AWLTIDBV.js").then((m) => m.AuditComponent), canActivate: [adminGuard] }
+      { path: "dashboard", loadComponent: () => import("./chunk-SHJ5HIS2.js").then((m) => m.DashboardComponent) },
+      { path: "transfers", loadComponent: () => import("./chunk-AT2NPAZZ.js").then((m) => m.TransfersComponent) },
+      { path: "customers", loadComponent: () => import("./chunk-VTTMRXQY.js").then((m) => m.CustomersComponent) },
+      { path: "cash", loadComponent: () => import("./chunk-DO2TIXYW.js").then((m) => m.CashComponent) },
+      { path: "exchange", loadComponent: () => import("./chunk-2GV7WD3C.js").then((m) => m.ExchangeComponent) },
+      { path: "reports", loadComponent: () => import("./chunk-6YBZQL6Q.js").then((m) => m.ReportsComponent), canActivate: [managerGuard] },
+      { path: "settings", loadComponent: () => import("./chunk-YS36S3YH.js").then((m) => m.SettingsComponent), canActivate: [adminGuard] },
+      { path: "audit", loadComponent: () => import("./chunk-LZC3MULH.js").then((m) => m.AuditComponent), canActivate: [adminGuard] }
     ]
   },
   { path: "**", redirectTo: "dashboard" }
@@ -4632,16 +4640,17 @@ var routes = [
 var authInterceptor = (req, next) => {
   const auth = inject(AuthService);
   const toast = inject(ToastService);
+  const i18n = inject(I18nService);
   const token = auth.getToken();
   const authReq = token ? req.clone({ setHeaders: { Authorization: `Bearer ${token}` } }) : req;
   return next(authReq).pipe(catchError((err) => {
     if (err.status === 401) {
       auth.logout();
-      toast.error("Sitzung abgelaufen \u2014 bitte neu anmelden");
+      toast.error("Session expired - please login again");
     } else if (err.status === 403) {
-      toast.error("Keine Berechtigung f\xFCr diese Aktion");
+      toast.error("Access denied - insufficient permissions");
     } else if (err.status >= 500) {
-      toast.error("Serverfehler \u2014 bitte sp\xE4ter erneut versuchen");
+      toast.error("Server error - please try again later");
     }
     return throwError(() => err);
   }));

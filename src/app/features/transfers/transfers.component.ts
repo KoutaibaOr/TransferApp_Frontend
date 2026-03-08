@@ -171,7 +171,7 @@ const IMPORT_TEMPLATE = [
                 }
               </div>
               <button class="btn btn-ghost btn-sm" style="margin-top:.5rem;font-size:.75rem"
-                (click)="exportOpts.statuses = [...statuses]">{{ t().all }}</button>
+                (click)="selectAllStatuses()">{{ t().all }}</button>
             </div>
             <!-- Date Range -->
             <div class="form-grid">
@@ -354,6 +354,10 @@ export class TransfersComponent implements OnInit {
     const idx = this.exportOpts.statuses.indexOf(s);
     if (idx >= 0) this.exportOpts.statuses = this.exportOpts.statuses.filter(x => x !== s);
     else          this.exportOpts.statuses = [...this.exportOpts.statuses, s];
+  }
+
+  selectAllStatuses() {
+    this.exportOpts.statuses = [...this.statuses];
   }
 
   // ── VORLAGE ──────────────────────────────────────────────────

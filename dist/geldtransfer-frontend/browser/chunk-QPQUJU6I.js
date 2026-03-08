@@ -1,16 +1,16 @@
 import {
   AuthService,
   Router
-} from "./chunk-XRHKFZIX.js";
+} from "./chunk-TISKMDVW.js";
 import {
   DefaultValueAccessor,
   FormsModule,
   NgControlStatus,
   NgModel
-} from "./chunk-KTZ56RQ7.js";
+} from "./chunk-CGP6EU4X.js";
 import {
   ToastService
-} from "./chunk-FY6WX3KZ.js";
+} from "./chunk-ZPKBI57O.js";
 import {
   I18nService,
   signal,
@@ -33,7 +33,7 @@ import {
   ɵɵtwoWayBindingSet,
   ɵɵtwoWayListener,
   ɵɵtwoWayProperty
-} from "./chunk-KWYNHGYO.js";
+} from "./chunk-JMQHDAED.js";
 
 // src/app/features/auth/login.component.ts
 function LoginComponent_Conditional_18_Template(rf, ctx) {
@@ -73,7 +73,9 @@ var LoginComponent = class _LoginComponent {
         this.toast.success(this.i18n.t().welcome);
         this.router.navigate(["/dashboard"]);
       },
-      error: () => {
+      error: (err) => {
+        console.error("\u274C LOGIN ERROR:", err);
+        console.error("Status:", err.status, "Message:", err.error?.message || err.message);
         this.error.set(this.i18n.t().invalidCredentials);
         this.loading.set(false);
       }
@@ -170,7 +172,7 @@ var LoginComponent = class _LoginComponent {
         \u0275\u0275advance(2);
         \u0275\u0275classProp("active", ctx.i18n.lang() === "ar");
       }
-    }, dependencies: [FormsModule, DefaultValueAccessor, NgControlStatus, NgModel], styles: ['\n\n.login-page[_ngcontent-%COMP%] {\n  min-height: 100vh;\n  background: var(--ink);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 2rem;\n}\n.login-card[_ngcontent-%COMP%] {\n  background: #131929;\n  border: 1.5px solid rgba(255, 255, 255, .08);\n  border-radius: 16px;\n  padding: 2.5rem;\n  width: 100%;\n  max-width: 420px;\n  box-shadow: 0 24px 64px rgba(0, 0, 0, .5);\n  animation: slideUp .25s ease;\n}\n.login-logo[_ngcontent-%COMP%] {\n  font-family: "Syne", sans-serif;\n  font-size: 2rem;\n  font-weight: 800;\n  color: #fff;\n  margin-bottom: .2rem;\n}\n.login-logo[_ngcontent-%COMP%]   .accent[_ngcontent-%COMP%] {\n  color: var(--accent);\n}\n.login-sub[_ngcontent-%COMP%] {\n  color: rgba(255, 255, 255, .4);\n  font-size: .875rem;\n  margin-bottom: 2rem;\n}\n.login-form[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 1rem;\n}\n.login-card[_ngcontent-%COMP%]   .form-control[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, .06);\n  border-color: rgba(255, 255, 255, .1);\n  color: #fff;\n}\n.login-card[_ngcontent-%COMP%]   .form-control[_ngcontent-%COMP%]:focus {\n  border-color: var(--accent);\n  background: rgba(255, 255, 255, .1);\n}\n.login-card[_ngcontent-%COMP%]   .form-control[_ngcontent-%COMP%]::placeholder {\n  color: rgba(255, 255, 255, .25);\n}\n.login-card[_ngcontent-%COMP%]   .form-label[_ngcontent-%COMP%] {\n  color: rgba(255, 255, 255, .5);\n}\n.login-card[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%] {\n  width: 100%;\n  justify-content: center;\n  padding: .75rem;\n  font-size: 1rem;\n  margin-top: .5rem;\n}\n.login-error[_ngcontent-%COMP%] {\n  background: rgba(255, 59, 92, .12);\n  border: 1px solid rgba(255, 59, 92, .3);\n  color: #FF7A92;\n  padding: .65rem .9rem;\n  border-radius: var(--radius-sm);\n  font-size: .85rem;\n}\n.demo-hint[_ngcontent-%COMP%] {\n  margin-top: 1.5rem;\n  padding: 1rem;\n  background: rgba(255, 255, 255, .04);\n  border-radius: var(--radius-sm);\n  display: flex;\n  flex-direction: column;\n  gap: .3rem;\n}\n.demo-hint[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: .78rem;\n  color: rgba(255, 255, 255, .4);\n}\n.demo-hint[_ngcontent-%COMP%]   code[_ngcontent-%COMP%] {\n  color: rgba(255, 255, 255, .7);\n  background: transparent;\n  font-size: .8rem;\n  padding: 0;\n}\n.lang-row[_ngcontent-%COMP%] {\n  display: flex;\n  gap: .5rem;\n  margin-top: 1rem;\n}\n.lang-row[_ngcontent-%COMP%]   button[_ngcontent-%COMP%] {\n  flex: 1;\n  padding: .45rem;\n  border-radius: var(--radius-sm);\n  background: rgba(255, 255, 255, .06);\n  border: 1.5px solid transparent;\n  color: rgba(255, 255, 255, .4);\n  font-size: .8rem;\n  font-weight: 700;\n  transition: all var(--transition);\n}\n.lang-row[_ngcontent-%COMP%]   button.active[_ngcontent-%COMP%] {\n  background: rgba(29, 106, 255, .2);\n  border-color: var(--accent);\n  color: #7EB4FF;\n}\n@media (max-width: 480px) {\n  .login-card[_ngcontent-%COMP%] {\n    padding: 2rem;\n  }\n  .login-logo[_ngcontent-%COMP%] {\n    font-size: 1.6rem;\n  }\n}\n/*# sourceMappingURL=login.component.css.map */'] });
+    }, dependencies: [FormsModule, DefaultValueAccessor, NgControlStatus, NgModel], styles: ['\n\n.login-page[_ngcontent-%COMP%] {\n  min-height: 100vh;\n  background: #080D1A;\n  background-image:\n    radial-gradient(\n      ellipse 80% 50% at 20% 40%,\n      rgba(29, 106, 255, .12) 0%,\n      transparent 60%),\n    radial-gradient(\n      ellipse 60% 40% at 80% 70%,\n      rgba(0, 196, 140, .08) 0%,\n      transparent 60%);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 2rem;\n}\n.login-card[_ngcontent-%COMP%] {\n  background: rgba(18, 25, 45, .95);\n  border: 1px solid rgba(255, 255, 255, .1);\n  border-radius: 20px;\n  padding: 2.75rem;\n  width: 100%;\n  max-width: 430px;\n  box-shadow: 0 32px 80px rgba(0, 0, 0, .55), inset 0 1px 0 rgba(255, 255, 255, .07);\n  animation: slideUp .28s cubic-bezier(.34, 1.2, .64, 1);\n  backdrop-filter: blur(12px);\n  -webkit-backdrop-filter: blur(12px);\n}\n.login-logo[_ngcontent-%COMP%] {\n  font-family: "Syne", sans-serif;\n  font-size: 2.1rem;\n  font-weight: 800;\n  color: #fff;\n  margin-bottom: .25rem;\n  letter-spacing: -.04em;\n}\n.login-logo[_ngcontent-%COMP%]   .accent[_ngcontent-%COMP%] {\n  color: var(--accent);\n}\n.login-sub[_ngcontent-%COMP%] {\n  color: rgba(255, 255, 255, .38);\n  font-size: .875rem;\n  margin-bottom: 2.25rem;\n  font-weight: 400;\n}\n.login-form[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 1.15rem;\n}\n.login-card[_ngcontent-%COMP%]   .form-control[_ngcontent-%COMP%] {\n  background: rgba(255, 255, 255, .05);\n  border-color: rgba(255, 255, 255, .1);\n  color: #fff;\n  box-shadow: none;\n}\n.login-card[_ngcontent-%COMP%]   .form-control[_ngcontent-%COMP%]:focus {\n  border-color: var(--accent);\n  background: rgba(255, 255, 255, .08);\n  box-shadow: 0 0 0 3.5px rgba(29, 106, 255, .18);\n}\n.login-card[_ngcontent-%COMP%]   .form-control[_ngcontent-%COMP%]::placeholder {\n  color: rgba(255, 255, 255, .22);\n}\n.login-card[_ngcontent-%COMP%]   .form-label[_ngcontent-%COMP%] {\n  color: rgba(255, 255, 255, .45);\n}\n.login-card[_ngcontent-%COMP%]   .btn-primary[_ngcontent-%COMP%] {\n  width: 100%;\n  justify-content: center;\n  padding: .82rem;\n  font-size: 1rem;\n  margin-top: .35rem;\n  border-radius: var(--radius-sm);\n}\n.login-error[_ngcontent-%COMP%] {\n  background: rgba(255, 59, 92, .12);\n  border: 1px solid rgba(255, 59, 92, .28);\n  color: #FF8FA8;\n  padding: .7rem 1rem;\n  border-radius: var(--radius-sm);\n  font-size: .85rem;\n  display: flex;\n  align-items: center;\n  gap: .5rem;\n}\n.demo-hint[_ngcontent-%COMP%] {\n  margin-top: 1.75rem;\n  padding: 1.1rem;\n  background: rgba(255, 255, 255, .04);\n  border: 1px solid rgba(255, 255, 255, .07);\n  border-radius: var(--radius-sm);\n  display: flex;\n  flex-direction: column;\n  gap: .35rem;\n}\n.demo-hint[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: .78rem;\n  color: rgba(255, 255, 255, .35);\n}\n.demo-hint[_ngcontent-%COMP%]   code[_ngcontent-%COMP%] {\n  color: rgba(255, 255, 255, .65);\n  background: transparent;\n  font-size: .82rem;\n  padding: 0;\n}\n.lang-row[_ngcontent-%COMP%] {\n  display: flex;\n  gap: .5rem;\n  margin-top: 1.1rem;\n}\n.lang-row[_ngcontent-%COMP%]   button[_ngcontent-%COMP%] {\n  flex: 1;\n  padding: .48rem;\n  border-radius: var(--radius-xs);\n  background: rgba(255, 255, 255, .06);\n  border: 1.5px solid transparent;\n  color: rgba(255, 255, 255, .38);\n  font-size: .82rem;\n  font-weight: 700;\n  transition: all var(--transition);\n  font-family: "Inter", sans-serif;\n}\n.lang-row[_ngcontent-%COMP%]   button.active[_ngcontent-%COMP%] {\n  background: rgba(29, 106, 255, .2);\n  border-color: rgba(29, 106, 255, .5);\n  color: #7EB4FF;\n}\n@media (max-width: 480px) {\n  .login-card[_ngcontent-%COMP%] {\n    padding: 2rem;\n    border-radius: 16px;\n  }\n  .login-logo[_ngcontent-%COMP%] {\n    font-size: 1.8rem;\n  }\n}\n/*# sourceMappingURL=login.component.css.map */'] });
   }
 };
 (() => {
@@ -179,4 +181,4 @@ var LoginComponent = class _LoginComponent {
 export {
   LoginComponent
 };
-//# sourceMappingURL=chunk-TQZFQQTI.js.map
+//# sourceMappingURL=chunk-QPQUJU6I.js.map

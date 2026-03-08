@@ -151,7 +151,7 @@ import {
   ɵɵloadQuery,
   ɵɵqueryRefresh,
   ɵɵsanitizeUrlOrResourceUrl
-} from "./chunk-KWYNHGYO.js";
+} from "./chunk-JMQHDAED.js";
 
 // node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs
 var GenericBrowserDomAdapter = class extends DomAdapter {
@@ -7233,9 +7233,14 @@ var AuthService = class _AuthService {
     this.token = this._token.asReadonly();
     this.isLoggedIn = computed(() => !!this._token());
     this.isAdmin = computed(() => this._user()?.role === "admin");
+    this.isManager = computed(() => this._user()?.role === "branch_manager");
+    this.isEmployee = computed(() => this._user()?.role === "employee");
+    this.isAdminOrManager = computed(() => this._user()?.role === "admin" || this._user()?.role === "branch_manager");
   }
   login(req) {
+    console.log("\u{1F510} LOGIN REQUEST:", req);
     return this.http.post(`${environment.apiUrl}/auth/login`, req).pipe(tap((res) => {
+      console.log("\u2705 LOGIN SUCCESS:", res);
       localStorage.setItem(TOKEN_KEY, res.access_token);
       localStorage.setItem(USER_KEY, JSON.stringify(res.user));
       this._token.set(res.access_token);
@@ -7298,4 +7303,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-XRHKFZIX.js.map
+//# sourceMappingURL=chunk-TISKMDVW.js.map

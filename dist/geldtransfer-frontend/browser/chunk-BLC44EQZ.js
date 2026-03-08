@@ -4,7 +4,7 @@ import {
   environment,
   ɵɵdefineInjectable,
   ɵɵinject
-} from "./chunk-KWYNHGYO.js";
+} from "./chunk-JMQHDAED.js";
 
 // src/app/core/services/api.service.ts
 var BASE = environment.apiUrl;
@@ -25,10 +25,22 @@ var TransferService = class _TransferService {
     return this.http.post(`${BASE}/transfers`, dto);
   }
   updateStatus(id, status) {
-    return this.http.patch(`\${BASE}/transfers/\${id}/status`, { status });
+    return this.http.patch(`${BASE}/transfers/${id}/status`, { status });
   }
   cancel(id) {
-    return this.http.patch(`\${BASE}/transfers/\${id}/cancel`, {});
+    return this.http.patch(`${BASE}/transfers/${id}/cancel`, {});
+  }
+  exportFiltered(f) {
+    const p = { limit: f.limit ?? 9999 };
+    if (f.statuses?.length)
+      p["statuses"] = f.statuses.join(",");
+    if (f.dateFrom)
+      p["dateFrom"] = f.dateFrom;
+    if (f.dateTo)
+      p["dateTo"] = f.dateTo;
+    if (f.branch)
+      p["branch"] = f.branch;
+    return this.http.get(`${BASE}/transfers`, { params: new HttpParams({ fromObject: p }) });
   }
   static {
     this.\u0275fac = function TransferService_Factory(t) {
@@ -74,6 +86,9 @@ var BranchService = class _BranchService {
   getAll() {
     return this.http.get(`${BASE}/branches`);
   }
+  getOne(id) {
+    return this.http.get(`${BASE}/branches/${id}`);
+  }
   getCashSummary() {
     return this.http.get(`${BASE}/branches/cash-summary`);
   }
@@ -85,6 +100,9 @@ var BranchService = class _BranchService {
   }
   deactivate(id) {
     return this.http.patch(`${BASE}/branches/${id}/deactivate`, {});
+  }
+  delete(id) {
+    return this.http.delete(`${BASE}/branches/${id}`);
   }
   static {
     this.\u0275fac = function BranchService_Factory(t) {
@@ -204,6 +222,9 @@ var SettingsService = class _SettingsService {
   deactivateUser(id) {
     return this.http.patch(`${BASE}/users/${id}/deactivate`, {});
   }
+  deleteUser(id) {
+    return this.http.delete(`${BASE}/users/${id}`);
+  }
   static {
     this.\u0275fac = function SettingsService_Factory(t) {
       return new (t || _SettingsService)(\u0275\u0275inject(HttpClient));
@@ -239,4 +260,4 @@ export {
   SettingsService,
   AuditService
 };
-//# sourceMappingURL=chunk-SYZVRE4M.js.map
+//# sourceMappingURL=chunk-BLC44EQZ.js.map
