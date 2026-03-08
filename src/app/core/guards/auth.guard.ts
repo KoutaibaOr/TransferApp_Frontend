@@ -17,3 +17,12 @@ export const adminGuard: CanActivateFn = () => {
   router.navigate(['/dashboard']);
   return false;
 };
+
+/** Admin + Branch Manager */
+export const managerGuard: CanActivateFn = () => {
+  const auth   = inject(AuthService);
+  const router = inject(Router);
+  if (auth.isAdminOrManager()) return true;
+  router.navigate(['/dashboard']);
+  return false;
+};

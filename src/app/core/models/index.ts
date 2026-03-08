@@ -3,7 +3,7 @@ export interface LoginRequest  { email: string; password: string; }
 export interface LoginResponse { access_token: string; user: User; }
 
 // ─── User ────────────────────────────────────────────
-export type UserRole = 'admin' | 'user';
+export type UserRole = 'admin' | 'branch_manager' | 'employee';
 export interface User {
   id: string; name: string; email: string; role: UserRole;
   branch: string | null; initials: string; active: boolean; createdAt: string;
@@ -14,6 +14,12 @@ export interface Branch {
   id: string; name: string; city: string; phone: string;
   address: string; hours: string; color: string; cashBalance: number;
   active: boolean; createdAt: string;
+  managerId?: string; managerName?: string; employeeCount?: number;
+  initialBalances?: { currency: string; amount: number }[];
+}
+export interface ExportFilter {
+  statuses?: string[]; dateFrom?: string; dateTo?: string;
+  branch?: string; limit?: number;
 }
 
 // ─── Customer ────────────────────────────────────────

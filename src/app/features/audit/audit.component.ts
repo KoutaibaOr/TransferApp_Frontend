@@ -13,17 +13,17 @@ import { AuditLog } from '../../core/models';
     <div class="page-header">
       <div>
         <h1 class="page-title">{{ t().audit }}</h1>
-        <p class="page-subtitle">{{ total() }} Einträge gesamt</p>
+        <p class="page-subtitle">{{ total() }} {{ t().totalEntries }}</p>
       </div>
     </div>
     <div class="filters-bar">
-      <input class="form-control" type="search" [(ngModel)]="search" placeholder="Suchen..." (input)="load()" />
+      <input class="form-control" type="search" [(ngModel)]="search" [placeholder]="t().search" (input)="load()" />
     </div>
     <div class="card" style="padding:0">
       <div class="table-wrap">
         <table>
           <thead>
-            <tr><th>Benutzer</th><th>Aktion</th><th>Entität</th><th>ID</th><th>IP</th><th>Datum</th></tr>
+            <tr><th>{{ t().user }}</th><th>{{ t().action }}</th><th>{{ t().entity }}</th><th>ID</th><th>IP</th><th>{{ t().date }}</th></tr>
           </thead>
           <tbody>
             @for (a of logs(); track a.id) {
@@ -36,7 +36,7 @@ import { AuditLog } from '../../core/models';
                 <td class="text-muted">{{ a.createdAt | date:'dd.MM.yy HH:mm' }}</td>
               </tr>
             } @empty {
-              <tr><td colspan="6"><div class="empty-state"><div class="empty-icon">📋</div><h3>Keine Einträge</h3></div></td></tr>
+              <tr><td colspan="6"><div class="empty-state"><div class="empty-icon">📋</div><h3>{{ t().noEntries }}</h3></div></td></tr>
             }
           </tbody>
         </table>

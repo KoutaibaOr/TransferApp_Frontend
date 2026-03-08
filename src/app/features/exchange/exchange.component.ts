@@ -16,7 +16,7 @@ import { ExchangeRate, BranchCashBalance, CashExchange, ExchangePreview, Exchang
     <div class="page-header">
       <div>
         <h1 class="page-title">{{ t().exchange }}</h1>
-        <p class="page-subtitle">Wechselkurse & Umtausch-Transaktionen</p>
+        <p class="page-subtitle">{{ t().exchangeRates }} & {{ t().history }}</p>
       </div>
       <button class="btn btn-primary" (click)="showExchange.set(true)">＋ {{ t().newExchange }}</button>
     </div>
@@ -26,21 +26,21 @@ import { ExchangeRate, BranchCashBalance, CashExchange, ExchangePreview, Exchang
       <div class="kpi-card">
         <div class="kpi-icon purple">💱</div>
         <div>
-          <div class="kpi-label">Heute Transaktionen</div>
+          <div class="kpi-label">{{ t().todayTransactions }}</div>
           <div class="kpi-value">{{ stats()?.todayTransactions ?? '—' }}</div>
         </div>
       </div>
       <div class="kpi-card">
         <div class="kpi-icon green">💶</div>
         <div>
-          <div class="kpi-label">Heute Profit</div>
+          <div class="kpi-label">{{ t().todayProfit }}</div>
           <div class="kpi-value">€ {{ fmt(stats()?.todayProfit) }}</div>
         </div>
       </div>
       <div class="kpi-card">
         <div class="kpi-icon blue">📊</div>
         <div>
-          <div class="kpi-label">Gesamt Volumen</div>
+          <div class="kpi-label">{{ t().totalVolume }}</div>
           <div class="kpi-value">€ {{ fmt(stats()?.totalVolume) }}</div>
         </div>
       </div>
@@ -48,25 +48,25 @@ import { ExchangeRate, BranchCashBalance, CashExchange, ExchangePreview, Exchang
 
     <!-- Tabs -->
     <div class="tabs">
-      <button class="tab-btn" [class.active]="tab()==='rates'"    (click)="tab.set('rates')">Wechselkurse</button>
-      <button class="tab-btn" [class.active]="tab()==='balances'" (click)="tab.set('balances')">Kassenbestände</button>
-      <button class="tab-btn" [class.active]="tab()==='history'"  (click)="tab.set('history')">Verlauf</button>
+      <button class="tab-btn" [class.active]="tab()==='rates'"    (click)="tab.set('rates')">{{ t().exchangeRates }}</button>
+      <button class="tab-btn" [class.active]="tab()==='balances'" (click)="tab.set('balances')">{{ t().cashBalances }}</button>
+      <button class="tab-btn" [class.active]="tab()==='history'"  (click)="tab.set('history')">{{ t().history }}</button>
     </div>
 
     <!-- Rates Tab -->
     @if (tab()==='rates') {
       <div class="card" style="padding:0">
         <div class="card-header" style="padding:1.25rem 1.5rem">
-          <span class="card-title">Aktive Wechselkurse</span>
+          <span class="card-title">{{ t().activeRates }}</span>
           @if (auth.isAdmin()) {
-            <button class="btn btn-ghost btn-sm" (click)="showNewRate.set(true)">＋ Kurs hinzufügen</button>
+            <button class="btn btn-ghost btn-sm" (click)="showNewRate.set(true)">＋ {{ t().addRate }}</button>
           }
         </div>
         <div class="table-wrap">
           <table>
             <thead>
-              <tr><th>Von</th><th>Nach</th><th>Kurs</th><th>Marge %</th><th>Gesetzt von</th><th>Status</th>
-              @if (auth.isAdmin()) { <th>Aktionen</th> }
+              <tr><th>{{ t().from }}</th><th>{{ t().to }}</th><th>{{ t().rate }}</th><th>{{ t().margin }} %</th><th>{{ t().setBy }}</th><th>{{ t().status }}</th>
+              @if (auth.isAdmin()) { <th>{{ t().actions }}</th> }
               </tr>
             </thead>
             <tbody>
@@ -77,15 +77,15 @@ import { ExchangeRate, BranchCashBalance, CashExchange, ExchangePreview, Exchang
                   <td class="fw-600">{{ r.rate | number:'1.4-4' }}</td>
                   <td>{{ r.marginPercent }}%</td>
                   <td class="text-muted">{{ r.setBy }}</td>
-                  <td><span class="badge" [class]="r.active ? 'badge-completed' : 'badge-cancelled'">{{ r.active ? 'Aktiv' : 'Inaktiv' }}</span></td>
+                  <td><span class="badge" [class]="r.active ? 'badge-completed' : 'badge-cancelled'">{{ r.active ? t().active : t().inactive }}</span></td>
                   @if (auth.isAdmin()) {
                     <td>
-                      <button class="btn btn-danger btn-sm" (click)="deleteRate(r.id)">Löschen</button>
+                      <button class="btn btn-danger btn-sm" (click)="deleteRate(r.id)">{{ t().delete }}</button>
                     </td>
                   }
                 </tr>
               } @empty {
-                <tr><td colspan="7"><div class="empty-state"><div class="empty-icon">💱</div><h3>Keine Kurse</h3></div></td></tr>
+                <tr><td colspan="7"><div class="empty-state"><div class="empty-icon">💱</div><h3>{{ t().noRates }}</h3></div></td></tr>
               }
             </tbody>
           </table>
@@ -120,7 +120,7 @@ import { ExchangeRate, BranchCashBalance, CashExchange, ExchangePreview, Exchang
         <div class="table-wrap">
           <table>
             <thead>
-              <tr><th>Ref</th><th>Von</th><th>Nach</th><th>Kundenbetrag</th><th>Kurs</th><th>Profit</th><th>Filiale</th><th>Datum</th></tr>
+              <tr><th>Ref</th><th>{{ t().from }}</th><th>{{ t().to }}</th><th>{{ t().customerAmount }}</th><th>{{ t().rate }}</th><th>{{ t().profit }}</th><th>{{ t().branch }}</th><th>{{ t().employee }}</th><th>{{ t().date }}</th></tr>
             </thead>
             <tbody>
               @for (e of exchanges(); track e.id) {
@@ -132,10 +132,11 @@ import { ExchangeRate, BranchCashBalance, CashExchange, ExchangePreview, Exchang
                   <td class="text-muted">{{ e.exchangeRate | number:'1.4-4' }}</td>
                   <td class="text-ok fw-600">€ {{ e.profit | number:'1.2-2' }}</td>
                   <td>{{ e.branch }}</td>
+                  <td class="text-muted" style="font-size:.8rem">{{ e.employee }}</td>
                   <td class="text-muted">{{ e.createdAt | date:'dd.MM.yy HH:mm' }}</td>
                 </tr>
               } @empty {
-                <tr><td colspan="8"><div class="empty-state"><div class="empty-icon">📋</div><h3>Keine Umtausch-Transaktionen</h3></div></td></tr>
+                <tr><td colspan="8"><div class="empty-state"><div class="empty-icon">📋</div><h3>{{ t().noExchanges }}</h3></div></td></tr>
               }
             </tbody>
           </table>
@@ -148,7 +149,7 @@ import { ExchangeRate, BranchCashBalance, CashExchange, ExchangePreview, Exchang
       <div class="modal-backdrop" (click)="showExchange.set(false)">
         <div class="modal modal-lg" (click)="$event.stopPropagation()">
           <div class="modal-header">
-            <span class="modal-title">Neuer Umtausch</span>
+            <span class="modal-title">{{ t().newExchangeModal }}</span>
             <button class="btn btn-icon" (click)="showExchange.set(false)">✕</button>
           </div>
           <div class="modal-body">
@@ -192,7 +193,7 @@ import { ExchangeRate, BranchCashBalance, CashExchange, ExchangePreview, Exchang
                   <span>{{ preview()!.grossAmount | number:'1.2-2' }} {{ exDto.toCurrency }}</span>
                 </div>
                 <div class="preview-row">
-                  <span>Marge ({{ preview()!.marginPercent }}%)</span>
+                  <span>{{ t().margin }} ({{ preview()!.marginPercent }}%)</span>
                   <span class="text-warn">− {{ preview()!.fee | number:'1.2-2' }}</span>
                 </div>
                 <div class="preview-row highlight">
@@ -207,14 +208,14 @@ import { ExchangeRate, BranchCashBalance, CashExchange, ExchangePreview, Exchang
             }
 
             <div class="form-group">
-              <label class="form-label">Kundenname (optional)</label>
+              <label class="form-label">{{ t().customerName }}</label>
               <input class="form-control" [(ngModel)]="exDto.customerName" />
             </div>
           </div>
           <div class="modal-footer">
-            <button class="btn btn-ghost" (click)="showExchange.set(false)">Abbrechen</button>
+            <button class="btn btn-ghost" (click)="showExchange.set(false)">{{ t().cancel }}</button>
             <button class="btn btn-primary" (click)="executeExchange()" [disabled]="!preview()">
-              ✓ Umtausch bestätigen
+              ✓ {{ t().confirmExchange }}
             </button>
           </div>
         </div>
@@ -226,32 +227,32 @@ import { ExchangeRate, BranchCashBalance, CashExchange, ExchangePreview, Exchang
       <div class="modal-backdrop" (click)="showNewRate.set(false)">
         <div class="modal" (click)="$event.stopPropagation()">
           <div class="modal-header">
-            <span class="modal-title">Neuer Wechselkurs</span>
+            <span class="modal-title">{{ t().newRateModal }}</span>
             <button class="btn btn-icon" (click)="showNewRate.set(false)">✕</button>
           </div>
           <div class="modal-body">
             <div class="form-grid">
               <div class="form-group">
-                <label class="form-label">Von Währung</label>
+                <label class="form-label">{{ t().fromCurrency }}</label>
                 <input class="form-control" [(ngModel)]="rateDto.fromCurrency" placeholder="EUR" />
               </div>
               <div class="form-group">
-                <label class="form-label">Nach Währung</label>
+                <label class="form-label">{{ t().toCurrency }}</label>
                 <input class="form-control" [(ngModel)]="rateDto.toCurrency" placeholder="MAD" />
               </div>
               <div class="form-group">
-                <label class="form-label">Kurs</label>
+                <label class="form-label">{{ t().rate }}</label>
                 <input class="form-control" type="number" step="0.0001" [(ngModel)]="rateDto.rate" />
               </div>
               <div class="form-group">
-                <label class="form-label">Marge %</label>
+                <label class="form-label">{{ t().margin }} %</label>
                 <input class="form-control" type="number" step="0.1" [(ngModel)]="rateDto.marginPercent" />
               </div>
             </div>
           </div>
           <div class="modal-footer">
-            <button class="btn btn-ghost" (click)="showNewRate.set(false)">Abbrechen</button>
-            <button class="btn btn-primary" (click)="createRate()">Kurs anlegen</button>
+            <button class="btn btn-ghost" (click)="showNewRate.set(false)">{{ t().cancel }}</button>
+            <button class="btn btn-primary" (click)="createRate()">{{ t().addRate }}</button>
           </div>
         </div>
       </div>
@@ -297,8 +298,19 @@ export class ExchangeComponent implements OnInit {
   ngOnInit() {
     this.svc.getRates().subscribe(r => this.rates.set(r));
     this.svc.getActiveRates().subscribe(r => this.activeRates.set(r));
-    this.svc.getBalances().subscribe(b => this.balances.set(b));
-    this.svc.getExchanges().subscribe(r => this.exchanges.set(r.data));
+    this.svc.getBalances().subscribe(b => {
+      // Branch managers see only their branch balances
+      const userBranch = this.auth.user()?.branch;
+      if (this.auth.isManager() && userBranch) {
+        this.balances.set(b.filter((x: any) => x.branch === userBranch));
+      } else {
+        this.balances.set(b);
+      }
+    });
+    const exchangeParams = this.auth.isManager() && this.auth.user()?.branch
+      ? { branch: this.auth.user()!.branch }
+      : {};
+    this.svc.getExchanges(exchangeParams).subscribe(r => this.exchanges.set(r.data));
     this.svc.getStats().subscribe(s => this.stats.set(s));
   }
 
@@ -311,33 +323,33 @@ export class ExchangeComponent implements OnInit {
   executeExchange() {
     this.svc.execute({ ...this.exDto, branch: this.auth.user()?.branch ?? 'Berlin-Mitte' }).subscribe({
       next: () => {
-        this.toast.success('Umtausch erfolgreich!');
+        this.toast.success(this.i18n.t().exchangeSuccess);
         this.showExchange.set(false);
         this.preview.set(null);
         this.exDto = { fromCurrency: 'EUR', toCurrency: 'MAD', fromAmount: 0, customerName: '' };
         this.svc.getExchanges().subscribe(r => this.exchanges.set(r.data));
         this.svc.getStats().subscribe(s => this.stats.set(s));
       },
-      error: () => this.toast.error('Fehler beim Umtausch'),
+      error: () => this.toast.error(this.i18n.t().statusUpdateError),
     });
   }
 
   deleteRate(id: string) {
-    if (!confirm('Kurs wirklich löschen?')) return;
+    if (!confirm(this.i18n.t().confirmDeleteRate)) return;
     this.svc.deleteRate(id).subscribe({
-      next: () => { this.toast.success('Kurs gelöscht'); this.svc.getRates().subscribe(r => this.rates.set(r)); },
-      error: () => this.toast.error('Fehler beim Löschen'),
+      next: () => { this.toast.success(this.i18n.t().rateDeleted); this.svc.getRates().subscribe(r => this.rates.set(r)); },
+      error: () => this.toast.error(this.i18n.t().statusUpdateError),
     });
   }
 
   createRate() {
     this.svc.createRate(this.rateDto as any).subscribe({
       next: () => {
-        this.toast.success('Kurs angelegt');
+        this.toast.success(this.i18n.t().rateCreated);
         this.showNewRate.set(false);
         this.svc.getRates().subscribe(r => this.rates.set(r));
       },
-      error: () => this.toast.error('Fehler beim Anlegen'),
+      error: () => this.toast.error(this.i18n.t().creationError),
     });
   }
 

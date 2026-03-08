@@ -5,7 +5,7 @@ import {
   Transfer, TransferStats, Customer, Branch,
   CashJournalEntry, ExchangeRate, BranchCashBalance,
   CashExchange, ExchangePreview, ExchangeStats,
-  FeeRule, Currency, AuditLog, User, PagedResult,
+  FeeRule, Currency, AuditLog, User, PagedResult, ExportFilter,
 } from '../models';
 
 const BASE = environment.apiUrl;
@@ -20,10 +20,18 @@ export class TransferService {
   getStats()                  { return this.http.get<TransferStats>(`${BASE}/transfers/stats`); }
   create(dto: Partial<Transfer>) { return this.http.post<Transfer>(`${BASE}/transfers`, dto); }
   updateStatus(id: string, status: string) {
-    return this.http.patch<Transfer>(`\${BASE}/transfers/\${id}/status`, { status });
+    return this.http.patch<Transfer>(`${BASE}/transfers/${id}/status`, { status });
   }
   cancel(id: string) {
-    return this.http.patch<Transfer>(`\${BASE}/transfers/\${id}/cancel`, {});
+    return this.http.patch<Transfer>(`${BASE}/transfers/${id}/cancel`, {});
+  }
+  exportFiltered(f: ExportFilter) {
+    const p: any = { limit: f.limit ?? 9999 };
+    if (f.statuses?.length)  p['statuses'] = f.statuses.join(',');
+    if (f.dateFrom)          p['dateFrom']  = f.dateFrom;
+    if (f.dateTo)            p['dateTo']    = f.dateTo;
+    if (f.branch)            p['branch']    = f.branch;
+    return this.http.get<PagedResult<Transfer>>(`${BASE}/transfers`, { params: new HttpParams({ fromObject: p }) });
   }
 }
 
@@ -43,10 +51,12 @@ export class CustomerService {
 export class BranchService {
   constructor(private http: HttpClient) {}
   getAll()                       { return this.http.get<Branch[]>(`${BASE}/branches`); }
+  getOne(id: string)             { return this.http.get<Branch>(`${BASE}/branches/${id}`); }
   getCashSummary()               { return this.http.get<any>(`${BASE}/branches/cash-summary`); }
   create(dto: Partial<Branch>)   { return this.http.post<Branch>(`${BASE}/branches`, dto); }
   update(id: string, dto: Partial<Branch>) { return this.http.patch<Branch>(`${BASE}/branches/${id}`, dto); }
   deactivate(id: string)         { return this.http.patch<Branch>(`${BASE}/branches/${id}/deactivate`, {}); }
+  delete(id: string)             { return this.http.delete(`${BASE}/branches/${id}`); }
 }
 
 @Injectable({ providedIn: 'root' })
@@ -99,6 +109,7 @@ export class SettingsService {
     return this.http.patch(`${BASE}/users/${id}/reset-password`, { newPassword });
   }
   deactivateUser(id: string)          { return this.http.patch(`${BASE}/users/${id}/deactivate`, {}); }
+  deleteUser(id: string)              { return this.http.delete(`${BASE}/users/${id}`); }
 }
 
 @Injectable({ providedIn: 'root' })

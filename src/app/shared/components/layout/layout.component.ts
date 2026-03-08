@@ -26,7 +26,7 @@ interface NavItem {
         <!-- Logo -->
         <div class="sidebar-logo">
           <span class="logo-text">Geld<span class="logo-accent">Transfer</span></span>
-          <span class="logo-badge">{{ auth.isAdmin() ? 'Admin' : 'User' }}</span>
+          <span class="logo-badge">{{ roleBadge() }}</span>
         </div>
 
         <!-- User Card -->
@@ -57,13 +57,14 @@ interface NavItem {
           <a class="nav-item" routerLink="/cash" routerLinkActive="active" (click)="closeSidebar()">
             🏦 <span>{{ t().cash }}</span>
           </a>
-          <a class="nav-item" routerLink="/exchange" routerLinkActive="active" (click)="closeSidebar()">
-            💱 <span>{{ t().exchange }}</span>
-            <span class="nav-badge">NEU</span>
-          </a>
-          <a class="nav-item" routerLink="/reports" routerLinkActive="active" (click)="closeSidebar()">
-            📊 <span>{{ t().reports }}</span>
-          </a>
+          @if (auth.isAdminOrManager()) {
+            <a class="nav-item" routerLink="/exchange" routerLinkActive="active" (click)="closeSidebar()">
+              💱 <span>{{ t().exchange }}</span>
+            </a>
+            <a class="nav-item" routerLink="/reports" routerLinkActive="active" (click)="closeSidebar()">
+              📊 <span>{{ t().reports }}</span>
+            </a>
+          }
 
           @if (auth.isAdmin()) {
             <div class="nav-section">ADMINISTRATION</div>
@@ -111,6 +112,13 @@ interface NavItem {
 })
 export class LayoutComponent {
   sidebarOpen = signal(false);
+
+  readonly roleBadge = computed(() => {
+    const role = this.auth.user()?.role;
+    if (role === 'admin')          return 'Admin';
+    if (role === 'branch_manager') return 'Manager';
+    return 'Employee';
+  });
 
   constructor(
     public auth: AuthService,

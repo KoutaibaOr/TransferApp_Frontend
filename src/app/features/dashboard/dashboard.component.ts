@@ -15,53 +15,53 @@ import { Transfer, TransferStats, Branch } from '../../core/models';
     <div class="page-header">
       <div>
         <h1 class="page-title">{{ t().dashboard }}</h1>
-        <p class="page-subtitle">Willkommen zurück, {{ auth.user()?.name }}</p>
+        <p class="page-subtitle">{{ t().welcome }}, {{ auth.user()?.name }}</p>
       </div>
     </div>
     <div class="kpi-grid">
       <div class="kpi-card">
         <div class="kpi-icon blue">💳</div>
         <div>
-          <div class="kpi-label">Gesamt Transfers</div>
-          <div class="kpi-value">{{ stats()?.totalCount ?? '—' }}</div>
-          <div class="kpi-sub">{{ stats()?.todayCount ?? 0 }} heute</div>
+          <div class=\"kpi-label\">{{ t().todayTransfers }}</div>
+          <div class=\"kpi-value\">{{ stats()?.totalCount ?? '—' }}</div>
+          <div class=\"kpi-sub\">{{ stats()?.todayCount ?? 0 }} {{ t().today }}</div>
         </div>
       </div>
       <div class="kpi-card">
         <div class="kpi-icon green">💶</div>
         <div>
-          <div class="kpi-label">Einnahmen heute</div>
+          <div class="kpi-label">{{ t().todayRevenue }}</div>
           <div class="kpi-value">€ {{ formatNum(stats()?.todayRevenue) }}</div>
-          <div class="kpi-sub">€ {{ formatNum(stats()?.totalRevenue) }} gesamt</div>
+          <div class="kpi-sub">€ {{ formatNum(stats()?.totalRevenue) }} {{ t().totalRevenue }}</div>
         </div>
       </div>
       <div class="kpi-card">
         <div class="kpi-icon orange">⏳</div>
         <div>
-          <div class="kpi-label">Ausstehend</div>
+          <div class="kpi-label">{{ t().pending }}</div>
           <div class="kpi-value">{{ stats()?.pendingCount ?? '—' }}</div>
-          <div class="kpi-sub">Warten auf Bearbeitung</div>
+          <div class="kpi-sub">{{ t().waitingForProcessing }}</div>
         </div>
       </div>
       <div class="kpi-card">
         <div class="kpi-icon purple">🏦</div>
         <div>
-          <div class="kpi-label">Filialen</div>
+          <div class="kpi-label">{{ t().branches }}</div>
           <div class="kpi-value">{{ branches().length }}</div>
-          <div class="kpi-sub">Aktive Standorte</div>
+          <div class="kpi-sub">{{ t().activeLocations }}</div>
         </div>
       </div>
     </div>
     <div class="dash-grid">
       <div class="card">
         <div class="card-header">
-          <span class="card-title">Letzte Transfers</span>
-          <a routerLink="/transfers" class="btn btn-ghost btn-sm">Alle anzeigen</a>
+          <span class="card-title">{{ t().recentTransfers }}</span>
+          <a routerLink="/transfers" class="btn btn-ghost btn-sm">{{ t().viewAll }}</a>
         </div>
         <div class="table-wrap">
           <table>
             <thead>
-              <tr><th>Ref</th><th>Absender</th><th>Betrag</th><th>Status</th></tr>
+              <tr><th>Ref</th><th>{{ t().sender }}</th><th>{{ t().amount }}</th><th>{{ t().status }}</th></tr>
             </thead>
             <tbody>
               @for (t of recentTransfers(); track t.id) {
@@ -72,7 +72,7 @@ import { Transfer, TransferStats, Branch } from '../../core/models';
                   <td><span class="badge" [class]="'badge-' + t.status.toLowerCase()">{{ t.status }}</span></td>
                 </tr>
               } @empty {
-                <tr><td colspan="4" class="text-muted" style="text-align:center;padding:2rem">Keine Transfers</td></tr>
+                <tr><td colspan="4" class="text-muted" style="text-align:center;padding:2rem">{{ t().noTransfers }}</td></tr>
               }
             </tbody>
           </table>
@@ -80,7 +80,7 @@ import { Transfer, TransferStats, Branch } from '../../core/models';
       </div>
       <div class="card">
         <div class="card-header">
-          <span class="card-title">Filialen</span>
+          <span class="card-title">{{ t().branches }}</span>
           <a routerLink="/cash" class="btn btn-ghost btn-sm">Details</a>
         </div>
         <div class="branch-list">

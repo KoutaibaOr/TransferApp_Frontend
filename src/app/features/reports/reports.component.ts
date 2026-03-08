@@ -16,20 +16,20 @@ import { TransferStats } from '../../core/models';
     <div class="page-header">
       <div>
         <h1 class="page-title">{{ t().reports }}</h1>
-        <p class="page-subtitle">Umsatz- und Gewinnübersicht</p>
+        <p class="page-subtitle">{{ t().revenueOverview }}</p>
       </div>
     </div>
     <div class="kpi-grid">
-      <div class="kpi-card"><div class="kpi-icon blue">💳</div><div><div class="kpi-label">Transfers gesamt</div><div class="kpi-value">{{ stats()?.total ?? '—' }}</div></div></div>
-      <div class="kpi-card"><div class="kpi-icon green">💶</div><div><div class="kpi-label">Gesamtumsatz</div><div class="kpi-value">€ {{ fmt(stats()?.totalAmount) }}</div></div></div>
-      <div class="kpi-card"><div class="kpi-icon orange">📋</div><div><div class="kpi-label">Gebühren gesamt</div><div class="kpi-value">€ {{ fmt(stats()?.totalFee) }}</div></div></div>
-      <div class="kpi-card"><div class="kpi-icon purple">📈</div><div><div class="kpi-label">Gewinn gesamt</div><div class="kpi-value">€ {{ fmt(stats()?.totalProfit) }}</div></div></div>
+      <div class="kpi-card"><div class="kpi-icon blue">💳</div><div><div class="kpi-label">{{ t().totalTransfers }}</div><div class="kpi-value">{{ stats()?.total ?? '—' }}</div></div></div>
+      <div class="kpi-card"><div class="kpi-icon green">💶</div><div><div class="kpi-label">{{ t().totalVolumeStat }}</div><div class="kpi-value">€ {{ fmt(stats()?.totalAmount) }}</div></div></div>
+      <div class="kpi-card"><div class="kpi-icon orange">📋</div><div><div class="kpi-label">{{ t().totalFees }}</div><div class="kpi-value">€ {{ fmt(stats()?.totalFee) }}</div></div></div>
+      <div class="kpi-card"><div class="kpi-icon purple">📈</div><div><div class="kpi-label">{{ t().totalProfit }}</div><div class="kpi-value">€ {{ fmt(stats()?.totalProfit) }}</div></div></div>
     </div>
     <div class="card mt-3">
-      <div class="card-header"><span class="card-title">Heute</span></div>
+      <div class="card-header"><span class="card-title">{{ t().today }}</span></div>
       <div class="kpi-grid">
-        <div class="kpi-card"><div class="kpi-icon blue">💳</div><div><div class="kpi-label">Heute Transfers</div><div class="kpi-value">{{ stats()?.todayCount ?? '—' }}</div></div></div>
-        <div class="kpi-card"><div class="kpi-icon green">💶</div><div><div class="kpi-label">Heute Umsatz</div><div class="kpi-value">€ {{ fmt(stats()?.todayAmount) }}</div></div></div>
+        <div class="kpi-card"><div class="kpi-icon blue">💳</div><div><div class="kpi-label">{{ t().todayTransfers }}</div><div class="kpi-value">{{ stats()?.todayCount ?? '—' }}</div></div></div>
+        <div class="kpi-card"><div class="kpi-icon green">💶</div><div><div class="kpi-label">{{ t().todayRevenue }}</div><div class="kpi-value">€ {{ fmt(stats()?.todayAmount) }}</div></div></div>
       </div>
     </div>
   `,

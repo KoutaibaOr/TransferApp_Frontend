@@ -13,18 +13,25 @@ export class AuthService {
   private _user   = signal<User | null>(this.loadUser());
   private _token  = signal<string | null>(localStorage.getItem(TOKEN_KEY));
 
-  readonly user       = this._user.asReadonly();
-  readonly token      = this._token.asReadonly();
-  readonly isLoggedIn = computed(() => !!this._token());
-  readonly isAdmin    = computed(() => this._user()?.role === 'admin');
+  readonly user           = this._user.asReadonly();
+  readonly token          = this._token.asReadonly();
+  readonly isLoggedIn     = computed(() => !!this._token());
+  readonly isAdmin        = computed(() => this._user()?.role === 'admin');
+  readonly isManager      = computed(() => this._user()?.role === 'branch_manager');
+  readonly isEmployee     = computed(() => this._user()?.role === 'employee');
+  readonly isAdminOrManager = computed(() =>
+    this._user()?.role === 'admin' || this._user()?.role === 'branch_manager'
+  );
 
   constructor(private http: HttpClient, private router: Router) {}
 
   login(req: LoginRequest) {
+    console.log('🔐 LOGIN REQUEST:', req); // DEBUG
     return this.http
       .post<LoginResponse>(`${environment.apiUrl}/auth/login`, req)
       .pipe(
         tap(res => {
+          console.log('✅ LOGIN SUCCESS:', res); // DEBUG
           localStorage.setItem(TOKEN_KEY, res.access_token);
           localStorage.setItem(USER_KEY,  JSON.stringify(res.user));
           this._token.set(res.access_token);

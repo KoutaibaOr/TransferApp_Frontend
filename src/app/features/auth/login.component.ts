@@ -78,7 +78,12 @@ export class LoginComponent {
 
     this.auth.login({ email: this.email, password: this.password }).subscribe({
       next: () => { this.toast.success(this.i18n.t().welcome); this.router.navigate(['/dashboard']); },
-      error: () => { this.error.set(this.i18n.t().invalidCredentials); this.loading.set(false); },
+      error: (err) => { 
+        console.error('❌ LOGIN ERROR:', err); // DEBUG
+        console.error('Status:', err.status, 'Message:', err.error?.message || err.message); // DEBUG
+        this.error.set(this.i18n.t().invalidCredentials); 
+        this.loading.set(false); 
+      },
     });
   }
 }

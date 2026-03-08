@@ -26,7 +26,7 @@ import { CashJournalEntry, Branch } from '../../core/models';
     <div class="page-header">
       <div>
         <h1 class="page-title">{{ t().cash }}</h1>
-        <p class="page-subtitle">Kassenbuch & Filialübersicht</p>
+        <p class="page-subtitle">{{ t().cashbookOverview }}</p>
       </div>
     </div>
 
@@ -47,13 +47,13 @@ import { CashJournalEntry, Branch } from '../../core/models';
         <div>
           <div class="kpi-label">{{ t().balance }}</div>
           <div class="kpi-value">€ {{ balance() | number:'1.0-0' }}</div>
-          <div class="kpi-sub">{{ selectedBranch || auth.user()?.branch || 'Alle Filialen' }}</div>
+          <div class="kpi-sub">{{ selectedBranch || auth.user()?.branch || t().allBranches }}</div>
         </div>
       </div>
       <div class="kpi-card">
         <div class="kpi-icon blue">🏦</div>
         <div>
-          <div class="kpi-label">Filialen aktiv</div>
+          <div class="kpi-label">{{ t().activeBranches }}</div>
           <div class="kpi-value">{{ branches().length }}</div>
         </div>
       </div>
@@ -61,7 +61,7 @@ import { CashJournalEntry, Branch } from '../../core/models';
 
     <div class="cash-grid">
       <div class="card">
-        <div class="card-header"><span class="card-title">Kassenbewegungen</span></div>
+        <div class="card-header"><span class="card-title">{{ t().cashMovements }}</span></div>
         <div class="action-btns">
           <button class="btn btn-success" (click)="showDeposit.set(true)">＋ {{ t().deposit }}</button>
           <button class="btn btn-danger"  (click)="showWithdraw.set(true)">− {{ t().withdraw }}</button>
@@ -76,13 +76,13 @@ import { CashJournalEntry, Branch } from '../../core/models';
               <span class="text-muted" style="font-size:.75rem">{{ e.createdAt | date:'dd.MM HH:mm' }}</span>
             </div>
           } @empty {
-            <p class="text-muted" style="text-align:center;padding:1rem">Keine Einträge</p>
+            <p class="text-muted" style="text-align:center;padding:1rem">{{ t().noEntries }}</p>
           }
         </div>
       </div>
 
       <div class="card">
-        <div class="card-header"><span class="card-title">Filialen</span></div>
+        <div class="card-header"><span class="card-title">{{ t().branches }}</span></div>
         @for (b of branches(); track b.id) {
           <div class="journal-entry">
             <!-- FIX 3: [style.background] statt {{b.color}} in style="" -->
@@ -100,14 +100,14 @@ import { CashJournalEntry, Branch } from '../../core/models';
     @if (showDeposit()) {
       <div class="modal-backdrop" (click)="showDeposit.set(false)">
         <div class="modal" (click)="$event.stopPropagation()">
-          <div class="modal-header"><span class="modal-title">Einzahlung</span><button class="btn btn-icon" (click)="showDeposit.set(false)">✕</button></div>
+          <div class="modal-header"><span class="modal-title">{{ t().deposit }}</span><button class="btn btn-icon" (click)="showDeposit.set(false)">✕</button></div>
           <div class="modal-body">
-            <div class="form-group"><label class="form-label">Betrag (€)</label><input class="form-control" type="number" [(ngModel)]="amount" min="0" /></div>
-            <div class="form-group"><label class="form-label">Notiz</label><input class="form-control" [(ngModel)]="note" /></div>
+            <div class="form-group"><label class="form-label">{{ t().amount }} (€)</label><input class="form-control" type="number" [(ngModel)]="amount" min="0" /></div>
+            <div class="form-group"><label class="form-label">{{ t().note }}</label><input class="form-control" [(ngModel)]="note" /></div>
           </div>
           <div class="modal-footer">
-            <button class="btn btn-ghost" (click)="showDeposit.set(false)">Abbrechen</button>
-            <button class="btn btn-success" (click)="doDeposit()">Einzahlen</button>
+            <button class="btn btn-ghost" (click)="showDeposit.set(false)">{{ t().cancel }}</button>
+            <button class="btn btn-success" (click)="doDeposit()">{{ t().deposit }}</button>
           </div>
         </div>
       </div>
@@ -115,14 +115,14 @@ import { CashJournalEntry, Branch } from '../../core/models';
     @if (showWithdraw()) {
       <div class="modal-backdrop" (click)="showWithdraw.set(false)">
         <div class="modal" (click)="$event.stopPropagation()">
-          <div class="modal-header"><span class="modal-title">Auszahlung</span><button class="btn btn-icon" (click)="showWithdraw.set(false)">✕</button></div>
+          <div class="modal-header"><span class="modal-title">{{ t().withdraw }}</span><button class="btn btn-icon" (click)="showWithdraw.set(false)">✕</button></div>
           <div class="modal-body">
-            <div class="form-group"><label class="form-label">Betrag (€)</label><input class="form-control" type="number" [(ngModel)]="amount" min="0" /></div>
-            <div class="form-group"><label class="form-label">Notiz</label><input class="form-control" [(ngModel)]="note" /></div>
+            <div class="form-group"><label class="form-label">{{ t().amount }} (€)</label><input class="form-control" type="number" [(ngModel)]="amount" min="0" /></div>
+            <div class="form-group"><label class="form-label">{{ t().note }}</label><input class="form-control" [(ngModel)]="note" /></div>
           </div>
           <div class="modal-footer">
-            <button class="btn btn-ghost" (click)="showWithdraw.set(false)">Abbrechen</button>
-            <button class="btn btn-danger" (click)="doWithdraw()">Auszahlen</button>
+            <button class="btn btn-ghost" (click)="showWithdraw.set(false)">{{ t().cancel }}</button>
+            <button class="btn btn-danger" (click)="doWithdraw()">{{ t().withdraw }}</button>
           </div>
         </div>
       </div>
@@ -169,21 +169,21 @@ export class CashComponent implements OnInit {
 
   doDeposit() {
     const branch = this.getBranch();
-    if (!branch) { this.toast.error('Bitte Filiale auswählen'); return; }
-    if (this.amount <= 0) { this.toast.error('Betrag muss positiv sein'); return; }
+    if (!branch) { this.toast.error(this.i18n.t().allBranches); return; }
+    if (this.amount <= 0) { this.toast.error(this.i18n.t().mustBePositive); return; }
     this.svc.deposit({ amount: this.amount, note: this.note, branch }).subscribe({
-      next: () => { this.toast.success('Einzahlung erfolgreich'); this.showDeposit.set(false); this.reload(); },
-      error: (e) => this.toast.error(e.error?.message || 'Fehler'),
+      next: () => { this.toast.success(this.i18n.t().deposit); this.showDeposit.set(false); this.reload(); },
+      error: (e) => this.toast.error(e.error?.message || this.i18n.t().statusUpdateError),
     });
   }
 
   doWithdraw() {
     const branch = this.getBranch();
-    if (!branch) { this.toast.error('Bitte Filiale auswählen'); return; }
-    if (this.amount <= 0) { this.toast.error('Betrag muss positiv sein'); return; }
+    if (!branch) { this.toast.error(this.i18n.t().allBranches); return; }
+    if (this.amount <= 0) { this.toast.error(this.i18n.t().mustBePositive); return; }
     this.svc.withdraw({ amount: this.amount, note: this.note, branch }).subscribe({
-      next: () => { this.toast.success('Auszahlung erfolgreich'); this.showWithdraw.set(false); this.reload(); },
-      error: (e) => this.toast.error(e.error?.message || 'Fehler'),
+      next: () => { this.toast.success(this.i18n.t().withdraw); this.showWithdraw.set(false); this.reload(); },
+      error: (e) => this.toast.error(e.error?.message || this.i18n.t().statusUpdateError),
     });
   }
 
