@@ -41,12 +41,6 @@ import { I18nService } from '../../core/services/i18n.service';
           </button>
         </div>
 
-        <!-- Demo hint -->
-        <div class="demo-hint">
-          <p>{{ i18n.t().demoAdmin }}</p>
-          <p>{{ i18n.t().demoUser }}</p>
-        </div>
-
         <!-- Lang -->
         <div class="lang-row">
           <button [class.active]="i18n.lang()==='en'" (click)="i18n.setLang('en')">EN</button>
