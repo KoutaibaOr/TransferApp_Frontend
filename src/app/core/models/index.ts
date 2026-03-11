@@ -3,19 +3,42 @@ export interface LoginRequest  { email: string; password: string; }
 export interface LoginResponse { access_token: string; user: User; }
 
 // ─── User ────────────────────────────────────────────
-export type UserRole = 'admin' | 'branch_manager' | 'employee';
+export type UserRole = 'admin' | 'branch_manager' | 'employee' | 'accountant';
 export interface User {
   id: string; name: string; email: string; role: UserRole;
   branch: string | null; initials: string; active: boolean; createdAt: string;
+  canBook?: boolean;
 }
 
 // ─── Branch ──────────────────────────────────────────
+export interface BranchCurrencyBalance {
+  currency: string; amount: number;
+}
 export interface Branch {
   id: string; name: string; city: string; phone: string;
   address: string; hours: string; color: string; cashBalance: number;
   active: boolean; createdAt: string;
   managerId?: string; managerName?: string; employeeCount?: number;
-  initialBalances?: { currency: string; amount: number }[];
+  balances?: BranchCurrencyBalance[];
+}
+
+// ─── Bank Deposit ─────────────────────────────────────
+export interface BankDepositEntry {
+  currency: string; amount: number;
+}
+export interface BankDeposit {
+  id: string; branch: string; entries: BankDepositEntry[];
+  note: string; createdBy: string; createdAt: string;
+}
+
+// ─── Day Close ───────────────────────────────────────
+export interface DayCloseEntry {
+  currency: string; expected: number; counted: number; diff: number;
+}
+export interface DayClose {
+  id: string; branch: string; date: string;
+  entries: DayCloseEntry[]; note: string; createdBy: string; createdAt: string;
+  status: 'open' | 'closed';
 }
 export interface ExportFilter {
   statuses?: string[]; dateFrom?: string; dateTo?: string;
@@ -42,12 +65,17 @@ export interface Transfer {
 
 // FIX 1: TransferStats an Backend-Antwort angepasst
 export interface TransferStats {
-  totalCount:   number;   // Backend: totalCount
-  todayCount:   number;   // Backend: todayCount
-  pendingCount: number;   // Backend: pendingCount
-  totalRevenue: number;   // Backend: totalRevenue (= Summe Gebühren)
-  todayRevenue: number;   // Backend: todayRevenue
-  // Kompatibilitäts-Aliase für Templates
+  totalCount:   number;
+  todayCount:   number;
+  pendingCount: number;
+  totalRevenue: number;
+  todayRevenue: number;
+  profitToday?:    number;
+  profitMonth?:    number;
+  profitTotal?:    number;
+  transferProfit?: number;
+  exchangeProfit?: number;
+  // Aliase
   total?:       number;
   pending?:     number;
   totalAmount?: number;
@@ -57,10 +85,11 @@ export interface TransferStats {
 }
 
 // ─── Cash ────────────────────────────────────────────
-export type CashEntryType = 'CASH_IN' | 'CASH_OUT' | 'TRANSFER_PAYOUT' | 'DAY_CLOSE';
+export type CashEntryType = 'CASH_IN' | 'CASH_OUT' | 'TRANSFER_PAYOUT' | 'EXCHANGE' | 'BANK_DEPOSIT' | 'DAY_CLOSE' | 'PROFIT';
 export interface CashJournalEntry {
-  id: string; type: CashEntryType; amount: number; balanceAfter: number;
-  branch: string; reference: string; employee: string; note: string; createdAt: string;
+  id: string; type: CashEntryType; amount: number; currency: string;
+  balanceAfter: number; branch: string; reference: string;
+  employee: string; note: string; createdAt: string;
 }
 
 // ─── Currency Exchange ───────────────────────────────

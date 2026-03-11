@@ -72,9 +72,21 @@ export class CashService {
   getJournal(p: any = {}) {
     return this.http.get<PagedResult<CashJournalEntry>>(`${BASE}/cash/journal`, { params: new HttpParams({ fromObject: p }) });
   }
-  deposit(dto: any)  { return this.http.post<CashJournalEntry>(`${BASE}/cash/deposit`, dto); }
-  withdraw(dto: any) { return this.http.post<CashJournalEntry>(`${BASE}/cash/withdraw`, dto); }
-  dayClose(dto: any) { return this.http.post<any>(`${BASE}/cash/day-close`, dto); }
+  getMultiBalances(branch?: string) {
+    let params = new HttpParams();
+    if (branch) params = params.set('branch', branch);
+    return this.http.get<{ currency: string; balance: number }[]>(`${BASE}/cash/balances`, { params });
+  }
+  deposit(dto: any)     { return this.http.post<CashJournalEntry>(`${BASE}/cash/deposit`, dto); }
+  withdraw(dto: any)    { return this.http.post<CashJournalEntry>(`${BASE}/cash/withdraw`, dto); }
+  bankDeposit(dto: any) { return this.http.post<any>(`${BASE}/bank-deposits`, dto); }
+  getDayCloses(branch?: string) {
+    let params = new HttpParams();
+    if (branch) params = params.set('branch', branch);
+    return this.http.get<any[]>(`${BASE}/day-closes`, { params });
+  }
+  dayClose(dto: any) { return this.http.post<any>(`${BASE}/day-closes`, dto); }
+  getProfits() { return this.http.get<any[]>(`${BASE}/cash/profits`); }
 }
 
 @Injectable({ providedIn: 'root' })

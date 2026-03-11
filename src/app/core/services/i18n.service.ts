@@ -105,7 +105,29 @@ const EN = {
   confirmDeleteBranch: 'Really delete this branch?',
   endOfDayBalance: 'End-of-Day Balance', manager: 'Manager',
   employeeCount: 'Employees', noneAssigned: '—',
+  // Accountant
+  roleAccountant: 'Accountant', canBook: 'Can Book Transactions',
+  canBookHint: 'User can create deposits and day-close entries',
+  // Bank Deposit
+  bankDeposit: 'Bank Deposit', newBankDeposit: 'New Bank Deposit',
+  bankDepositCreated: 'Bank deposit booked', bankDepositNote: 'Reference / Note',
+  addCurrency: 'Add Currency', removeCurrency: 'Remove',
+  // Day Close
+  dayCloseTitle: 'Day Close', openDayClose: 'Open Day Close',
+  dayCloseDate: 'Date', expected: 'Expected', counted: 'Counted', diff: 'Difference',
+  dayCloseConfirm: 'Confirm Day Close', dayCloseDone: 'Day close saved',
+  dayCloseOpen: 'Open', dayCloseClosed: 'Closed', noDayCloses: 'No day closes yet',
+  dayCloseHistory: 'Day Close History',
+  // Cash multi-currency
+  cashPerCurrency: 'Cash per Currency', totalCash: 'Total Cash (EUR)',
+  profitToday: 'Profit Today', profitMonth: 'Profit This Month',
+  profitTotal: 'Total Profit',
+  transferProfit: 'Transfer Fees', exchangeProfit: 'Exchange Margin',
+  profitByBranch: 'Profit by Branch', physicalCount: 'Physical Count',
+  systemExpected: 'System Expected', readOnly: 'Read only', countFirst: 'Enter physically counted amount first',
+  branchProfit: 'Branch Profits', noProfit: 'No profit entries yet',
 };
+
 
 
 const AR: typeof EN = {
@@ -208,7 +230,29 @@ const AR: typeof EN = {
   confirmDeleteBranch: 'هل تريد حذف هذا الفرع؟',
   endOfDayBalance: 'رصيد نهاية اليوم', manager: 'المدير',
   employeeCount: 'الموظفون', noneAssigned: '—',
+  // Accountant
+  roleAccountant: 'محاسب', canBook: 'صلاحية الحجز',
+  canBookHint: 'يمكن للمستخدم إنشاء إيداعات وإغلاق اليوم',
+  // Bank Deposit
+  bankDeposit: 'إيداع بنكي', newBankDeposit: 'إيداع بنكي جديد',
+  bankDepositCreated: 'تم حجز الإيداع البنكي', bankDepositNote: 'مرجع / ملاحظة',
+  addCurrency: 'إضافة عملة', removeCurrency: 'حذف',
+  // Day Close
+  dayCloseTitle: 'إغلاق اليوم', openDayClose: 'فتح إغلاق اليوم',
+  dayCloseDate: 'التاريخ', expected: 'المتوقع', counted: 'المعدود', diff: 'الفرق',
+  dayCloseConfirm: 'تأكيد إغلاق اليوم', dayCloseDone: 'تم حفظ إغلاق اليوم',
+  dayCloseOpen: 'مفتوح', dayCloseClosed: 'مغلق', noDayCloses: 'لا يوجد إغلاق بعد',
+  dayCloseHistory: 'سجل إغلاق اليوم',
+  // Cash multi-currency
+  cashPerCurrency: 'الخزنة بالعملة', totalCash: 'إجمالي الخزنة (EUR)',
+  profitToday: 'ربح اليوم', profitMonth: 'ربح الشهر',
+  profitTotal: 'إجمالي الربح',
+  transferProfit: 'رسوم التحويل', exchangeProfit: 'هامش الصرف',
+  profitByBranch: 'الربح لكل فرع', physicalCount: 'العدد الفعلي',
+  systemExpected: 'المتوقع من النظام', readOnly: 'قراءة فقط', countFirst: 'أدخل المبلغ المعدود فعلياً أولاً',
+  branchProfit: 'أرباح الفروع', noProfit: 'لا توجد إدخالات ربح بعد',
 };
+
 
 @Injectable({ providedIn: 'root' })
 export class I18nService {

@@ -3,19 +3,20 @@ import { of } from 'rxjs';
 
 // ── Demo data ─────────────────────────────────────────────────────────────────
 
-const USERS = [
-  { id: 'u1', name: 'Ahmad Karimi',   email: 'admin@firma.de',    password: 'admin123',   role: 'admin',          branch: null,        initials: 'AK', active: true, createdAt: '2024-01-01' },
-  { id: 'u2', name: 'Sara Müller',    email: 'manager@firma.de',  password: 'manager123', role: 'branch_manager', branch: 'Berlin',    initials: 'SM', active: true, createdAt: '2024-02-01' },
-  { id: 'u3', name: 'Karim Hassan',   email: 'karim@firma.de',    password: 'karim123',   role: 'branch_manager', branch: 'München',   initials: 'KH', active: true, createdAt: '2024-02-15' },
-  { id: 'u4', name: 'Layla Nasser',   email: 'layla@firma.de',    password: 'layla123',   role: 'employee',       branch: 'Berlin',    initials: 'LN', active: true, createdAt: '2024-03-01' },
-  { id: 'u5', name: 'Omar Saleh',     email: 'omar@firma.de',     password: 'omar123',    role: 'employee',       branch: 'München',   initials: 'OS', active: true, createdAt: '2024-03-10' },
+const USERS: any[] = [
+  { id: 'u1', name: 'Ahmad Karimi',     email: 'admin@firma.de',       password: 'admin123',       role: 'admin',          branch: null,        initials: 'AK', active: true, createdAt: '2024-01-01' },
+  { id: 'u2', name: 'Sara Müller',      email: 'manager@firma.de',     password: 'manager123',     role: 'branch_manager', branch: 'Berlin',    initials: 'SM', active: true, createdAt: '2024-02-01' },
+  { id: 'u3', name: 'Karim Hassan',     email: 'karim@firma.de',       password: 'karim123',       role: 'branch_manager', branch: 'München',   initials: 'KH', active: true, createdAt: '2024-02-15' },
+  { id: 'u4', name: 'Layla Nasser',     email: 'layla@firma.de',       password: 'layla123',       role: 'employee',       branch: 'Berlin',    initials: 'LN', active: true, createdAt: '2024-03-01' },
+  { id: 'u5', name: 'Omar Saleh',       email: 'omar@firma.de',        password: 'omar123',        role: 'employee',       branch: 'München',   initials: 'OS', active: true, createdAt: '2024-03-10' },
+  { id: 'u6', name: 'Yasmin Buchhalt', email: 'buchhalter@firma.de',  password: 'buch123',        role: 'accountant',     branch: 'Berlin',    initials: 'YB', active: true, createdAt: '2024-04-01', canBook: true },
 ];
 
-const BRANCHES = [
-  { id: 'b1', name: 'Berlin Mitte',   city: 'Berlin',   phone: '+49 30 1234567', address: 'Unter den Linden 5',    hours: 'Mo–Fr 9–18', color: '#4f46e5', cashBalance: 48500, active: true, createdAt: '2024-01-01', managerId: 'u2', managerName: 'Sara Müller',  employeeCount: 3 },
-  { id: 'b2', name: 'München Zentrum',city: 'München',  phone: '+49 89 9876543', address: 'Marienplatz 12',         hours: 'Mo–Fr 9–17', color: '#059669', cashBalance: 32000, active: true, createdAt: '2024-01-15', managerId: 'u3', managerName: 'Karim Hassan', employeeCount: 2 },
-  { id: 'b3', name: 'Hamburg Hafen',  city: 'Hamburg',  phone: '+49 40 5556677', address: 'Speicherstadt 22',       hours: 'Mo–Sa 9–19', color: '#d97706', cashBalance: 21000, active: true, createdAt: '2024-02-01', managerId: null, managerName: null,           employeeCount: 1 },
-  { id: 'b4', name: 'Frankfurt Main', city: 'Frankfurt',phone: '+49 69 1122334', address: 'Zeil 80',                hours: 'Mo–Fr 9–18', color: '#e11d48', cashBalance: 55000, active: true, createdAt: '2024-03-01', managerId: null, managerName: null,           employeeCount: 2 },
+const BRANCHES: any[] = [
+  { id: 'b1', name: 'Berlin Mitte',    city: 'Berlin',    phone: '+49 30 1234567', address: 'Unter den Linden 5',  hours: 'Mo–Fr 9–18', color: '#4f46e5', cashBalance: 48500, active: true, createdAt: '2024-01-01', managerId: 'u2', managerName: 'Sara Müller',  employeeCount: 3, balances: [{currency:'EUR',amount:48500},{currency:'USD',amount:12000},{currency:'SYP',amount:5000000},{currency:'TRY',amount:8000}] },
+  { id: 'b2', name: 'München Zentrum', city: 'München',   phone: '+49 89 9876543', address: 'Marienplatz 12',      hours: 'Mo–Fr 9–17', color: '#059669', cashBalance: 32000, active: true, createdAt: '2024-01-15', managerId: 'u3', managerName: 'Karim Hassan', employeeCount: 2, balances: [{currency:'EUR',amount:32000},{currency:'USD',amount:6500},{currency:'TRY',amount:4500}] },
+  { id: 'b3', name: 'Hamburg Hafen',   city: 'Hamburg',   phone: '+49 40 5556677', address: 'Speicherstadt 22',    hours: 'Mo–Sa 9–19', color: '#d97706', cashBalance: 21000, active: true, createdAt: '2024-02-01', managerId: null, managerName: null,           employeeCount: 1, balances: [{currency:'EUR',amount:21000},{currency:'USD',amount:3000}] },
+  { id: 'b4', name: 'Frankfurt Main',  city: 'Frankfurt', phone: '+49 69 1122334', address: 'Zeil 80',             hours: 'Mo–Fr 9–18', color: '#e11d48', cashBalance: 55000, active: true, createdAt: '2024-03-01', managerId: null, managerName: null,           employeeCount: 2, balances: [{currency:'EUR',amount:55000},{currency:'USD',amount:9800},{currency:'EGP',amount:120000}] },
 ];
 
 const CUSTOMERS = [
@@ -60,11 +61,24 @@ const EXCHANGES = [
 ];
 
 const CASH_JOURNAL: any[] = [
-  { id: 'cj1', type: 'deposit',  branch: 'Berlin',    amount: 10000, currency: 'EUR', note: 'Tagesöffnung',      createdBy: 'Ahmad Karimi',  createdAt: '2024-01-10T08:00:00' },
-  { id: 'cj2', type: 'withdraw', branch: 'München',   amount: 5000,  currency: 'EUR', note: 'Auszahlung Transfer',createdBy: 'Omar Saleh',    createdAt: '2024-01-20T14:00:00' },
-  { id: 'cj3', type: 'deposit',  branch: 'Frankfurt', amount: 20000, currency: 'EUR', note: 'Einzahlung Kapital', createdBy: 'Ahmad Karimi',  createdAt: '2024-02-01T09:00:00' },
-  { id: 'cj4', type: 'withdraw', branch: 'Berlin',    amount: 2500,  currency: 'EUR', note: 'Transfer Auszahlung',createdBy: 'Layla Nasser',  createdAt: '2024-02-15T11:30:00' },
-  { id: 'cj5', type: 'deposit',  branch: 'Hamburg',   amount: 8000,  currency: 'EUR', note: 'Tagesöffnung',      createdBy: 'Ahmad Karimi',  createdAt: '2024-03-01T08:30:00' },
+  { id: 'cj1', type: 'CASH_IN',          branch: 'Berlin',    amount: 10000, currency: 'EUR', note: 'Tagesöffnung',           reference: 'OP-001', createdBy: 'Ahmad Karimi', createdAt: '2024-01-10T08:00:00' },
+  { id: 'cj2', type: 'TRANSFER_PAYOUT',  branch: 'München',   amount: 5000,  currency: 'EUR', note: 'Auszahlung TRF-2024-002', reference: 't2',     createdBy: 'Omar Saleh',   createdAt: '2024-01-20T14:00:00' },
+  { id: 'cj3', type: 'BANK_DEPOSIT',     branch: 'Frankfurt', amount: 20000, currency: 'EUR', note: 'Bankeinzahlung',          reference: 'BD-001', createdBy: 'Ahmad Karimi', createdAt: '2024-02-01T09:00:00' },
+  { id: 'cj4', type: 'TRANSFER_PAYOUT',  branch: 'Berlin',    amount: 2500,  currency: 'EUR', note: 'Auszahlung TRF-2024-004', reference: 't4',     createdBy: 'Layla Nasser', createdAt: '2024-02-15T11:30:00' },
+  { id: 'cj5', type: 'CASH_IN',          branch: 'Hamburg',   amount: 8000,  currency: 'EUR', note: 'Tagesöffnung',            reference: 'OP-002', createdBy: 'Ahmad Karimi', createdAt: '2024-03-01T08:30:00' },
+  { id: 'cj6', type: 'EXCHANGE',         branch: 'Berlin',    amount: 500,   currency: 'EUR', note: 'Wechsel EUR→USD EXC-001', reference: 'ex1',    createdBy: 'Layla Nasser', createdAt: '2024-01-16T10:00:00' },
+  { id: 'cj7', type: 'PROFIT',           branch: 'Berlin',    amount: 15.5,  currency: 'EUR', note: 'Marge EXC-2024-001',      reference: 'ex1',    createdBy: 'system',       createdAt: '2024-01-16T10:00:00' },
+  { id: 'cj8', type: 'PROFIT',           branch: 'Berlin',    amount: 20,    currency: 'EUR', note: 'Gebühr TRF-2024-007',      reference: 't7',     createdBy: 'system',       createdAt: '2024-03-05T12:00:00' },
+];
+
+const BANK_DEPOSITS: any[] = [
+  { id: 'bd1', branch: 'Berlin',    entries: [{currency:'EUR',amount:20000},{currency:'USD',amount:5000}], note: 'Wochentliche Einzahlung', createdBy: 'Yasmin Buchhalt', createdAt: '2024-03-01T09:00:00' },
+  { id: 'bd2', branch: 'München',   entries: [{currency:'EUR',amount:15000}],                               note: 'Monatsabschluss',        createdBy: 'Ahmad Karimi',    createdAt: '2024-03-07T10:00:00' },
+];
+
+const DAY_CLOSES: any[] = [
+  { id: 'dc1', branch: 'Berlin', date: '2024-03-08', entries: [{currency:'EUR',expected:48500,counted:48350,diff:-150},{currency:'USD',expected:12000,counted:12000,diff:0}], note: '', createdBy: 'Yasmin Buchhalt', createdAt: '2024-03-08T18:00:00', status: 'closed' },
+  { id: 'dc2', branch: 'München', date: '2024-03-08', entries: [{currency:'EUR',expected:32000,counted:32150,diff:150}], note: '', createdBy: 'Karim Hassan', createdAt: '2024-03-08T17:30:00', status: 'closed' },
 ];
 
 const FEE_RULES: any[] = [
@@ -122,13 +136,21 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
 
   // ── Transfers ─────────────────────────────────────────────────────────────
   if (url.includes('/transfers/stats')) {
+    const today = new Date().toISOString().split('T')[0];
+    const month = new Date().toISOString().slice(0, 7);
+    const transferFees = TRANSFERS.reduce((s, t) => s + (t.fee || 0), 0);
+    const exchangeProfit = EXCHANGES.reduce((s, e) => s + (e.profit || 0), 0);
     return ok({
-      total: TRANSFERS.length,
-      paid_out: TRANSFERS.filter(t => t.status === 'paid_out').length,
-      ready: TRANSFERS.filter(t => t.status === 'ready').length,
-      processing: TRANSFERS.filter(t => t.status === 'processing').length,
-      cancelled: TRANSFERS.filter(t => t.status === 'cancelled').length,
-      totalAmount: TRANSFERS.reduce((s, t) => s + t.amount, 0),
+      totalCount:    TRANSFERS.length,
+      todayCount:    TRANSFERS.filter(t => t.createdAt.startsWith(today)).length,
+      pendingCount:  TRANSFERS.filter(t => ['CREATED','IN_PROGRESS'].includes(t.status)).length,
+      totalRevenue:  TRANSFERS.reduce((s, t) => s + t.amount, 0),
+      todayRevenue:  TRANSFERS.filter(t => t.createdAt.startsWith(today)).reduce((s, t) => s + t.amount, 0),
+      transferProfit: transferFees,
+      exchangeProfit: exchangeProfit,
+      profitToday:   CASH_JOURNAL.filter(e => e.type === 'PROFIT' && e.createdAt.startsWith(today)).reduce((s, e) => s + e.amount, 0),
+      profitMonth:   CASH_JOURNAL.filter(e => e.type === 'PROFIT' && e.createdAt.startsWith(month)).reduce((s, e) => s + e.amount, 0),
+      profitTotal:   transferFees + exchangeProfit,
     });
   }
 
@@ -226,6 +248,22 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
   }
 
   // ── Cash ──────────────────────────────────────────────────────────────────
+  if (url.includes('/cash/balances')) {
+    const branch = req.params.get('branch');
+    if (branch) {
+      const b = BRANCHES.find(x => x.name === branch);
+      const balances = b?.balances ?? [{currency:'EUR', amount: b?.cashBalance ?? 0}];
+      return ok(balances.map((bl: any) => ({ currency: bl.currency, balance: bl.amount })));
+    }
+    const map: Record<string, number> = {};
+    for (const b of BRANCHES) {
+      for (const bl of (b.balances ?? [{currency:'EUR', amount: b.cashBalance}])) {
+        map[bl.currency] = (map[bl.currency] || 0) + bl.amount;
+      }
+    }
+    return ok(Object.entries(map).map(([currency, balance]) => ({ currency, balance })));
+  }
+
   if (url.includes('/cash/balance')) {
     const branch = req.params.get('branch');
     const b = branch ? BRANCHES.find(x => x.name === branch) : null;
@@ -233,18 +271,82 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
   }
 
   if (url.includes('/cash/journal')) {
-    return ok(paged([...CASH_JOURNAL]));
+    const branch = req.params.get('branch');
+    const list = branch ? CASH_JOURNAL.filter(e => e.branch === branch) : [...CASH_JOURNAL];
+    return ok(paged(list));
   }
 
-  if (url.includes('/cash/deposit') || url.includes('/cash/withdraw')) {
+  if (url.includes('/cash/deposit') && method === 'POST') {
     const body = req.body as any;
-    const entry = { id: 'cj' + (CASH_JOURNAL.length + 1), ...body, createdAt: new Date().toISOString() };
+    const entry = { id: 'cj' + (CASH_JOURNAL.length + 1), type: 'CASH_IN', ...body, createdAt: new Date().toISOString() };
     CASH_JOURNAL.unshift(entry);
     return ok(entry);
   }
 
-  if (url.includes('/cash/day-close')) {
-    return ok({ success: true });
+  if (url.includes('/cash/withdraw') && method === 'POST') {
+    const body = req.body as any;
+    const entry = { id: 'cj' + (CASH_JOURNAL.length + 1), type: 'CASH_OUT', ...body, createdAt: new Date().toISOString() };
+    CASH_JOURNAL.unshift(entry);
+    return ok(entry);
+  }
+
+  // ── Bank Deposits ─────────────────────────────────────────────────────────
+  if (url.includes('/bank-deposits') && method === 'POST') {
+    const body = req.body as any;
+    const bd = { id: 'bd' + (BANK_DEPOSITS.length + 1), ...body, createdBy: 'current-user', createdAt: new Date().toISOString() };
+    BANK_DEPOSITS.unshift(bd);
+    for (const entry of (bd.entries || [])) {
+      const cjEntry = { id: 'cj' + (CASH_JOURNAL.length + 1), type: 'BANK_DEPOSIT', branch: bd.branch, amount: entry.amount, currency: entry.currency, note: bd.note || 'Bank deposit', reference: bd.id, createdBy: bd.createdBy, createdAt: bd.createdAt };
+      CASH_JOURNAL.unshift(cjEntry);
+    }
+    return ok(bd);
+  }
+  if (url.includes('/bank-deposits') && method === 'GET') {
+    return ok([...BANK_DEPOSITS]);
+  }
+
+  // ── Day Closes ────────────────────────────────────────────────────────────
+  if (url.includes('/day-closes') && method === 'POST') {
+    const body = req.body as any;
+    const dc = { id: 'dc' + (DAY_CLOSES.length + 1), ...body, createdBy: 'current-user', createdAt: new Date().toISOString(), status: 'closed' };
+    DAY_CLOSES.unshift(dc);
+    // Update branch balances with the physically counted values
+    const branchObj = BRANCHES.find(b => b.name === dc.branch);
+    if (branchObj && Array.isArray(dc.entries)) {
+      for (const e of dc.entries) {
+        const bal = (branchObj as any).balances?.find((b: any) => b.currency === e.currency);
+        if (bal) {
+          bal.amount = e.counted;
+        } else if ((branchObj as any).balances) {
+          (branchObj as any).balances.push({ currency: e.currency, amount: e.counted });
+        }
+        if (e.currency === 'EUR') (branchObj as any).cashBalance = e.counted;
+      }
+    }
+    return ok(dc);
+  }
+  if (url.includes('/day-closes') && method === 'GET') {
+    const branch = req.params.get('branch');
+    const list = branch ? DAY_CLOSES.filter(d => d.branch === branch) : [...DAY_CLOSES];
+    return ok(list);
+  }
+
+  // ── Cash Profits per Branch ───────────────────────────────────────────────
+  if (url.includes('/cash/profits')) {
+    const today = new Date().toISOString().split('T')[0];
+    const month = new Date().toISOString().slice(0, 7);
+    const profitEntries = CASH_JOURNAL.filter((e: any) => e.type === 'PROFIT');
+    return ok(BRANCHES.map(b => {
+      // CASH_JOURNAL uses city name (e.g. 'Berlin') as branch field
+      const matcher = (e: any) => e.branch === b.name || e.branch === (b as any).city ||
+        b.name.toLowerCase().startsWith(e.branch?.toLowerCase());
+      return {
+        branch: b.name,
+        today:  profitEntries.filter((e: any) => matcher(e) && e.createdAt.startsWith(today)).reduce((s: number, e: any) => s + e.amount, 0),
+        month:  profitEntries.filter((e: any) => matcher(e) && e.createdAt.startsWith(month)).reduce((s: number, e: any) => s + e.amount, 0),
+        total:  profitEntries.filter((e: any) => matcher(e)).reduce((s: number, e: any) => s + e.amount, 0),
+      };
+    }));
   }
 
   // ── Exchange Rates ────────────────────────────────────────────────────────

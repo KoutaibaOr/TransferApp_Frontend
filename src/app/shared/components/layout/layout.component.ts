@@ -57,7 +57,7 @@ interface NavItem {
           <a class="nav-item" routerLink="/cash" routerLinkActive="active" (click)="closeSidebar()">
             🏦 <span>{{ t().cash }}</span>
           </a>
-          @if (auth.isAdminOrManager()) {
+          @if (auth.isAdminOrManager() || auth.isAccountant()) {
             <a class="nav-item" routerLink="/exchange" routerLinkActive="active" (click)="closeSidebar()">
               💱 <span>{{ t().exchange }}</span>
             </a>
@@ -117,6 +117,7 @@ export class LayoutComponent {
     const role = this.auth.user()?.role;
     if (role === 'admin')          return 'Admin';
     if (role === 'branch_manager') return 'Manager';
+    if (role === 'accountant')     return 'Buchhalter';
     return 'Employee';
   });
 

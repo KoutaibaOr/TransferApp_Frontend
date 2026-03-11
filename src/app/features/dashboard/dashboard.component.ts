@@ -51,6 +51,22 @@ import { Transfer, TransferStats, Branch } from '../../core/models';
           <div class="kpi-sub">{{ t().activeLocations }}</div>
         </div>
       </div>
+      <div class="kpi-card">
+        <div class="kpi-icon yellow">📈</div>
+        <div>
+          <div class="kpi-label">{{ t().profitToday }}</div>
+          <div class="kpi-value">€ {{ formatNum(stats()?.profitToday) }}</div>
+          <div class="kpi-sub">{{ t().profitTotal }}: € {{ formatNum(stats()?.profitTotal) }}</div>
+        </div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon green">💰</div>
+        <div>
+          <div class="kpi-label">{{ t().profitMonth }}</div>
+          <div class="kpi-value">€ {{ formatNum(stats()?.profitMonth) }}</div>
+          <div class="kpi-sub">{{ t().transferProfit }}: € {{ formatNum(stats()?.transferProfit) }}</div>
+        </div>
+      </div>
     </div>
     <div class="dash-grid">
       <div class="card">

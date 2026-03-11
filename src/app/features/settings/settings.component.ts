@@ -65,7 +65,7 @@ import { FeeRule, Currency, User, Branch } from '../../core/models';
                   <div class="fw-600" style="font-size:.875rem">{{ u.name }}</div>
                   <div style="font-size:.75rem;color:var(--muted)">{{ u.email }} · {{ u.branch ?? 'Admin' }}</div>
                 </div>
-                <span class="badge" [class]="u.role === 'admin' ? 'badge-in_progress' : u.role === 'branch_manager' ? 'badge-completed' : 'badge-created'">{{ u.role === 'admin' ? t().roleAdmin : u.role === 'branch_manager' ? t().roleBranchManager : t().roleEmployee }}</span>
+                <span class="badge" [class]="u.role === 'admin' ? 'badge-in_progress' : u.role === 'branch_manager' ? 'badge-completed' : u.role === 'accountant' ? 'badge-paid_out' : 'badge-created'">{{ u.role === 'admin' ? t().roleAdmin : u.role === 'branch_manager' ? t().roleBranchManager : u.role === 'accountant' ? t().roleAccountant : t().roleEmployee }}</span>
                 <span class="badge" [class]="u.active ? 'badge-completed' : 'badge-cancelled'">{{ u.active ? t().active : t().inactive }}</span>
                 <button class="btn btn-danger btn-sm" (click)="deleteUser(u.id, u.role, u.name)" [title]="t().delete">✕</button>
               </div>
@@ -146,8 +146,19 @@ import { FeeRule, Currency, User, Branch } from '../../core/models';
               </select>
             </div>
             <div class="form-group" style="margin-top:.75rem">
-              <label class="form-label">{{ t().initialBalance }} (EUR)</label>
-              <input class="form-control" type="number" step="0.01" [(ngModel)]="newBranchDto.cashBalance" placeholder="0.00" />
+              <label class="form-label" style="margin-bottom:.5rem">{{ t().cashPerCurrency }}</label>
+              @for (bal of newBranchBalances; track bal.currency; let i = $index) {
+                <div style="display:flex;gap:.5rem;margin-bottom:.4rem;align-items:center">
+                  <select class="form-control" style="width:100px" [(ngModel)]="bal.currency">
+                    @for (c of currencies(); track c.code) {
+                      <option [value]="c.code">{{ c.code }}</option>
+                    }
+                  </select>
+                  <input class="form-control" type="number" min="0" step="0.01" [(ngModel)]="bal.amount" placeholder="0.00" />
+                  <button class="btn btn-danger btn-sm" (click)="removeBranchBalance(i)">✕</button>
+                </div>
+              }
+              <button class="btn btn-ghost btn-sm" style="margin-top:.25rem" (click)="addBranchBalance()">＋ {{ t().addCurrency }}</button>
             </div>
           </div>
           <div class="modal-footer">
@@ -169,8 +180,18 @@ import { FeeRule, Currency, User, Branch } from '../../core/models';
             <div class="form-group"><label class="form-label">{{ t().role }}</label><select class="form-control" [(ngModel)]="newUser.role">
               <option value="employee">{{ t().roleEmployee }}</option>
               <option value="branch_manager">{{ t().roleBranchManager }}</option>
+              <option value="accountant">{{ t().roleAccountant }}</option>
               <option value="admin">{{ t().roleAdmin }}</option>
             </select></div>
+            @if (newUser.role === 'accountant') {
+              <div class="form-group" style="background:var(--bg);padding:.75rem;border-radius:var(--radius-sm);border:1px solid var(--border)">
+                <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer;font-size:.875rem">
+                  <input type="checkbox" [(ngModel)]="newUser.canBook" style="width:16px;height:16px" />
+                  <span class="fw-600">{{ t().canBook }}</span>
+                </label>
+                <p style="font-size:.75rem;color:var(--muted);margin:.25rem 0 0 1.5rem">{{ t().canBookHint }}</p>
+              </div>
+            }
             <div class="form-group"><label class="form-label">{{ t().branch }}</label><input class="form-control" [(ngModel)]="newUser.branch" placeholder="Berlin-Mitte" /></div>
           </div>
           <div class="modal-footer">
@@ -190,8 +211,9 @@ export class SettingsComponent implements OnInit {
   branches      = signal<Branch[]>([]);
   showNewUser   = signal(false);
   showNewBranch = signal(false);
-  newUser: any  = { name:'', email:'', password:'', role:'employee', branch:'' };
-  newBranchDto: any = { name:'', city:'', phone:'', address:'', managerId:'', cashBalance:0 };
+  newUser: any  = { name:'', email:'', password:'', role:'employee', branch:'', canBook: false };
+  newBranchDto: any = { name:'', city:'', phone:'', address:'', managerId:'' };
+  newBranchBalances: { currency: string; amount: number }[] = [{ currency: 'EUR', amount: 0 }];
 
   // only branch_manager users for manager dropdown
   managers = computed(() => this.users().filter(u => u.role === 'branch_manager'));
@@ -258,13 +280,25 @@ export class SettingsComponent implements OnInit {
     });
   }
 
+  addBranchBalance() {
+    const used = this.newBranchBalances.map(b => b.currency);
+    const next = this.currencies().find(c => !used.includes(c.code));
+    if (next) this.newBranchBalances.push({ currency: next.code, amount: 0 });
+  }
+
+  removeBranchBalance(i: number) {
+    this.newBranchBalances.splice(i, 1);
+  }
+
   createBranch() {
     if (!this.newBranchDto.name) { this.toast.error(this.i18n.t().requiredField); return; }
-    this.branchSvc.create(this.newBranchDto).subscribe({
+    const dto = { ...this.newBranchDto, balances: this.newBranchBalances.filter(b => b.amount > 0), cashBalance: this.newBranchBalances.find(b => b.currency === 'EUR')?.amount ?? 0 };
+    this.branchSvc.create(dto).subscribe({
       next: () => {
         this.toast.success(this.i18n.t().branchCreated);
         this.showNewBranch.set(false);
-        this.newBranchDto = { name:'', city:'', phone:'', address:'', managerId:'', cashBalance:0 };
+        this.newBranchDto = { name:'', city:'', phone:'', address:'', managerId:'' };
+        this.newBranchBalances = [{ currency: 'EUR', amount: 0 }];
         this.branchSvc.getAll().subscribe(b => this.branches.set(b));
       },
       error: () => this.toast.error(this.i18n.t().creationError),

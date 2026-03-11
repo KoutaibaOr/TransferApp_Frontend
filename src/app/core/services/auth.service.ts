@@ -22,6 +22,13 @@ export class AuthService {
   readonly isAdminOrManager = computed(() =>
     this._user()?.role === 'admin' || this._user()?.role === 'branch_manager'
   );
+  readonly isAccountant = computed(() => this._user()?.role === 'accountant');
+  readonly canBook = computed(() => {
+    const u = this._user();
+    if (!u) return false;
+    if (u.role === 'admin') return true;
+    return u.role === 'accountant' && !!(u as any).canBook;
+  });
 
   constructor(private http: HttpClient, private router: Router) {}
 

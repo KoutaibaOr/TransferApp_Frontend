@@ -7,15 +7,16 @@ import {
   bootstrapApplication,
   provideRouter,
   withComponentInputBinding
-} from "./chunk-E6WC37XB.js";
+} from "./chunk-32X4P3PF.js";
 import {
   ToastService
-} from "./chunk-3NXWHVXJ.js";
+} from "./chunk-AE6XUB22.js";
 import {
   ANIMATION_MODULE_TYPE,
   ChangeDetectionScheduler,
   CommonModule,
   DOCUMENT,
+  HttpResponse,
   I18nService,
   Inject,
   Injectable,
@@ -25,9 +26,11 @@ import {
   RuntimeError,
   ViewEncapsulation$1,
   __objRest,
+  __spreadProps,
   __spreadValues,
   catchError,
   inject,
+  of,
   performanceMarkFeature,
   provideHttpClient,
   setClassMetadata,
@@ -55,7 +58,7 @@ import {
   ɵɵrestoreView,
   ɵɵtext,
   ɵɵtextInterpolate
-} from "./chunk-ULJ2OLKO.js";
+} from "./chunk-C4ZRXIER.js";
 
 // node_modules/@angular/animations/fesm2022/animations.mjs
 var AnimationMetadataType;
@@ -4616,21 +4619,21 @@ var managerGuard = () => {
 
 // src/app/app.routes.ts
 var routes = [
-  { path: "login", loadComponent: () => import("./chunk-2APWPXMA.js").then((m) => m.LoginComponent) },
+  { path: "login", loadComponent: () => import("./chunk-EXMPJCHN.js").then((m) => m.LoginComponent) },
   {
     path: "",
-    loadComponent: () => import("./chunk-NEMQ6TBD.js").then((m) => m.LayoutComponent),
+    loadComponent: () => import("./chunk-FBU7JS2D.js").then((m) => m.LayoutComponent),
     canActivate: [authGuard],
     children: [
       { path: "", redirectTo: "dashboard", pathMatch: "full" },
-      { path: "dashboard", loadComponent: () => import("./chunk-FGUHPLIY.js").then((m) => m.DashboardComponent) },
-      { path: "transfers", loadComponent: () => import("./chunk-ZHOXZDUJ.js").then((m) => m.TransfersComponent) },
-      { path: "customers", loadComponent: () => import("./chunk-62NFO77T.js").then((m) => m.CustomersComponent) },
-      { path: "cash", loadComponent: () => import("./chunk-JXE62OLQ.js").then((m) => m.CashComponent) },
-      { path: "exchange", loadComponent: () => import("./chunk-VVFVOBUQ.js").then((m) => m.ExchangeComponent) },
-      { path: "reports", loadComponent: () => import("./chunk-MXXGPWKD.js").then((m) => m.ReportsComponent), canActivate: [managerGuard] },
-      { path: "settings", loadComponent: () => import("./chunk-FPX5MTU3.js").then((m) => m.SettingsComponent), canActivate: [adminGuard] },
-      { path: "audit", loadComponent: () => import("./chunk-YAGL5VH6.js").then((m) => m.AuditComponent), canActivate: [adminGuard] }
+      { path: "dashboard", loadComponent: () => import("./chunk-IAPNXXP2.js").then((m) => m.DashboardComponent) },
+      { path: "transfers", loadComponent: () => import("./chunk-VQNTLF6I.js").then((m) => m.TransfersComponent) },
+      { path: "customers", loadComponent: () => import("./chunk-HXLGKTWF.js").then((m) => m.CustomersComponent) },
+      { path: "cash", loadComponent: () => import("./chunk-JMKNUJZC.js").then((m) => m.CashComponent) },
+      { path: "exchange", loadComponent: () => import("./chunk-CLZ6SR4J.js").then((m) => m.ExchangeComponent) },
+      { path: "reports", loadComponent: () => import("./chunk-4GM6XPCL.js").then((m) => m.ReportsComponent), canActivate: [managerGuard] },
+      { path: "settings", loadComponent: () => import("./chunk-ZZ7RSGRQ.js").then((m) => m.SettingsComponent), canActivate: [adminGuard] },
+      { path: "audit", loadComponent: () => import("./chunk-FQYOKMPJ.js").then((m) => m.AuditComponent), canActivate: [adminGuard] }
     ]
   },
   { path: "**", redirectTo: "dashboard" }
@@ -4656,11 +4659,420 @@ var authInterceptor = (req, next) => {
   }));
 };
 
+// src/app/core/interceptors/mock.interceptor.ts
+var USERS = [
+  { id: "u1", name: "Ahmad Karimi", email: "admin@firma.de", password: "admin123", role: "admin", branch: null, initials: "AK", active: true, createdAt: "2024-01-01" },
+  { id: "u2", name: "Sara M\xFCller", email: "manager@firma.de", password: "manager123", role: "branch_manager", branch: "Berlin", initials: "SM", active: true, createdAt: "2024-02-01" },
+  { id: "u3", name: "Karim Hassan", email: "karim@firma.de", password: "karim123", role: "branch_manager", branch: "M\xFCnchen", initials: "KH", active: true, createdAt: "2024-02-15" },
+  { id: "u4", name: "Layla Nasser", email: "layla@firma.de", password: "layla123", role: "employee", branch: "Berlin", initials: "LN", active: true, createdAt: "2024-03-01" },
+  { id: "u5", name: "Omar Saleh", email: "omar@firma.de", password: "omar123", role: "employee", branch: "M\xFCnchen", initials: "OS", active: true, createdAt: "2024-03-10" },
+  { id: "u6", name: "Yasmin Buchhalt", email: "buchhalter@firma.de", password: "buch123", role: "accountant", branch: "Berlin", initials: "YB", active: true, createdAt: "2024-04-01", canBook: true }
+];
+var BRANCHES = [
+  { id: "b1", name: "Berlin Mitte", city: "Berlin", phone: "+49 30 1234567", address: "Unter den Linden 5", hours: "Mo\u2013Fr 9\u201318", color: "#4f46e5", cashBalance: 48500, active: true, createdAt: "2024-01-01", managerId: "u2", managerName: "Sara M\xFCller", employeeCount: 3, balances: [{ currency: "EUR", amount: 48500 }, { currency: "USD", amount: 12e3 }, { currency: "SYP", amount: 5e6 }, { currency: "TRY", amount: 8e3 }] },
+  { id: "b2", name: "M\xFCnchen Zentrum", city: "M\xFCnchen", phone: "+49 89 9876543", address: "Marienplatz 12", hours: "Mo\u2013Fr 9\u201317", color: "#059669", cashBalance: 32e3, active: true, createdAt: "2024-01-15", managerId: "u3", managerName: "Karim Hassan", employeeCount: 2, balances: [{ currency: "EUR", amount: 32e3 }, { currency: "USD", amount: 6500 }, { currency: "TRY", amount: 4500 }] },
+  { id: "b3", name: "Hamburg Hafen", city: "Hamburg", phone: "+49 40 5556677", address: "Speicherstadt 22", hours: "Mo\u2013Sa 9\u201319", color: "#d97706", cashBalance: 21e3, active: true, createdAt: "2024-02-01", managerId: null, managerName: null, employeeCount: 1, balances: [{ currency: "EUR", amount: 21e3 }, { currency: "USD", amount: 3e3 }] },
+  { id: "b4", name: "Frankfurt Main", city: "Frankfurt", phone: "+49 69 1122334", address: "Zeil 80", hours: "Mo\u2013Fr 9\u201318", color: "#e11d48", cashBalance: 55e3, active: true, createdAt: "2024-03-01", managerId: null, managerName: null, employeeCount: 2, balances: [{ currency: "EUR", amount: 55e3 }, { currency: "USD", amount: 9800 }, { currency: "EGP", amount: 12e4 }] }
+];
+var CUSTOMERS = [
+  { id: "c1", firstName: "Mohammed", lastName: "Al-Rashid", phone: "+49 151 11223344", idNumber: "A1234567", dateOfBirth: "1985-06-15", address: "Berliner Str. 44, Berlin", branch: "Berlin", transferCount: 12, createdBy: "Layla Nasser", createdAt: "2024-01-10" },
+  { id: "c2", firstName: "Fatima", lastName: "Al-Zahra", phone: "+49 152 22334455", idNumber: "B2345678", dateOfBirth: "1990-03-22", address: "Maximilianstr. 7, M\xFCnchen", branch: "M\xFCnchen", transferCount: 7, createdBy: "Omar Saleh", createdAt: "2024-01-20" },
+  { id: "c3", firstName: "Ali", lastName: "Hassan", phone: "+49 153 33445566", idNumber: "C3456789", dateOfBirth: "1978-11-05", address: "Reeperbahn 55, Hamburg", branch: "Hamburg", transferCount: 4, createdBy: "Ahmad Karimi", createdAt: "2024-02-05" },
+  { id: "c4", firstName: "Hana", lastName: "Karimi", phone: "+49 154 44556677", idNumber: "D4567890", dateOfBirth: "1992-08-18", address: "Zeil 45, Frankfurt", branch: "Frankfurt", transferCount: 9, createdBy: "Ahmad Karimi", createdAt: "2024-02-12" },
+  { id: "c5", firstName: "Youssef", lastName: "Nabil", phone: "+49 155 55667788", idNumber: "E5678901", dateOfBirth: "1983-02-28", address: "Kurf\xFCrstendamm 11, Berlin", branch: "Berlin", transferCount: 15, createdBy: "Layla Nasser", createdAt: "2024-03-01" },
+  { id: "c6", firstName: "Maryam", lastName: "Suleiman", phone: "+49 156 66778899", idNumber: "F6789012", dateOfBirth: "1995-12-10", address: "Leopoldstr. 33, M\xFCnchen", branch: "M\xFCnchen", transferCount: 3, createdBy: "Omar Saleh", createdAt: "2024-03-08" }
+];
+var TRANSFERS = [
+  { id: "t1", ref: "TRF-2024-001", senderName: "Mohammed Al-Rashid", senderPhone: "+49 151 11223344", receiverName: "Tariq Al-Rashid", receiverCountry: "Syrien", receiverPhone: "+963 911 222333", amount: 500, currency: "EUR", fee: 15, status: "PAID_OUT", branch: "Berlin", employee: "Layla Nasser", createdAt: "2024-01-15T10:30:00", updatedAt: "2024-01-15T14:00:00" },
+  { id: "t2", ref: "TRF-2024-002", senderName: "Fatima Al-Zahra", senderPhone: "+49 152 22334455", receiverName: "Ibrahim Al-Zahra", receiverCountry: "Libanon", receiverPhone: "+961 3 445566", amount: 800, currency: "EUR", fee: 20, status: "COMPLETED", branch: "M\xFCnchen", employee: "Omar Saleh", createdAt: "2024-01-20T09:00:00", updatedAt: "2024-01-20T09:00:00" },
+  { id: "t3", ref: "TRF-2024-003", senderName: "Ali Hassan", senderPhone: "+49 153 33445566", receiverName: "Nour Hassan", receiverCountry: "\xC4gypten", receiverPhone: "+20 10 33445566", amount: 300, currency: "EUR", fee: 10, status: "IN_PROGRESS", branch: "Hamburg", employee: "Ahmad Karimi", createdAt: "2024-02-05T11:00:00", updatedAt: "2024-02-05T11:00:00" },
+  { id: "t4", ref: "TRF-2024-004", senderName: "Hana Karimi", senderPhone: "+49 154 44556677", receiverName: "Sina Karimi", receiverCountry: "Iran", receiverPhone: "+98 21 5566778", amount: 650, currency: "EUR", fee: 18, status: "PAID_OUT", branch: "Frankfurt", employee: "Ahmad Karimi", createdAt: "2024-02-12T14:00:00", updatedAt: "2024-02-12T16:30:00" },
+  { id: "t5", ref: "TRF-2024-005", senderName: "Youssef Nabil", senderPhone: "+49 155 55667788", receiverName: "Amr Nabil", receiverCountry: "Marokko", receiverPhone: "+212 6 77889900", amount: 1200, currency: "EUR", fee: 30, status: "COMPLETED", branch: "Berlin", employee: "Layla Nasser", createdAt: "2024-02-18T08:00:00", updatedAt: "2024-02-18T08:00:00" },
+  { id: "t6", ref: "TRF-2024-006", senderName: "Maryam Suleiman", senderPhone: "+49 156 66778899", receiverName: "Khaled Suleiman", receiverCountry: "T\xFCrkei", receiverPhone: "+90 532 1122334", amount: 450, currency: "EUR", fee: 12, status: "CANCELLED", branch: "M\xFCnchen", employee: "Omar Saleh", createdAt: "2024-03-01T10:00:00", updatedAt: "2024-03-01T11:00:00" },
+  { id: "t7", ref: "TRF-2024-007", senderName: "Mohammed Al-Rashid", senderPhone: "+49 151 11223344", receiverName: "Laila Al-Rashid", receiverCountry: "Jordanien", receiverPhone: "+962 7 22334455", amount: 750, currency: "EUR", fee: 20, status: "PAID_OUT", branch: "Berlin", employee: "Layla Nasser", createdAt: "2024-03-05T09:30:00", updatedAt: "2024-03-05T12:00:00" },
+  { id: "t8", ref: "TRF-2024-008", senderName: "Ali Hassan", senderPhone: "+49 153 33445566", receiverName: "Sami Hassan", receiverCountry: "Irak", receiverPhone: "+964 7 55667788", amount: 920, currency: "EUR", fee: 25, status: "CREATED", branch: "Hamburg", employee: "Ahmad Karimi", createdAt: "2024-03-07T13:00:00", updatedAt: "2024-03-07T13:00:00" },
+  { id: "t9", ref: "TRF-2024-009", senderName: "Hana Karimi", senderPhone: "+49 154 44556677", receiverName: "Dara Karimi", receiverCountry: "Afghanistan", receiverPhone: "+93 70 11223344", amount: 200, currency: "EUR", fee: 8, status: "IN_PROGRESS", branch: "Frankfurt", employee: "Ahmad Karimi", createdAt: "2024-03-08T10:00:00", updatedAt: "2024-03-08T10:00:00" },
+  { id: "t10", ref: "TRF-2024-010", senderName: "Youssef Nabil", senderPhone: "+49 155 55667788", receiverName: "Hind Nabil", receiverCountry: "Tunesien", receiverPhone: "+216 2 33445566", amount: 600, currency: "EUR", fee: 16, status: "DRAFT", branch: "Berlin", employee: "Layla Nasser", createdAt: "2024-03-09T08:00:00", updatedAt: "2024-03-09T10:00:00" }
+];
+var EXCHANGE_RATES = [
+  { id: "er1", fromCurrency: "EUR", toCurrency: "USD", rate: 1.085, marginPercent: 2, fee: 5, active: true, updatedAt: "2026-03-01" },
+  { id: "er2", fromCurrency: "EUR", toCurrency: "SYP", rate: 14200, marginPercent: 3, fee: 8, active: true, updatedAt: "2026-03-01" },
+  { id: "er3", fromCurrency: "EUR", toCurrency: "LBP", rate: 91e3, marginPercent: 3, fee: 8, active: true, updatedAt: "2026-03-01" },
+  { id: "er4", fromCurrency: "EUR", toCurrency: "TRY", rate: 36.5, marginPercent: 2, fee: 5, active: true, updatedAt: "2026-03-01" },
+  { id: "er5", fromCurrency: "EUR", toCurrency: "EGP", rate: 53.2, marginPercent: 2, fee: 5, active: true, updatedAt: "2026-03-01" },
+  { id: "er6", fromCurrency: "USD", toCurrency: "EUR", rate: 0.922, marginPercent: 2, fee: 5, active: true, updatedAt: "2026-03-01" },
+  { id: "er7", fromCurrency: "USD", toCurrency: "SYP", rate: 13100, marginPercent: 3, fee: 8, active: true, updatedAt: "2026-03-01" }
+];
+var EXCHANGES = [
+  { id: "ex1", ref: "EXC-2024-001", branch: "Berlin", employee: "Layla Nasser", customerName: "Mohammed Al-Rashid", customerIdNumber: "A1234567", fromCurrency: "EUR", fromAmount: 500, toCurrency: "USD", customerPayout: 537.5, exchangeRate: 1.085, marginPercent: 2, fee: 5, profit: 15.5, createdAt: "2024-01-16T10:00:00" },
+  { id: "ex2", ref: "EXC-2024-002", branch: "M\xFCnchen", employee: "Omar Saleh", customerName: "Fatima Al-Zahra", customerIdNumber: "B2345678", fromCurrency: "EUR", fromAmount: 200, toCurrency: "TRY", customerPayout: 7153, exchangeRate: 36.5, marginPercent: 2, fee: 5, profit: 9.5, createdAt: "2024-01-22T11:00:00" },
+  { id: "ex3", ref: "EXC-2024-003", branch: "Frankfurt", employee: "Ahmad Karimi", customerName: "Hana Karimi", customerIdNumber: "D4567890", fromCurrency: "USD", fromAmount: 1e3, toCurrency: "EUR", customerPayout: 912.2, exchangeRate: 0.922, marginPercent: 2, fee: 5, profit: 24.8, createdAt: "2024-02-13T14:30:00" },
+  { id: "ex4", ref: "EXC-2024-004", branch: "Berlin", employee: "Layla Nasser", customerName: "Youssef Nabil", customerIdNumber: "E5678901", fromCurrency: "EUR", fromAmount: 300, toCurrency: "EGP", customerPayout: 15616.8, exchangeRate: 53.2, marginPercent: 2, fee: 5, profit: 11.2, createdAt: "2024-02-20T09:00:00" },
+  { id: "ex5", ref: "EXC-2024-005", branch: "M\xFCnchen", employee: "Omar Saleh", customerName: "Maryam Suleiman", customerIdNumber: "F6789012", fromCurrency: "EUR", fromAmount: 450, toCurrency: "TRY", customerPayout: 16038, exchangeRate: 36.5, marginPercent: 2, fee: 5, profit: 14, createdAt: "2024-03-02T10:00:00" },
+  { id: "ex6", ref: "EXC-2024-006", branch: "Hamburg", employee: "Ahmad Karimi", customerName: "Ali Hassan", customerIdNumber: "C3456789", fromCurrency: "EUR", fromAmount: 800, toCurrency: "USD", customerPayout: 858, exchangeRate: 1.085, marginPercent: 2, fee: 5, profit: 22, createdAt: "2024-03-06T11:30:00" }
+];
+var CASH_JOURNAL = [
+  { id: "cj1", type: "CASH_IN", branch: "Berlin", amount: 1e4, currency: "EUR", note: "Tages\xF6ffnung", reference: "OP-001", createdBy: "Ahmad Karimi", createdAt: "2024-01-10T08:00:00" },
+  { id: "cj2", type: "TRANSFER_PAYOUT", branch: "M\xFCnchen", amount: 5e3, currency: "EUR", note: "Auszahlung TRF-2024-002", reference: "t2", createdBy: "Omar Saleh", createdAt: "2024-01-20T14:00:00" },
+  { id: "cj3", type: "BANK_DEPOSIT", branch: "Frankfurt", amount: 2e4, currency: "EUR", note: "Bankeinzahlung", reference: "BD-001", createdBy: "Ahmad Karimi", createdAt: "2024-02-01T09:00:00" },
+  { id: "cj4", type: "TRANSFER_PAYOUT", branch: "Berlin", amount: 2500, currency: "EUR", note: "Auszahlung TRF-2024-004", reference: "t4", createdBy: "Layla Nasser", createdAt: "2024-02-15T11:30:00" },
+  { id: "cj5", type: "CASH_IN", branch: "Hamburg", amount: 8e3, currency: "EUR", note: "Tages\xF6ffnung", reference: "OP-002", createdBy: "Ahmad Karimi", createdAt: "2024-03-01T08:30:00" },
+  { id: "cj6", type: "EXCHANGE", branch: "Berlin", amount: 500, currency: "EUR", note: "Wechsel EUR\u2192USD EXC-001", reference: "ex1", createdBy: "Layla Nasser", createdAt: "2024-01-16T10:00:00" },
+  { id: "cj7", type: "PROFIT", branch: "Berlin", amount: 15.5, currency: "EUR", note: "Marge EXC-2024-001", reference: "ex1", createdBy: "system", createdAt: "2024-01-16T10:00:00" },
+  { id: "cj8", type: "PROFIT", branch: "Berlin", amount: 20, currency: "EUR", note: "Geb\xFChr TRF-2024-007", reference: "t7", createdBy: "system", createdAt: "2024-03-05T12:00:00" }
+];
+var BANK_DEPOSITS = [
+  { id: "bd1", branch: "Berlin", entries: [{ currency: "EUR", amount: 2e4 }, { currency: "USD", amount: 5e3 }], note: "Wochentliche Einzahlung", createdBy: "Yasmin Buchhalt", createdAt: "2024-03-01T09:00:00" },
+  { id: "bd2", branch: "M\xFCnchen", entries: [{ currency: "EUR", amount: 15e3 }], note: "Monatsabschluss", createdBy: "Ahmad Karimi", createdAt: "2024-03-07T10:00:00" }
+];
+var DAY_CLOSES = [
+  { id: "dc1", branch: "Berlin", date: "2024-03-08", entries: [{ currency: "EUR", expected: 48500, counted: 48350, diff: -150 }, { currency: "USD", expected: 12e3, counted: 12e3, diff: 0 }], note: "", createdBy: "Yasmin Buchhalt", createdAt: "2024-03-08T18:00:00", status: "closed" },
+  { id: "dc2", branch: "M\xFCnchen", date: "2024-03-08", entries: [{ currency: "EUR", expected: 32e3, counted: 32150, diff: 150 }], note: "", createdBy: "Karim Hassan", createdAt: "2024-03-08T17:30:00", status: "closed" }
+];
+var FEE_RULES = [
+  { id: "fr1", minAmount: 0, maxAmount: 200, feeFixed: 5, feePercent: 0, currency: "EUR", active: true },
+  { id: "fr2", minAmount: 201, maxAmount: 500, feeFixed: 10, feePercent: 0, currency: "EUR", active: true },
+  { id: "fr3", minAmount: 501, maxAmount: 1e3, feeFixed: 20, feePercent: 0, currency: "EUR", active: true },
+  { id: "fr4", minAmount: 1001, maxAmount: 9999, feeFixed: 0, feePercent: 2, currency: "EUR", active: true }
+];
+var CURRENCIES = [
+  { id: "cur1", code: "EUR", name: "Euro", symbol: "\u20AC", active: true },
+  { id: "cur2", code: "USD", name: "US Dollar", symbol: "$", active: true },
+  { id: "cur3", code: "SYP", name: "Syrisches Pfund", symbol: "SP", active: true },
+  { id: "cur4", code: "LBP", name: "Libanesisches P.", symbol: "LL", active: true },
+  { id: "cur5", code: "TRY", name: "T\xFCrkische Lira", symbol: "\u20BA", active: true },
+  { id: "cur6", code: "EGP", name: "\xC4gyptisches Pfund", symbol: "E\xA3", active: true }
+];
+var AUDIT_LOGS = [
+  { id: "al1", action: "LOGIN", user: "Ahmad Karimi", entity: "auth", entityId: null, details: "Admin login", createdAt: "2026-03-09T08:00:00" },
+  { id: "al2", action: "CREATE_TRANSFER", user: "Layla Nasser", entity: "transfer", entityId: "t10", details: "TRF-2024-010 erstellt", createdAt: "2026-03-09T08:02:00" },
+  { id: "al3", action: "STATUS_CHANGE", user: "Layla Nasser", entity: "transfer", entityId: "t10", details: "Status \u2192 paid_out", createdAt: "2026-03-09T10:00:00" },
+  { id: "al4", action: "CREATE_EXCHANGE", user: "Ahmad Karimi", entity: "exchange", entityId: "ex6", details: "EXC-2024-006 erstellt", createdAt: "2026-03-06T11:30:00" },
+  { id: "al5", action: "CREATE_CUSTOMER", user: "Omar Saleh", entity: "customer", entityId: "c6", details: "Maryam Suleiman angelegt", createdAt: "2026-03-08T09:00:00" },
+  { id: "al6", action: "CANCEL_TRANSFER", user: "Omar Saleh", entity: "transfer", entityId: "t6", details: "TRF-2024-006 storniert", createdAt: "2024-03-01T11:00:00" }
+];
+function paged(items, page = 1, limit = 20) {
+  const start = (page - 1) * limit;
+  return { data: items.slice(start, start + limit), total: items.length, page, limit };
+}
+function ok(body) {
+  return of(new HttpResponse({ status: 200, body }));
+}
+var mockInterceptor = (req, next) => {
+  const url = req.url;
+  const method = req.method;
+  if (url.includes("/auth/login")) {
+    const { email, password } = req.body;
+    const user = USERS.find((u) => u.email === email && u.password === password);
+    if (user) {
+      const _a = user, { password: _ } = _a, safeUser = __objRest(_a, ["password"]);
+      return ok({ access_token: "demo-token-" + safeUser.id, user: safeUser });
+    }
+    return of(new HttpResponse({ status: 401, body: { message: "Invalid credentials" } }));
+  }
+  if (url.includes("/transfers/stats")) {
+    const today = (/* @__PURE__ */ new Date()).toISOString().split("T")[0];
+    const month = (/* @__PURE__ */ new Date()).toISOString().slice(0, 7);
+    const transferFees = TRANSFERS.reduce((s, t) => s + (t.fee || 0), 0);
+    const exchangeProfit = EXCHANGES.reduce((s, e) => s + (e.profit || 0), 0);
+    return ok({
+      totalCount: TRANSFERS.length,
+      todayCount: TRANSFERS.filter((t) => t.createdAt.startsWith(today)).length,
+      pendingCount: TRANSFERS.filter((t) => ["CREATED", "IN_PROGRESS"].includes(t.status)).length,
+      totalRevenue: TRANSFERS.reduce((s, t) => s + t.amount, 0),
+      todayRevenue: TRANSFERS.filter((t) => t.createdAt.startsWith(today)).reduce((s, t) => s + t.amount, 0),
+      transferProfit: transferFees,
+      exchangeProfit,
+      profitToday: CASH_JOURNAL.filter((e) => e.type === "PROFIT" && e.createdAt.startsWith(today)).reduce((s, e) => s + e.amount, 0),
+      profitMonth: CASH_JOURNAL.filter((e) => e.type === "PROFIT" && e.createdAt.startsWith(month)).reduce((s, e) => s + e.amount, 0),
+      profitTotal: transferFees + exchangeProfit
+    });
+  }
+  if (url.includes("/transfers") && method === "GET") {
+    const params = req.params;
+    let list = [...TRANSFERS];
+    const statusParam = params.get("statuses");
+    const branch = params.get("branch");
+    const dateFrom = params.get("dateFrom");
+    const dateTo = params.get("dateTo");
+    if (statusParam) {
+      const statuses = statusParam.split(",");
+      list = list.filter((t) => statuses.includes(t.status));
+    }
+    if (branch)
+      list = list.filter((t) => t.branch === branch);
+    if (dateFrom)
+      list = list.filter((t) => t.createdAt >= dateFrom);
+    if (dateTo)
+      list = list.filter((t) => t.createdAt <= dateTo + "T23:59:59");
+    const page = parseInt(params.get("page") || "1");
+    const limit = parseInt(params.get("limit") || "20");
+    return ok(paged(list, page, limit));
+  }
+  if (url.match(/\/transfers\/[^/]+\/status/) && method === "PATCH") {
+    const id = url.split("/transfers/")[1].split("/")[0];
+    const t = TRANSFERS.find((x) => x.id === id);
+    if (t) {
+      t.status = req.body.status;
+      return ok(t);
+    }
+  }
+  if (url.match(/\/transfers\/[^/]+\/cancel/) && method === "PATCH") {
+    const id = url.split("/transfers/")[1].split("/")[0];
+    const t = TRANSFERS.find((x) => x.id === id);
+    if (t) {
+      t.status = "cancelled";
+      return ok(t);
+    }
+  }
+  if (url.includes("/transfers") && method === "POST") {
+    const body = req.body;
+    const newT = __spreadProps(__spreadValues({
+      id: "t" + (TRANSFERS.length + 1),
+      ref: `TRF-2024-0${String(TRANSFERS.length + 1).padStart(2, "0")}`
+    }, body), {
+      status: "DRAFT",
+      employee: "Ahmad Karimi",
+      createdAt: (/* @__PURE__ */ new Date()).toISOString(),
+      updatedAt: (/* @__PURE__ */ new Date()).toISOString()
+    });
+    TRANSFERS.unshift(newT);
+    return ok(newT);
+  }
+  if (url.includes("/customers") && method === "GET" && !url.match(/\/customers\/[^/]+$/)) {
+    const q = req.params.get("q")?.toLowerCase() || "";
+    let list = q ? CUSTOMERS.filter((c) => (c.firstName + " " + c.lastName).toLowerCase().includes(q) || c.phone.includes(q) || c.idNumber.toLowerCase().includes(q)) : [...CUSTOMERS];
+    return ok(list);
+  }
+  if (url.includes("/customers") && method === "POST") {
+    const body = req.body;
+    const newC = __spreadValues({ id: "c" + (CUSTOMERS.length + 1), transferCount: 0, createdAt: (/* @__PURE__ */ new Date()).toISOString() }, body);
+    CUSTOMERS.push(newC);
+    return ok(newC);
+  }
+  if (url.match(/\/customers\/[^/]+$/) && method === "DELETE") {
+    const id = url.split("/").pop();
+    const idx = CUSTOMERS.findIndex((c) => c.id === id);
+    if (idx > -1)
+      CUSTOMERS.splice(idx, 1);
+    return ok({});
+  }
+  if (url.includes("/branches/cash-summary")) {
+    return ok(BRANCHES.map((b) => ({ branch: b.name, balance: b.cashBalance })));
+  }
+  if (url.includes("/branches") && method === "GET") {
+    return ok([...BRANCHES]);
+  }
+  if (url.includes("/branches") && method === "POST") {
+    const body = req.body;
+    const nb = __spreadValues({ id: "b" + (BRANCHES.length + 1), active: true, createdAt: (/* @__PURE__ */ new Date()).toISOString(), color: "#6366f1", hours: "Mo\u2013Fr 9\u201318", cashBalance: body.cashBalance || 0 }, body);
+    BRANCHES.push(nb);
+    return ok(nb);
+  }
+  if (url.match(/\/branches\/[^/]+$/) && method === "DELETE") {
+    const id = url.split("/").pop();
+    const idx = BRANCHES.findIndex((b) => b.id === id);
+    if (idx > -1)
+      BRANCHES.splice(idx, 1);
+    return ok({});
+  }
+  if (url.includes("/cash/balances")) {
+    const branch = req.params.get("branch");
+    if (branch) {
+      const b = BRANCHES.find((x) => x.name === branch);
+      const balances = b?.balances ?? [{ currency: "EUR", amount: b?.cashBalance ?? 0 }];
+      return ok(balances.map((bl) => ({ currency: bl.currency, balance: bl.amount })));
+    }
+    const map = {};
+    for (const b of BRANCHES) {
+      for (const bl of b.balances ?? [{ currency: "EUR", amount: b.cashBalance }]) {
+        map[bl.currency] = (map[bl.currency] || 0) + bl.amount;
+      }
+    }
+    return ok(Object.entries(map).map(([currency, balance]) => ({ currency, balance })));
+  }
+  if (url.includes("/cash/balance")) {
+    const branch = req.params.get("branch");
+    const b = branch ? BRANCHES.find((x) => x.name === branch) : null;
+    return ok({ branch: branch || "Alle Filialen", balance: b ? b.cashBalance : BRANCHES.reduce((s, x) => s + x.cashBalance, 0) });
+  }
+  if (url.includes("/cash/journal")) {
+    const branch = req.params.get("branch");
+    const list = branch ? CASH_JOURNAL.filter((e) => e.branch === branch) : [...CASH_JOURNAL];
+    return ok(paged(list));
+  }
+  if (url.includes("/cash/deposit") && method === "POST") {
+    const body = req.body;
+    const entry = __spreadProps(__spreadValues({ id: "cj" + (CASH_JOURNAL.length + 1), type: "CASH_IN" }, body), { createdAt: (/* @__PURE__ */ new Date()).toISOString() });
+    CASH_JOURNAL.unshift(entry);
+    return ok(entry);
+  }
+  if (url.includes("/cash/withdraw") && method === "POST") {
+    const body = req.body;
+    const entry = __spreadProps(__spreadValues({ id: "cj" + (CASH_JOURNAL.length + 1), type: "CASH_OUT" }, body), { createdAt: (/* @__PURE__ */ new Date()).toISOString() });
+    CASH_JOURNAL.unshift(entry);
+    return ok(entry);
+  }
+  if (url.includes("/bank-deposits") && method === "POST") {
+    const body = req.body;
+    const bd = __spreadProps(__spreadValues({ id: "bd" + (BANK_DEPOSITS.length + 1) }, body), { createdBy: "current-user", createdAt: (/* @__PURE__ */ new Date()).toISOString() });
+    BANK_DEPOSITS.unshift(bd);
+    for (const entry of bd.entries || []) {
+      const cjEntry = { id: "cj" + (CASH_JOURNAL.length + 1), type: "BANK_DEPOSIT", branch: bd.branch, amount: entry.amount, currency: entry.currency, note: bd.note || "Bank deposit", reference: bd.id, createdBy: bd.createdBy, createdAt: bd.createdAt };
+      CASH_JOURNAL.unshift(cjEntry);
+    }
+    return ok(bd);
+  }
+  if (url.includes("/bank-deposits") && method === "GET") {
+    return ok([...BANK_DEPOSITS]);
+  }
+  if (url.includes("/day-closes") && method === "POST") {
+    const body = req.body;
+    const dc = __spreadProps(__spreadValues({ id: "dc" + (DAY_CLOSES.length + 1) }, body), { createdBy: "current-user", createdAt: (/* @__PURE__ */ new Date()).toISOString(), status: "closed" });
+    DAY_CLOSES.unshift(dc);
+    const branchObj = BRANCHES.find((b) => b.name === dc.branch);
+    if (branchObj && Array.isArray(dc.entries)) {
+      for (const e of dc.entries) {
+        const bal = branchObj.balances?.find((b) => b.currency === e.currency);
+        if (bal) {
+          bal.amount = e.counted;
+        } else if (branchObj.balances) {
+          branchObj.balances.push({ currency: e.currency, amount: e.counted });
+        }
+        if (e.currency === "EUR")
+          branchObj.cashBalance = e.counted;
+      }
+    }
+    return ok(dc);
+  }
+  if (url.includes("/day-closes") && method === "GET") {
+    const branch = req.params.get("branch");
+    const list = branch ? DAY_CLOSES.filter((d) => d.branch === branch) : [...DAY_CLOSES];
+    return ok(list);
+  }
+  if (url.includes("/cash/profits")) {
+    const today = (/* @__PURE__ */ new Date()).toISOString().split("T")[0];
+    const month = (/* @__PURE__ */ new Date()).toISOString().slice(0, 7);
+    const profitEntries = CASH_JOURNAL.filter((e) => e.type === "PROFIT");
+    return ok(BRANCHES.map((b) => {
+      const matcher = (e) => e.branch === b.name || e.branch === b.city || b.name.toLowerCase().startsWith(e.branch?.toLowerCase());
+      return {
+        branch: b.name,
+        today: profitEntries.filter((e) => matcher(e) && e.createdAt.startsWith(today)).reduce((s, e) => s + e.amount, 0),
+        month: profitEntries.filter((e) => matcher(e) && e.createdAt.startsWith(month)).reduce((s, e) => s + e.amount, 0),
+        total: profitEntries.filter((e) => matcher(e)).reduce((s, e) => s + e.amount, 0)
+      };
+    }));
+  }
+  if (url.includes("/exchange-rates/preview")) {
+    const from = req.params.get("from");
+    const to = req.params.get("to");
+    const amount = parseFloat(req.params.get("amount") || "0");
+    const rate = EXCHANGE_RATES.find((r) => r.fromCurrency === from && r.toCurrency === to);
+    if (rate) {
+      const gross = amount * rate.rate;
+      const margin = gross * (rate.marginPercent / 100);
+      const payout = gross - margin - rate.fee;
+      return ok({ fromCurrency: from, toCurrency: to, fromAmount: amount, exchangeRate: rate.rate, marginPercent: rate.marginPercent, fee: rate.fee, customerPayout: Math.round(payout * 100) / 100, profit: Math.round((margin + rate.fee) * 100) / 100 });
+    }
+    return of(new HttpResponse({ status: 404, body: { message: "Rate not found" } }));
+  }
+  if (url.includes("/exchange-rates/active")) {
+    return ok(EXCHANGE_RATES.filter((r) => r.active));
+  }
+  if (url.includes("/exchange-rates") && method === "GET") {
+    return ok([...EXCHANGE_RATES]);
+  }
+  if (url.includes("/exchange-rates") && method === "POST") {
+    const body = req.body;
+    const nr = __spreadValues({ id: "er" + (EXCHANGE_RATES.length + 1), active: true, updatedAt: (/* @__PURE__ */ new Date()).toISOString().split("T")[0] }, body);
+    EXCHANGE_RATES.push(nr);
+    return ok(nr);
+  }
+  if (url.match(/\/exchange-rates\/[^/]+$/) && method === "DELETE") {
+    const id = url.split("/").pop();
+    const idx = EXCHANGE_RATES.findIndex((r) => r.id === id);
+    if (idx > -1)
+      EXCHANGE_RATES.splice(idx, 1);
+    return ok({});
+  }
+  if (url.includes("/cash-exchanges/stats")) {
+    return ok({
+      total: EXCHANGES.length,
+      totalProfit: EXCHANGES.reduce((s, e) => s + e.profit, 0),
+      totalVolume: EXCHANGES.reduce((s, e) => s + e.fromAmount, 0)
+    });
+  }
+  if (url.includes("/cash-balances")) {
+    return ok(BRANCHES.map((b) => ({ branch: b.name, currency: "EUR", balance: b.cashBalance })));
+  }
+  if (url.includes("/cash-exchanges") && method === "GET") {
+    const branch = req.params.get("branch");
+    let list = branch ? EXCHANGES.filter((e) => e.branch === branch) : [...EXCHANGES];
+    return ok(paged(list));
+  }
+  if (url.includes("/cash-exchanges") && method === "POST") {
+    const body = req.body;
+    const ne = __spreadValues({ id: "ex" + (EXCHANGES.length + 1), ref: `EXC-2024-0${String(EXCHANGES.length + 1).padStart(2, "0")}`, employee: "Ahmad Karimi", createdAt: (/* @__PURE__ */ new Date()).toISOString() }, body);
+    EXCHANGES.unshift(ne);
+    return ok(ne);
+  }
+  if (url.includes("/fee-rules") && method === "GET") {
+    return ok([...FEE_RULES]);
+  }
+  if (url.includes("/fee-rules") && method === "POST") {
+    const b = req.body;
+    const n = __spreadValues({ id: "fr" + (FEE_RULES.length + 1), active: true }, b);
+    FEE_RULES.push(n);
+    return ok(n);
+  }
+  if (url.match(/\/fee-rules\/[^/]+$/) && method === "DELETE") {
+    const id = url.split("/").pop();
+    const i = FEE_RULES.findIndex((r) => r.id === id);
+    if (i > -1)
+      FEE_RULES.splice(i, 1);
+    return ok({});
+  }
+  if (url.includes("/currencies")) {
+    return ok([...CURRENCIES]);
+  }
+  if (url.includes("/users") && method === "GET") {
+    return ok(USERS.map((_b) => {
+      var _c = _b, { password: _ } = _c, u = __objRest(_c, ["password"]);
+      return u;
+    }));
+  }
+  if (url.includes("/users") && method === "POST") {
+    const body = req.body;
+    const nu = __spreadValues({ id: "u" + (USERS.length + 1), initials: body.name?.slice(0, 2).toUpperCase() || "??", active: true, createdAt: (/* @__PURE__ */ new Date()).toISOString() }, body);
+    USERS.push(nu);
+    return ok(nu);
+  }
+  if (url.match(/\/users\/[^/]+$/) && method === "DELETE") {
+    const id = url.split("/").pop();
+    const i = USERS.findIndex((u) => u.id === id);
+    if (i > -1)
+      USERS.splice(i, 1);
+    return ok({});
+  }
+  if (url.match(/\/users\/[^/]+\/deactivate/) && method === "PATCH") {
+    const id = url.split("/users/")[1].split("/")[0];
+    const u = USERS.find((x) => x.id === id);
+    if (u)
+      u.active = false;
+    return ok(u);
+  }
+  if (url.includes("/audit")) {
+    return ok(paged([...AUDIT_LOGS]));
+  }
+  return next(req);
+};
+
 // src/app/app.config.ts
 var appConfig = {
   providers: [
     provideRouter(routes, withComponentInputBinding()),
-    provideHttpClient(withInterceptors([authInterceptor])),
+    provideHttpClient(withInterceptors([mockInterceptor, authInterceptor])),
     provideAnimations()
   ]
 };
