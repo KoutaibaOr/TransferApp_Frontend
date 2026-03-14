@@ -67,6 +67,12 @@ import { TransferNotification } from '../../../core/models';
             </a>
           }
 
+          @if (auth.isAdmin() || auth.isAccountant()) {
+            <a class="nav-item" routerLink="/bookkeeping" routerLinkActive="active" (click)="closeSidebar()">
+              📒 <span>{{ t().bookkeeping }}</span>
+            </a>
+          }
+
           @if (auth.isAdmin()) {
             <div class="nav-section">{{ t().navAdmin }}</div>
             <a class="nav-item" routerLink="/settings" routerLinkActive="active" (click)="closeSidebar()">

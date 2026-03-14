@@ -26,3 +26,12 @@ export const managerGuard: CanActivateFn = () => {
   router.navigate(['/dashboard']);
   return false;
 };
+
+/** Admin + Accountant */
+export const accountantGuard: CanActivateFn = () => {
+  const auth   = inject(AuthService);
+  const router = inject(Router);
+  if (auth.isAdmin() || auth.isAccountant()) return true;
+  router.navigate(['/dashboard']);
+  return false;
+};

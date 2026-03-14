@@ -32,5 +32,6 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  }
+  },
+  "exclude": ["_zip_preview", "node_modules", "dist"]
 }
