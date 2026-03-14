@@ -53,14 +53,46 @@ export interface Customer {
 }
 
 // ─── Transfer ────────────────────────────────────────
-export type TransferStatus = 'DRAFT' | 'CREATED' | 'IN_PROGRESS' | 'COMPLETED' | 'PAID_OUT' | 'CANCELLED';
+export type TransferStatus = 'DRAFT' | 'CREATED' | 'IN_PROGRESS' | 'COMPLETED' | 'PAID_OUT' | 'CANCELLED' | 'BLOCKED';
 
 export interface Transfer {
   id: string; ref: string; senderName: string; senderPhone: string;
   senderIdNumber: string; receiverName: string; receiverPhone: string;
   receiverCountry: string; amount: number; currency: string; fee: number;
   profit: number; pickupTime: string; status: TransferStatus; branch: string;
+  senderBranch?: string; receiverBranch?: string;
   employee: string; note: string; createdAt: string; updatedAt: string;
+  blockedReason?: string;
+}
+
+// ─── Inter-Branch Settlements (الاعتمادات) ───────────────
+export interface InterBranchBalance {
+  id: string;
+  fromBranch: string;   // Büro das schuldet
+  toBranch: string;     // Büro das bekommt
+  currency: string;
+  balance: number;      // positiv = toBranch hat Anspruch
+  lastUpdated: string;
+}
+
+export interface InterBranchSettlement {
+  id: string;
+  fromBranch: string;
+  toBranch: string;
+  amount: number;
+  currency: string;
+  settledBy: string;
+  note?: string;
+  createdAt: string;
+}
+
+// ─── Notification ────────────────────────────────────
+export interface TransferNotification {
+  id: string;
+  type: 'INCOMING_TRANSFER';
+  transfer: Transfer;
+  readAt?: string;
+  createdAt: string;
 }
 
 // FIX 1: TransferStats an Backend-Antwort angepasst

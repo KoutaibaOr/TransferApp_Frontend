@@ -288,6 +288,7 @@
   display: flex;
   align-items: center;
   gap: .75rem;
+  position: relative;
 }
 
 .topbar-user {
@@ -298,6 +299,159 @@
   border-radius: 99px;
   border: 1px solid var(--border);
   font-weight: 500;
+}
+
+/* ─── Bell Button ────────────────────────────────────── */
+.bell-btn {
+  position: relative;
+  background: transparent;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: .4rem .55rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all var(--transition);
+  color: var(--ink);
+}
+
+.bell-btn:hover { background: var(--bg); border-color: var(--accent); }
+.bell-btn.bell-active { background: #eef4ff; border-color: var(--accent); }
+
+.bell-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: #e11d48;
+  color: #fff;
+  font-size: .65rem;
+  font-weight: 700;
+  border-radius: 99px;
+  min-width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 3px;
+}
+
+.btn-icon-sm {
+  background: transparent;
+  border: none;
+  font-size: .95rem;
+  cursor: pointer;
+  padding: .3rem;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition);
+  color: var(--ink2);
+}
+.btn-icon-sm:hover { background: var(--bg); }
+
+/* ─── Bell Dropdown ──────────────────────────────────── */
+.bell-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+}
+
+.bell-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 340px;
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 40px rgba(0,0,0,.15);
+  z-index: 300;
+  overflow: hidden;
+}
+
+.bell-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .85rem 1rem;
+  border-bottom: 1.5px solid var(--border);
+  background: var(--ink);
+  color: #fff;
+}
+
+.bell-title {
+  font-weight: 700;
+  font-size: .9rem;
+}
+
+.bell-empty {
+  padding: 1.5rem 1rem;
+  text-align: center;
+  color: var(--muted);
+  font-size: .85rem;
+}
+
+.bell-item {
+  padding: .75rem 1rem;
+  border-bottom: 1px solid var(--border);
+  transition: background var(--transition);
+}
+
+.bell-item:hover { background: #f0f4ff; }
+.bell-item:last-of-type { border-bottom: none; }
+
+.bell-item-ref {
+  font-family: monospace;
+  font-size: .78rem;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.bell-item-info {
+  font-size: .8rem;
+  color: var(--ink2);
+  margin-top: .15rem;
+  font-weight: 600;
+}
+
+.bell-item-person {
+  font-size: .78rem;
+  color: var(--muted);
+  margin-top: .1rem;
+}
+
+.bell-item-amount {
+  font-size: .82rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-top: .15rem;
+}
+
+.bell-footer {
+  padding: .6rem 1rem;
+  border-top: 1.5px solid var(--border);
+  text-align: center;
+  font-size: .82rem;
+}
+
+.bell-footer a {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+.bell-footer a:hover { text-decoration: underline; }
+
+/* ─── Nav Badge ──────────────────────────────────────── */
+.nav-badge {
+  background: #e11d48;
+  color: #fff;
+  font-size: .65rem;
+  font-weight: 700;
+  border-radius: 99px;
+  min-width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  margin-left: auto;
 }
 
 /* ─── Content Area ───────────────────────────────────── */

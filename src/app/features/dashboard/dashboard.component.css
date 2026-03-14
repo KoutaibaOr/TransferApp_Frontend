@@ -83,6 +83,19 @@
 .kpi-icon.orange { background: var(--warn-light);    }
 .kpi-icon.purple { background: var(--purple-light);  }
 .kpi-icon.red    { background: var(--red-light);     }
+.kpi-icon.teal   { background: rgba(13,181,155,.15); }
+.kpi-icon.yellow { background: #fff8e1; }
+
+.kpi-positive { border-color: #059669 !important; }
+.kpi-negative { border-color: #e11d48 !important; }
+.val-ok       { color: #059669 !important; }
+.val-danger   { color: #e11d48 !important; }
+
+/* ─── Inter-Branch Balance Table ─────────────────────── */
+.ibb-from { font-size:.82rem; font-weight:600; color:#e11d48; }
+.ibb-to   { font-size:.82rem; font-weight:600; color:#059669; }
+.fw-600   { font-weight:600; }
+.text-ok  { color:#059669; }
 
 .kpi-label {
   font-size: .72rem;

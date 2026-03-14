@@ -6,6 +6,7 @@ import {
   CashJournalEntry, ExchangeRate, BranchCashBalance,
   CashExchange, ExchangePreview, ExchangeStats,
   FeeRule, Currency, AuditLog, User, PagedResult, ExportFilter,
+  InterBranchBalance, InterBranchSettlement, TransferNotification,
 } from '../models';
 
 const BASE = environment.apiUrl;
@@ -24,6 +25,12 @@ export class TransferService {
   }
   cancel(id: string) {
     return this.http.patch<Transfer>(`${BASE}/transfers/${id}/cancel`, {});
+  }
+  block(id: string, reason: string) {
+    return this.http.patch<Transfer>(`${BASE}/transfers/${id}/block`, { reason });
+  }
+  unblock(id: string) {
+    return this.http.patch<Transfer>(`${BASE}/transfers/${id}/unblock`, {});
   }
   exportFiltered(f: ExportFilter) {
     const p: any = { limit: f.limit ?? 9999 };
@@ -129,5 +136,33 @@ export class AuditService {
   constructor(private http: HttpClient) {}
   getAll(p: any = {}) {
     return this.http.get<PagedResult<AuditLog>>(`${BASE}/audit`, { params: new HttpParams({ fromObject: p }) });
+  }
+}
+
+@Injectable({ providedIn: 'root' })
+export class SettlementsService {
+  constructor(private http: HttpClient) {}
+  getBalances(branch?: string) {
+    let params = new HttpParams();
+    if (branch) params = params.set('branch', branch);
+    return this.http.get<InterBranchBalance[]>(`${BASE}/inter-branch/balances`, { params });
+  }
+  settle(dto: { fromBranch: string; toBranch: string; amount: number; currency: string; note?: string; settledBy: string }) {
+    return this.http.post<InterBranchSettlement>(`${BASE}/inter-branch/settle`, dto);
+  }
+  getSettlements(branch?: string) {
+    let params = new HttpParams();
+    if (branch) params = params.set('branch', branch);
+    return this.http.get<InterBranchSettlement[]>(`${BASE}/inter-branch/settlements`, { params });
+  }
+}
+
+@Injectable({ providedIn: 'root' })
+export class NotificationService {
+  constructor(private http: HttpClient) {}
+  getIncoming(branch?: string) {
+    let params = new HttpParams();
+    if (branch) params = params.set('branch', branch);
+    return this.http.get<TransferNotification[]>(`${BASE}/notifications`, { params });
   }
 }

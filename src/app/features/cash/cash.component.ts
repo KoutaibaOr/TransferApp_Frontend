@@ -48,10 +48,10 @@ import { CashJournalEntry, Branch, DayClose, BankDeposit } from '../../core/mode
       </div>
     </div>
 
-    @if (isAdminOrManager()) {
+    @if (auth.isAdmin()) {
       <div style="margin-bottom:1rem">
         <select class="form-control" style="max-width:250px" [(ngModel)]="selectedBranch" (change)="reload()">
-          @if (auth.isAdmin()) { <option value="">{{ t().allBranches }}</option> }
+          <option value="">{{ t().allBranches }}</option>
           @for (b of branches(); track b.id) {
             <option [value]="b.name">{{ b.name }}</option>
           }

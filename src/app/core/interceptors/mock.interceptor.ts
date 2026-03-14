@@ -28,17 +28,31 @@ const CUSTOMERS = [
   { id: 'c6', firstName: 'Maryam',   lastName: 'Suleiman',  phone: '+49 156 66778899', idNumber: 'F6789012', dateOfBirth: '1995-12-10', address: 'Leopoldstr. 33, München',  branch: 'München',   transferCount: 3,  createdBy: 'Omar Saleh',    createdAt: '2024-03-08' },
 ];
 
-const TRANSFERS = [
-  { id: 't1',  ref: 'TRF-2024-001', senderName: 'Mohammed Al-Rashid', senderPhone: '+49 151 11223344', receiverName: 'Tariq Al-Rashid',  receiverCountry: 'Syrien',  receiverPhone: '+963 911 222333', amount: 500,  currency: 'EUR', fee: 15, status: 'PAID_OUT',   branch: 'Berlin',    employee: 'Layla Nasser',  createdAt: '2024-01-15T10:30:00', updatedAt: '2024-01-15T14:00:00' },
-  { id: 't2',  ref: 'TRF-2024-002', senderName: 'Fatima Al-Zahra',    senderPhone: '+49 152 22334455', receiverName: 'Ibrahim Al-Zahra', receiverCountry: 'Libanon', receiverPhone: '+961 3 445566',   amount: 800,  currency: 'EUR', fee: 20, status: 'COMPLETED',  branch: 'München',   employee: 'Omar Saleh',    createdAt: '2024-01-20T09:00:00', updatedAt: '2024-01-20T09:00:00' },
-  { id: 't3',  ref: 'TRF-2024-003', senderName: 'Ali Hassan',         senderPhone: '+49 153 33445566', receiverName: 'Nour Hassan',      receiverCountry: 'Ägypten', receiverPhone: '+20 10 33445566', amount: 300,  currency: 'EUR', fee: 10, status: 'IN_PROGRESS',branch: 'Hamburg',   employee: 'Ahmad Karimi',  createdAt: '2024-02-05T11:00:00', updatedAt: '2024-02-05T11:00:00' },
-  { id: 't4',  ref: 'TRF-2024-004', senderName: 'Hana Karimi',        senderPhone: '+49 154 44556677', receiverName: 'Sina Karimi',      receiverCountry: 'Iran',    receiverPhone: '+98 21 5566778',  amount: 650,  currency: 'EUR', fee: 18, status: 'PAID_OUT',   branch: 'Frankfurt', employee: 'Ahmad Karimi',  createdAt: '2024-02-12T14:00:00', updatedAt: '2024-02-12T16:30:00' },
-  { id: 't5',  ref: 'TRF-2024-005', senderName: 'Youssef Nabil',      senderPhone: '+49 155 55667788', receiverName: 'Amr Nabil',        receiverCountry: 'Marokko', receiverPhone: '+212 6 77889900', amount: 1200, currency: 'EUR', fee: 30, status: 'COMPLETED',  branch: 'Berlin',    employee: 'Layla Nasser',  createdAt: '2024-02-18T08:00:00', updatedAt: '2024-02-18T08:00:00' },
-  { id: 't6',  ref: 'TRF-2024-006', senderName: 'Maryam Suleiman',    senderPhone: '+49 156 66778899', receiverName: 'Khaled Suleiman',  receiverCountry: 'Türkei',  receiverPhone: '+90 532 1122334', amount: 450,  currency: 'EUR', fee: 12, status: 'CANCELLED',  branch: 'München',   employee: 'Omar Saleh',    createdAt: '2024-03-01T10:00:00', updatedAt: '2024-03-01T11:00:00' },
-  { id: 't7',  ref: 'TRF-2024-007', senderName: 'Mohammed Al-Rashid', senderPhone: '+49 151 11223344', receiverName: 'Laila Al-Rashid',  receiverCountry: 'Jordanien',receiverPhone: '+962 7 22334455', amount: 750,  currency: 'EUR', fee: 20, status: 'PAID_OUT',   branch: 'Berlin',    employee: 'Layla Nasser',  createdAt: '2024-03-05T09:30:00', updatedAt: '2024-03-05T12:00:00' },
-  { id: 't8',  ref: 'TRF-2024-008', senderName: 'Ali Hassan',         senderPhone: '+49 153 33445566', receiverName: 'Sami Hassan',      receiverCountry: 'Irak',    receiverPhone: '+964 7 55667788', amount: 920,  currency: 'EUR', fee: 25, status: 'CREATED',    branch: 'Hamburg',   employee: 'Ahmad Karimi',  createdAt: '2024-03-07T13:00:00', updatedAt: '2024-03-07T13:00:00' },
-  { id: 't9',  ref: 'TRF-2024-009', senderName: 'Hana Karimi',        senderPhone: '+49 154 44556677', receiverName: 'Dara Karimi',      receiverCountry: 'Afghanistan',receiverPhone: '+93 70 11223344',amount: 200,  currency: 'EUR', fee: 8,  status: 'IN_PROGRESS',branch: 'Frankfurt', employee: 'Ahmad Karimi',  createdAt: '2024-03-08T10:00:00', updatedAt: '2024-03-08T10:00:00' },
-  { id: 't10', ref: 'TRF-2024-010', senderName: 'Youssef Nabil',      senderPhone: '+49 155 55667788', receiverName: 'Hind Nabil',       receiverCountry: 'Tunesien',receiverPhone: '+216 2 33445566', amount: 600,  currency: 'EUR', fee: 16, status: 'DRAFT',      branch: 'Berlin',    employee: 'Layla Nasser',  createdAt: '2024-03-09T08:00:00', updatedAt: '2024-03-09T10:00:00' },
+const TRANSFERS: any[] = [
+  { id: 't1',  ref: 'TRF-2024-001', senderName: 'Mohammed Al-Rashid', senderPhone: '+49 151 11223344', receiverName: 'Tariq Al-Rashid',  receiverCountry: 'Syrien',  receiverPhone: '+963 911 222333', amount: 500,  currency: 'EUR', fee: 15, status: 'PAID_OUT',    branch: 'Berlin Mitte',    senderBranch: 'Berlin Mitte',    receiverBranch: 'München Zentrum', employee: 'Layla Nasser',  createdAt: '2024-01-15T10:30:00', updatedAt: '2024-01-15T14:00:00' },
+  { id: 't2',  ref: 'TRF-2024-002', senderName: 'Fatima Al-Zahra',    senderPhone: '+49 152 22334455', receiverName: 'Ibrahim Al-Zahra', receiverCountry: 'Libanon', receiverPhone: '+961 3 445566',   amount: 800,  currency: 'EUR', fee: 20, status: 'COMPLETED',   branch: 'München Zentrum', senderBranch: 'München Zentrum', receiverBranch: 'Berlin Mitte',    employee: 'Omar Saleh',    createdAt: '2024-01-20T09:00:00', updatedAt: '2024-01-20T09:00:00' },
+  { id: 't3',  ref: 'TRF-2024-003', senderName: 'Ali Hassan',         senderPhone: '+49 153 33445566', receiverName: 'Nour Hassan',      receiverCountry: 'Ägypten', receiverPhone: '+20 10 33445566', amount: 300,  currency: 'EUR', fee: 10, status: 'IN_PROGRESS', branch: 'Hamburg Hafen',   senderBranch: 'Hamburg Hafen',   receiverBranch: 'Frankfurt Main',  employee: 'Ahmad Karimi',  createdAt: '2024-02-05T11:00:00', updatedAt: '2024-02-05T11:00:00' },
+  { id: 't4',  ref: 'TRF-2024-004', senderName: 'Hana Karimi',        senderPhone: '+49 154 44556677', receiverName: 'Sina Karimi',      receiverCountry: 'Iran',    receiverPhone: '+98 21 5566778',  amount: 650,  currency: 'EUR', fee: 18, status: 'PAID_OUT',    branch: 'Frankfurt Main',  senderBranch: 'Frankfurt Main',  receiverBranch: 'Berlin Mitte',    employee: 'Ahmad Karimi',  createdAt: '2024-02-12T14:00:00', updatedAt: '2024-02-12T16:30:00' },
+  { id: 't5',  ref: 'TRF-2024-005', senderName: 'Youssef Nabil',      senderPhone: '+49 155 55667788', receiverName: 'Amr Nabil',        receiverCountry: 'Marokko', receiverPhone: '+212 6 77889900', amount: 1200, currency: 'EUR', fee: 30, status: 'COMPLETED',   branch: 'Berlin Mitte',    senderBranch: 'Berlin Mitte',    receiverBranch: 'Hamburg Hafen',   employee: 'Layla Nasser',  createdAt: '2024-02-18T08:00:00', updatedAt: '2024-02-18T08:00:00' },
+  { id: 't6',  ref: 'TRF-2024-006', senderName: 'Maryam Suleiman',    senderPhone: '+49 156 66778899', receiverName: 'Khaled Suleiman',  receiverCountry: 'Türkei',  receiverPhone: '+90 532 1122334', amount: 450,  currency: 'EUR', fee: 12, status: 'CANCELLED',   branch: 'München Zentrum', senderBranch: 'München Zentrum', receiverBranch: 'Frankfurt Main',  employee: 'Omar Saleh',    createdAt: '2024-03-01T10:00:00', updatedAt: '2024-03-01T11:00:00' },
+  { id: 't7',  ref: 'TRF-2024-007', senderName: 'Mohammed Al-Rashid', senderPhone: '+49 151 11223344', receiverName: 'Laila Al-Rashid',  receiverCountry: 'Jordanien',receiverPhone: '+962 7 22334455', amount: 750,  currency: 'EUR', fee: 20, status: 'PAID_OUT',    branch: 'Berlin Mitte',    senderBranch: 'Berlin Mitte',    receiverBranch: 'München Zentrum', employee: 'Layla Nasser',  createdAt: '2024-03-05T09:30:00', updatedAt: '2024-03-05T12:00:00' },
+  { id: 't8',  ref: 'TRF-2024-008', senderName: 'Ali Hassan',         senderPhone: '+49 153 33445566', receiverName: 'Sami Hassan',      receiverCountry: 'Irak',    receiverPhone: '+964 7 55667788', amount: 920,  currency: 'EUR', fee: 25, status: 'CREATED',     branch: 'Hamburg Hafen',   senderBranch: 'Hamburg Hafen',   receiverBranch: 'Berlin Mitte',    employee: 'Ahmad Karimi',  createdAt: '2024-03-07T13:00:00', updatedAt: '2024-03-07T13:00:00' },
+  { id: 't9',  ref: 'TRF-2024-009', senderName: 'Hana Karimi',        senderPhone: '+49 154 44556677', receiverName: 'Dara Karimi',      receiverCountry: 'Afghanistan',receiverPhone: '+93 70 11223344',amount: 200,  currency: 'EUR', fee: 8,  status: 'BLOCKED',     branch: 'Frankfurt Main',  senderBranch: 'Frankfurt Main',  receiverBranch: 'München Zentrum', employee: 'Ahmad Karimi',  blockedReason: 'Daten fehlen', createdAt: '2024-03-08T10:00:00', updatedAt: '2024-03-08T10:00:00' },
+  { id: 't10', ref: 'TRF-2024-010', senderName: 'Youssef Nabil',      senderPhone: '+49 155 55667788', receiverName: 'Hind Nabil',       receiverCountry: 'Tunesien',receiverPhone: '+216 2 33445566', amount: 600,  currency: 'EUR', fee: 16, status: 'DRAFT',       branch: 'Berlin Mitte',    senderBranch: 'Berlin Mitte',    receiverBranch: 'Hamburg Hafen',   employee: 'Layla Nasser',  createdAt: '2024-03-09T08:00:00', updatedAt: '2024-03-09T10:00:00' },
+  { id: 't11', ref: 'TRF-2024-011', senderName: 'Karim Haddad',       senderPhone: '+49 157 77889900', receiverName: 'Nadia Haddad',     receiverCountry: 'Syrien',  receiverPhone: '+963 944 111222', amount: 1500, currency: 'EUR', fee: 35, status: 'CREATED',     branch: 'München Zentrum', senderBranch: 'München Zentrum', receiverBranch: 'Frankfurt Main',  employee: 'Omar Saleh',    createdAt: '2026-03-14T08:00:00', updatedAt: '2026-03-14T08:00:00' },
+  { id: 't12', ref: 'TRF-2024-012', senderName: 'Rania Khalil',       senderPhone: '+49 158 88990011', receiverName: 'Samir Khalil',     receiverCountry: 'Libanon', receiverPhone: '+961 3 556677',   amount: 700,  currency: 'EUR', fee: 18, status: 'IN_PROGRESS', branch: 'Frankfurt Main',  senderBranch: 'Frankfurt Main',  receiverBranch: 'Berlin Mitte',    employee: 'Ahmad Karimi',  createdAt: '2026-03-14T09:00:00', updatedAt: '2026-03-14T09:00:00' },
+];
+
+const INTER_BRANCH_BALANCES: any[] = [
+  { id: 'ibb1', fromBranch: 'Berlin Mitte',    toBranch: 'München Zentrum', currency: 'EUR', balance: 1250, lastUpdated: '2026-03-14T09:00:00' },
+  { id: 'ibb2', fromBranch: 'Hamburg Hafen',   toBranch: 'Berlin Mitte',    currency: 'EUR', balance: 300,  lastUpdated: '2026-03-13T14:00:00' },
+  { id: 'ibb3', fromBranch: 'Frankfurt Main',  toBranch: 'München Zentrum', currency: 'EUR', balance: 920,  lastUpdated: '2026-03-14T09:00:00' },
+  { id: 'ibb4', fromBranch: 'München Zentrum', toBranch: 'Frankfurt Main',  currency: 'EUR', balance: 450,  lastUpdated: '2026-03-12T11:00:00' },
+];
+
+const INTER_BRANCH_SETTLEMENTS: any[] = [
+  { id: 'ibs1', fromBranch: 'Berlin Mitte', toBranch: 'München Zentrum', amount: 2000, currency: 'EUR', settledBy: 'Ahmad Karimi', note: 'Monatsausgleich Januar', createdAt: '2024-01-31T16:00:00' },
+  { id: 'ibs2', fromBranch: 'München Zentrum', toBranch: 'Hamburg Hafen', amount: 1500, currency: 'EUR', settledBy: 'Karim Hassan', note: '', createdAt: '2024-02-28T15:00:00' },
 ];
 
 const EXCHANGE_RATES = [
@@ -157,15 +171,22 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
   if (url.includes('/transfers') && method === 'GET') {
     const params = req.params;
     let list = [...TRANSFERS];
-    const statusParam = params.get('statuses');
-    const branch      = params.get('branch');
-    const dateFrom    = params.get('dateFrom');
-    const dateTo      = params.get('dateTo');
+    const statusParam  = params.get('statuses');
+    const branch       = params.get('branch');
+    const senderBranch = params.get('senderBranch');
+    const receiverBranch = params.get('receiverBranch');
+    const direction    = params.get('direction'); // 'outgoing' | 'incoming'
+    const dateFrom     = params.get('dateFrom');
+    const dateTo       = params.get('dateTo');
     if (statusParam) {
       const statuses = statusParam.split(',');
       list = list.filter(t => statuses.includes(t.status));
     }
-    if (branch) list = list.filter(t => t.branch === branch);
+    if (branch)         list = list.filter(t => t.branch === branch || t.senderBranch === branch || t.receiverBranch === branch);
+    if (senderBranch)   list = list.filter(t => t.senderBranch === senderBranch);
+    if (receiverBranch) list = list.filter(t => t.receiverBranch === receiverBranch);
+    if (direction === 'outgoing' && branch) list = list.filter(t => t.senderBranch === branch);
+    if (direction === 'incoming' && branch) list = list.filter(t => t.receiverBranch === branch);
     if (dateFrom) list = list.filter(t => t.createdAt >= dateFrom);
     if (dateTo)   list = list.filter(t => t.createdAt <= dateTo + 'T23:59:59');
     const page  = parseInt(params.get('page')  || '1');
@@ -182,7 +203,19 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
   if (url.match(/\/transfers\/[^/]+\/cancel/) && method === 'PATCH') {
     const id = url.split('/transfers/')[1].split('/')[0];
     const t = TRANSFERS.find(x => x.id === id);
-    if (t) { (t as any).status = 'cancelled'; return ok(t); }
+    if (t) { (t as any).status = 'CANCELLED'; return ok(t); }
+  }
+
+  if (url.match(/\/transfers\/[^\/]+\/block/) && method === 'PATCH') {
+    const id = url.split('/transfers/')[1].split('/')[0];
+    const t = TRANSFERS.find(x => x.id === id);
+    if (t) { (t as any).status = 'BLOCKED'; (t as any).blockedReason = (req.body as any)?.reason || ''; return ok(t); }
+  }
+
+  if (url.match(/\/transfers\/[^\/]+\/unblock/) && method === 'PATCH') {
+    const id = url.split('/transfers/')[1].split('/')[0];
+    const t = TRANSFERS.find(x => x.id === id);
+    if (t) { (t as any).status = 'CREATED'; (t as any).blockedReason = undefined; return ok(t); }
   }
 
   if (url.includes('/transfers') && method === 'POST') {
@@ -441,6 +474,55 @@ export const mockInterceptor: HttpInterceptorFn = (req, next) => {
     const u = USERS.find(x => x.id === id);
     if (u) (u as any).active = false;
     return ok(u);
+  }
+
+  // ── Inter-Branch Balances (الاعتمادات) ──────────────────────────────────
+  if (url.includes('/inter-branch/balances') && method === 'GET') {
+    const branch = req.params.get('branch');
+    let list = [...INTER_BRANCH_BALANCES];
+    if (branch) list = list.filter(b => b.fromBranch === branch || b.toBranch === branch);
+    return ok(list);
+  }
+
+  if (url.includes('/inter-branch/settle') && method === 'POST') {
+    const body = req.body as any;
+    const ns = {
+      id: 'ibs' + (INTER_BRANCH_SETTLEMENTS.length + 1),
+      ...body,
+      createdAt: new Date().toISOString(),
+    };
+    INTER_BRANCH_SETTLEMENTS.unshift(ns);
+    // Update balance
+    const bal = INTER_BRANCH_BALANCES.find(b =>
+      (b.fromBranch === body.fromBranch && b.toBranch === body.toBranch) ||
+      (b.fromBranch === body.toBranch   && b.toBranch === body.fromBranch)
+    );
+    if (bal) {
+      bal.balance = Math.max(0, bal.balance - body.amount);
+      bal.lastUpdated = new Date().toISOString();
+    }
+    return ok(ns);
+  }
+
+  if (url.includes('/inter-branch/settlements') && method === 'GET') {
+    const branch = req.params.get('branch');
+    let list = [...INTER_BRANCH_SETTLEMENTS];
+    if (branch) list = list.filter(s => s.fromBranch === branch || s.toBranch === branch);
+    return ok(list);
+  }
+
+  // ── Notifications ─────────────────────────────────────────────────────────
+  if (url.includes('/notifications') && method === 'GET') {
+    const branch = req.params.get('branch');
+    const incoming = TRANSFERS.filter(t =>
+      t.status === 'CREATED' && t.receiverBranch && (!branch || t.receiverBranch === branch)
+    );
+    return ok(incoming.map(t => ({
+      id: 'notif-' + t.id,
+      type: 'INCOMING_TRANSFER',
+      transfer: t,
+      createdAt: t.createdAt,
+    })));
   }
 
   // ── Audit ─────────────────────────────────────────────────────────────────
